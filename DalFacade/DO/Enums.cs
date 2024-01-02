@@ -3,3 +3,10 @@
 //internal class Enums
 //{
 //}
+
+public enum ChefExperience
+{
+    Beginner,
+    Advanced,
+    Expert,
+}
