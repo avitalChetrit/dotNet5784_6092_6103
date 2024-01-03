@@ -19,8 +19,7 @@ ChefExperience Level = ChefExperience.Beginner
 
 );
 
-
-//{
-//public Chef() : this(0) { }
-//}
+{
+public Chef() : this(0) { }
+}
 
