@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace Dal;
 
 internal static class DataSource
@@ -8,7 +9,7 @@ internal static class DataSource
     {
         internal const int startChefId = 1000;
         private static int nextChefId = startChefId;
-        internal static int NextChefId { get => nextCourseId++; }
+        internal static int NextChefId { get => nextChefId++; }
 
     }
     internal static List<DO.Chef> Chefs { get; } = new();

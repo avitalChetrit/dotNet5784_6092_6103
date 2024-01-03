@@ -8,5 +8,5 @@ public enum ChefExperience
 {
     Beginner,
     Advanced,
-    Expert,
+    Expert
 }

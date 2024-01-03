@@ -9,17 +9,14 @@
 
 public record Chef
 (
-int ChefId,                 //random 
+int ChefId,                 //unique  ( or random ? )
+ChefExperience Level = ChefExperience.Beginner,
 string? Name = null,
 string? Email = null,
-double? Cost = null,
+double? Cost = null
 
-ChefExperience Level = ChefExperience.Beginner
-//add ? to nullable type
-
-);
-
+)
 {
-public Chef() : this(0) { }
+    public Chef() : this(0) { }           // empty ctor
 }
 

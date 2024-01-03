@@ -1,15 +1,15 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 
 public class ChefImplementation : IChef
 {
     public int Create(Chef item)
     {
-        Chef c = item;//create a copy of item called c
-        int chefId = NextChefId();//create a chefId to variable c
-        c.ChefId = chefId;
+        int chefId = DataSource.Config.NextChefId;//create a chefId to variable c
+        Chef c = item with { ChefId= chefId };//create a copy of item called c, with ChefId= chefId
+        //c.ChefId = chefId;
         Chefs.add(c);//add c to chefs list
         return item.ChefId;//return c chefId
     }
