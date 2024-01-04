@@ -9,10 +9,10 @@
 
 public record Chef
 (
-int ChefId,                 //unique  ( or random ? )
+int ChefId,                 //unique  
 ChefExperience Level = ChefExperience.Beginner,
 string? Name = null,
-string? Email = null,
+//string? Email = null,
 double? Cost = null
 
 )
