@@ -22,7 +22,7 @@ public class ChefImplementation : IChef
         //DataSource.Chefs.add(c);//add c to chefs list
     }
 
-    public void Delete(int id)
+    public void Delete(int id)  //Chef can't be deleted!!!
     {
         throw new Exception("Can't delete the chef object!");
     }

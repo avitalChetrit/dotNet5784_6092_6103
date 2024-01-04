@@ -7,16 +7,12 @@
 /// <param name="Email">Private Email of the Chef</param>
 /// <param name="Cost">the cost of the Chef</param>
 
-public record Chef
+public record Dependency
 (
-int ChefId,                 //unique  
-ChefExperience? Level = ChefExperience.Beginner,
-string? Name = null,
-//string? Email = null,
-double? Cost = null
-
+    int Id,
+    int? preTask=null,
+    int? currTask = null
 )
 {
-    public Chef() : this(0) { }           // empty ctor
+    public Dependency() : this(0) { }           // empty ctor
 }
-
