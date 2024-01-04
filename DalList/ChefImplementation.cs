@@ -7,10 +7,16 @@ public class ChefImplementation : IChef
 {
     public int Create(Chef item)
     {
+        bool isExist;//check if there's already a chef in list chefs with the same ID
+        isExist = chefs.Exists(x => x.ChefId == item.ChefId);
+        if (isExist)
+        {
+            throw new Exception($"Chef with ID={item.ChefId} already exists");
+        }
+
         int chefId = DataSource.Config.NextChefId;//create a chefId to variable c
-        Chef c = item with { ChefId= chefId };//create a copy of item called c, with ChefId= chefId
-        //c.ChefId = chefId;
-        Chefs.add(c);//add c to chefs list
+        Chef c = item with { ChefId = chefId };//create a copy of item called c, with ChefId = chefId
+        DataSource.Chefs.add(c);//add c to chefs list
         return item.ChefId;//return c chefId
     }
 
@@ -41,16 +47,16 @@ public class ChefImplementation : IChef
 
     public void Update(Chef item)
     {
-        bool isExist = chefs.Exists(x => x.ChefId == item.id);//checks if there is an objects with the same id on list
+        bool isExist = chefs.Exists(x => x.ChefId == item.ChefId);//checks if there is an objects with the same id on list
         if (isExist)//such item is on list
         {
-            Chef c = chefs.Find(x => x.ChefId == item.id);//finds the object with the same id
+            Chef c = chefs.Find(x => x.ChefId == item.ChefId);//finds the object with the same id
             chefs.remove(c);//removes the old objects
             chefs.add(item);//add the new object
         }
         else//such item is not on list
         {
-            throw new NotImplementedException("Object of type chef with such ID does NOT exist");
+            throw new Exception($"Chef with ID={item.ChefId} does Not exist");
         }
     }
 }
