@@ -1,5 +1,6 @@
 ﻿using Dal;
 using DalApi;
+using DO;
 using System.Linq.Expressions;
 
 namespace DalTest
@@ -14,22 +15,33 @@ namespace DalTest
                     break;
                     
                 case 2: //Create
-                    Console.WriteLine("Enter id, Level, Name and cost:");
+                    Console.WriteLine("Enter id, Level(Beginner/Advanced/Expert), Name and cost:");
                     int ChefId = Console.Read();                 //unique  
-                    ChefExperience Level = Console.Read();
+                    ChefExperience Level = (ChefExperience)Console.Read();
                     string? Name = Console.ReadLine();
                     double? Cost = Console.Read();
                     Chef c = new Chef(ChefId, Level, Name, Cost);
-                    IChef.Create(c);
-
+                    s_dalChef!.Create(c);
 
                     break;
                 case 3: //Read
+                    Console.WriteLine("Enter id:");
+                    int id= Console.Read();
+                    Chef? chef = s_dalChef.Read(id); //check
+                    if (chef == null)
+                        Console.WriteLine("Doesn't Exist");
+                    else
+                        Console.WriteLine(chef.ChefId + chef.Level + chef.Name + chef.Cost);
 
                     break;
                 case 4: //ReadAll
+                    List<Chef> lCh =s_dalChef.ReadAll();
+                    foreach (var _chef in lCh)
+                    {
+                        Console.WriteLine(_chef.ChefId + _chef.Level + _chef.Name + _chef.Cost);
+                    }
 
-                    break;
+                        break;
                 case 5: //Update
 
                     break;
