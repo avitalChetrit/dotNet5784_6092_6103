@@ -20,12 +20,13 @@ namespace DalTest
                     break;
 
                 case 2: //Create
-                    Console.WriteLine("Enter id, Level(Beginner/Advanced/Expert), Name and cost:");
+                    Console.WriteLine("Enter id, Level(Beginner/Advanced/Expert), Name, Email and cost:");
                     int ChefId = Console.Read();                 //unique  
                     ChefExperience Level = (ChefExperience)Console.Read();
                     string? Name = Console.ReadLine();
+                    string? Email = Console.ReadLine();
                     double? Cost = Console.Read();
-                    Chef c = new Chef(ChefId, Level, Name, Cost);
+                    Chef c = new Chef(ChefId, Level, Name, Email, Cost);
                     s_dalChef!.Create(c);
 
                     break;
@@ -64,10 +65,11 @@ namespace DalTest
                     Console.WriteLine("Enter Level(Beginner/Advanced/Expert), Name and cost:");
                     ChefExperience? Level1 = (ChefExperience)Console.Read();
                     string? Name1 = Console.ReadLine();
+                    string? Email1 = Console.ReadLine();
                     double? Cost1 = Console.Read();
-                    if (Level1 == null || Name1 == null || Cost1 == null)
+                    if (Level1 == null || Name1 == null || Email1==null || Cost1 == null)
                         break;
-                    Chef ch = new Chef(ChefId1, Level1, Name1, Cost1);
+                    Chef ch = new Chef(ChefId1, Level1, Name1, Email1, Cost1);
                     s_dalChef!.Update(ch);
 
                     break;
@@ -83,13 +85,13 @@ namespace DalTest
             }
         }
         private static IChef? s_dalChef = new ChefImplementation(); //stage 1
-        //private static ICourse? s_dalCourse = new CourseImlementation(); //stage 1
+        private static ITask? s_dalTask = new TaskImplementation(); //stage 1
         private static IDependency? s_dalDependencys = new DependencyImplementation(); //stage 1
         static void Main(string[] args)
         {
             try
             {
-                Initialization.Do(s_dalChef, /*s_dalCourse,*/ s_dalDependencys);
+                Initialization.Do(s_dalChef, s_dalTask, s_dalDependencys);
             }
             catch (Exception ex)
             {

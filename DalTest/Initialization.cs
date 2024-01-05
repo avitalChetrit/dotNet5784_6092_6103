@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 internal static class Initialization
 {
@@ -24,6 +25,7 @@ internal static class Initialization
         const int MAX_ID = 400000000;
         // initialise for level 
         ChefExperience _level = ChefExperience.Beginner; //ranodm enum?
+        string? _email;
         //rang of cost
         double? _cost;
         const int MIN_COST = 100;
@@ -39,7 +41,9 @@ internal static class Initialization
 
             _cost = s_rand.Next(MIN_COST, MAX_COST);      // create random cost
 
-            Chef newCh = new(_id, _level, _name, _cost); //create new chef 
+            _email = _name + "@gmail.com";
+
+            Chef newCh = new(_id, _level, _name, _email, _cost); //create new chef 
 
             s_dalChef!.Create(newCh);     //adding chefs into the list
         }
@@ -103,6 +107,30 @@ internal static class Initialization
     }
     private static void createDependencys()
     {
+        createTasks();
+        List < Task > copyListTask= s_dalTask!.ReadAll();
+
+        //int[] copyTaskId = new int[copyListTask.Count];     //הקצאה דינאמית למערך של מספר מזהה של משימה
+        //int i = 0;
+
+        ////range
+        //const int MIN_ID = 1000;
+        //const int MAX_ID = 3000;
+
+        //foreach ( Task _copyTask in copyListTask) //for each what?
+        //{
+        //    int _id;
+        //    do
+        //        _id = s_rand.Next(MIN_ID, MAX_ID);
+        //    while (s_dalDependency!.Read(_id) != null);
+        //    int _preId = _copyTask.Id;
+        //    //int _currId=?
+       
+
+        //    Dependency newDepend = new(_id, _preId, currId);
+        //    s_dalDependency!.Create(newDepend);
+            
+        //}
 
     }
 
