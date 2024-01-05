@@ -84,12 +84,12 @@ namespace DalTest
         }
         private static IChef? s_dalChef = new ChefImplementation(); //stage 1
         //private static ICourse? s_dalCourse = new CourseImlementation(); //stage 1
-        //private static ILink? s_dalLinks = new LinkImplementation(); //stage 1
+        private static IDependency? s_dalDependencys = new DependencyImplementation(); //stage 1
         static void Main(string[] args)
         {
             try
             {
-                Initialization.Do(s_dalChef/*, s_dalCourse, s_dalLinks*/);
+                Initialization.Do(s_dalChef, /*s_dalCourse,*/ s_dalDependencys);
             }
             catch (Exception ex)
             {

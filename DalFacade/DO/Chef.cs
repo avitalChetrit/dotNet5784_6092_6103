@@ -2,9 +2,9 @@
 /// <summary>
 /// Chef Entity represents a Chef with all its props
 /// </summary>
-/// <param name="ChefId">Personal random ID of the Chef </param>
+/// <param name="ChefId">Personal unique ID of the Chef </param>
 /// <param name="Name">Private Name of the Chef</param>
-/// <param name="Email">Private Email of the Chef</param>
+/// <param name="Level">the level of the Chef</param>
 /// <param name="Cost">the cost of the Chef</param>
 
 public record Chef

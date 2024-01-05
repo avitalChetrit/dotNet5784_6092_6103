@@ -7,7 +7,7 @@ internal static class Initialization
 {
     private static IChef? s_dalChef; //stage 1
     //private static ICourse? s_dalCourse; //stage 1
-    //private static ILink? s_dalLink; //stage 1
+    private static IDependency? s_dalDependency; //stage 1
 
     private static readonly Random s_rand = new();//field, which all entities will use, to generate random numbers while filling in the values of the objects.
     private static void createChefs()
@@ -50,9 +50,17 @@ internal static class Initialization
 
     }
 
-    public static void Do(IChef? dalChef)     //
+    private static void createDependencys()
+    {
+        
+    }
+
+    public static void Do(IChef? dalChef, /*ITask? dalTask,*/ IDependency? dalDependency )     //
     {
         s_dalChef = dalChef ?? throw new NullReferenceException("DAL can not be null!");
         createChefs();
+
+        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        createDependencys();
     }
 }
