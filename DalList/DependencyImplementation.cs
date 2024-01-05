@@ -1,7 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 
 public class DependencyImplementation : IDependency
 {
