@@ -3,15 +3,21 @@ nisayon
 
 מגישות: יפית אטון ואביטל שטרית
 
+DO->
 chef
 מכיל את השדות והבנאי של היישות
 
-Ichef
+DalApi->
+IChef
 חתימה של מתודות לישות
 
+DalLiST->
 ChefImplemantations
 מימוש המתודות לישות
 
 Data Source
 רשימה לכל ישות נתונים
 פונקציה למספרים רצים מלאכותיים
+
+DalTest->
+Initialization 

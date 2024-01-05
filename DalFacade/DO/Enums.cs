@@ -1,12 +1,10 @@
 ﻿namespace DO;
 
-//internal class Enums
-//{
-//}
-
 public enum ChefExperience
 {
-    Beginner,
-    Advanced,
+    Beginner, 
+    Advanced Beginner, 
+    Intermediate, 
+    Advanced, 
     Expert
 }

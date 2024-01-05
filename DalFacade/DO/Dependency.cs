@@ -1,10 +1,10 @@
 ﻿namespace DO;
 /// <summary>
-/// Chef Entity represents a Chef with all its props
+/// Dependency Entity represents a Dependency with all its props
 /// </summary>
 /// <param name="Id">Personal random ID of the Dependency </param>
-/// <param name="Name">Private Name of the Dependency</param>
-/// <param name="Cost">the cost of the Dependency</param>
+/// <param name="preTask">Name of the previous Task</param>
+/// <param name="currTask">Name of the current Task</param>
 
 public record Dependency
 (
