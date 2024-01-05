@@ -49,7 +49,7 @@ internal static class Initialization
     {
         //Alias for tasks
         string[] Alias =
-        {"Make bread", "Wash dishes", "Cook Pasta", "Cook Ravioli","Buy Dishes"
+        {"Make bread", "Wash dishes", "Cook Pasta", "Cook Ravioli","Buy Dishes",
         "Clean Tables","Order Suplly", "Clean Kitchen", "Bake cake"};
 
         //range of id
@@ -63,15 +63,15 @@ internal static class Initialization
             int _id;
             do
                 _id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalTaks!.Read(_id) != null);
+            while (s_dalTask!.Read(_id) != null);
 
             //add description
             string _description = "need to" + _AlisasName;
 
-            //at first itll be false
+            //at first it will be false
             bool _isMilestone = false;
 
-            ChefExperience? _complexity = ChefExperience.Beginner();
+            ChefExperience? _complexity = ChefExperience.Beginner;
 
             //Create a random date between 1/1/2000 - Today
             DateTime start = new DateTime(2000, 1, 1);
@@ -79,22 +79,22 @@ internal static class Initialization
             DateTime _createdAtDate = start.AddDays(s_rand.Next(range));
 
             // Rndom time range from 1 day to 30 days
-            int randomDays = random.Next(1, 30);
+            int randomDays = s_rand.Next(1, 30);
             TimeSpan _requiredTime = TimeSpan.FromDays(randomDays);
 
             DateTime? _startDate = null;
-            DateTime? _scheduledDate = null
+            DateTime? _scheduledDate = null;
 
             // Create a random future day by adding today a random namber of days
-            int daysToAddRand = random.Next(1, 365);
+            int daysToAddRand = s_rand.Next(1, 365);
             DateTime currentDate = DateTime.Today;
             DateTime _deadLineDate = currentDate.AddDays(daysToAddRand);
 
             //rest of dates - null
-            DateTime _completeDate = null;
-            string? _deliveables = null,
-            string? _remarks = null,
-            int? _ChefId = null
+            DateTime? _completeDate = null;
+            string? _deliveables = null;
+            string? _remarks = null;
+            int? _ChefId = null;
             Task newTask = new(_id, _AlisasName, _description, _isMilestone, _complexity, _createdAtDate, _requiredTime, _startDate, _scheduledDate, _deadLineDate, _completeDate, _deliveables, _remarks, _ChefId);
 
             s_dalTask!.Create(newTask);

@@ -34,7 +34,7 @@ internal class TaskImplementation : ITask
 
     public List<Task> ReadAll()
     {
-        throw ne List<Task>(DataSource.Tasks);//retuns copy of Tasks list();
+        return new List<Task>(DataSource.Tasks); //retuns copy of Tasks list();
     }
 
     public void Update(Task item)
