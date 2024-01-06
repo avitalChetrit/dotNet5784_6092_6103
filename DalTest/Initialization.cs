@@ -52,9 +52,9 @@ internal static class Initialization
     private static void createTasks()
     {
         //Alias for tasks
-        string[] Alias =
-        {"Make bread", "Wash dishes", "Cook Pasta", "Cook Ravioli","Buy Dishes",
-        "Clean Tables","Order Suplly", "Clean Kitchen", "Bake cake"};
+        string[] Alias = { "Make bread", "Wash dishes", "Cook Pasta", "Cook Ravioli", "Buy Dishes", "Clean Tables", "Order Supply", "Clean Kitchen", 
+        "Bake cake", "Prepare Salad", "Set the table", "Organize pantry", "Sweep the floor", "Mop the kitchen", "Water plants", "Plan menu for the week", 
+        "Create grocery list", "Test new recipe", "Arrange kitchenware", "Dispose of expired items" };
 
         //range of id
         const int MIN_ID = 200000000;
@@ -70,7 +70,7 @@ internal static class Initialization
             while (s_dalTask!.Read(_id) != null);
 
             //add description
-            string _description = "need to" + _AlisasName;
+            string _description = "need to " + _AlisasName;
 
             //at first it will be false
             bool _isMilestone = false;
@@ -134,7 +134,7 @@ internal static class Initialization
 
     }
 
-    public static void Do(IChef? dalChef, ITask? dalTask, IDependency? dalDependency)     //
+    public static void Do(IChef? dalChef, ITask? dalTask, IDependency? dalDependency)     
     {
         s_dalChef = dalChef ?? throw new NullReferenceException("DAL can not be null!");
         createChefs();
