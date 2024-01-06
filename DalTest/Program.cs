@@ -7,11 +7,44 @@ namespace DalTest
 {
     internal class Program
     {
+        Task? inputAndCreateTask()
+        {
+            Console.WriteLine("Enter id, alias,Description,IsMilestone,Complexity,CreatedAtDate," +
+                        "RequiredTime,StartDate,ScheduledDate,DeadLineDate,CompleteDate,Deliveables,Remarks,ChefId :");
+
+            //INPUT
+            int Id = Console.Read();
+            string? Alias = Console.ReadLine();
+            string? Description = Console.ReadLine();
+            bool IsMilestone = (bool)Console.Read();
+            ChefExperience? Complexity = (ChefExperience)Console.Read();
+            DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
+            TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
+            DateTime? StartDate = DateTime.Parse(Console.ReadLine());
+            DateTime? ScheduledDate = DateTime.Parse(Console.ReadLine());
+            DateTime? DeadLineDate = DateTime.Parse(Console.ReadLine());
+            DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
+            string? Deliveables = Console.ReadLine();
+            string? Remarks = Console.ReadLine();
+            int? ChefId = Console.Read();
+            ///
+
+            Task tCreate = new Task(Id, Alias, Description, IsMilestone, Complexity, CreatedAtDate, RequiredTime,
+                StartDate, ScheduledDate, DeadLineDate, CompleteDate, Deliveables, Remarks, ChefId);
+            return tCreate;
+        }
+        void printTask(Task task)
+        {
+            Console.WriteLine(task.Id + task.Alias + task.Description + task.IsMilestone + task.Complexity + task.CreatedAtDate + task.RequiredTime,
+                        task.StartDate + task.ScheduledDate + task.DeadLineDate + task.CompleteDate + task.Deliveables + task.Remarks + task.ChefId);
+
+        }
+
         static void switchFunChef()
         {
             //sub menu for chef
-            Console.WriteLine("בחר את המתודה לבצע:");
-            Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" );
+            Console.WriteLine("Choose a method to preform:");
+            Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
             int choice = Console.Read();
 
             switch (choice)
@@ -67,7 +100,7 @@ namespace DalTest
                     string? Name1 = Console.ReadLine();
                     string? Email1 = Console.ReadLine();
                     double? Cost1 = Console.Read();
-                    if (Level1 == null || Name1 == null || Email1==null || Cost1 == null)
+                    if (Level1 == null || Name1 == null || Email1 == null || Cost1 == null)
                         break;
                     Chef ch = new Chef(ChefId1, Level1, Name1, Email1, Cost1);
                     s_dalChef!.Update(ch);
@@ -84,9 +117,87 @@ namespace DalTest
                     break;
             }
         }
+        static void switchFunTask()
+        {
+            //sub menu for Task
+            Console.WriteLine("Choose a method to preform:");
+            Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
+            int choice = Console.Read();
+
+            switch (choice)
+            {
+                case 1: //Exit
+                    break;
+
+                case 2: //Create
+                    Task tCreate = inputAndCreateTask();
+                    s_dalTask!.Create(tCreate);
+                    break;
+
+                case 3: //Read
+                    Console.WriteLine("Enter id:");
+                    int id = Console.Read();
+                    Task? tRead = s_dalTask.Read(id);
+                    if (tRead == null)
+                        Console.WriteLine("Doesn't Exist");
+                    else
+                        printTask(tRead);
+                    break;
+
+                case 4: //ReadAll
+                    List<Task> lTa = s_dalTask!.ReadAll();
+                    foreach (var _task in lTa)
+                        printTask(_task);
+                    break;
+
+                case 5: //Update
+                    //print the object to update (and then update it)
+                    Console.WriteLine("Enter id");
+                    int TaskIdUpdate = Console.Read();
+
+                    Task? taskUpdate = s_dalTask.Read(TaskIdUpdate);
+                    if (taskUpdate == null)
+                    {
+                        Console.WriteLine("Doesn't Exist");
+                        break;
+                    }
+                    else
+                        printTask(taskUpdate);
+
+                    Task? taskUpdateDet = inputAndCreateTask();
+                    if (taskUpdateDet.Id == null ||
+                        taskUpdateDet.Alias == null ||
+                        taskUpdateDet.Description == null ||
+                        taskUpdateDet.IsMilestone == null ||
+                        taskUpdateDet.Complexity == null ||
+                        taskUpdateDet.CreatedAtDate == null ||
+                        taskUpdateDet.RequiredTime == null ||
+                        taskUpdateDet.StartDate == null ||
+                        taskUpdateDet.ScheduledDate == null ||
+                        taskUpdateDet.DeadLineDate == null ||
+                        taskUpdateDet.CompleteDate == null ||
+                        taskUpdateDet.Deliveables == null ||
+                        taskUpdateDet.Remarks == null ||
+                        taskUpdateDet.ChefId == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                        s_dalChef!.Update(taskUpdateDet);
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+
         private static IChef? s_dalChef = new ChefImplementation(); //stage 1
         private static ITask? s_dalTask = new TaskImplementation(); //stage 1
         private static IDependency? s_dalDependencys = new DependencyImplementation(); //stage 1
+
         static void Main(string[] args)
         {
             try
@@ -97,37 +208,34 @@ namespace DalTest
             {
                 Console.WriteLine(ex.ToString());
             }
+
             int choice = 1;
-            int subChoice;
 
             while (choice != 0)
             {
-                Console.WriteLine("בחר ישות שברצונך לבדוק:");
-                Console.WriteLine("0. Exit\n" + "1. Chef\n" + "2.Task\n" + "3.Link\n");
+                Console.WriteLine("Choose an entity you'd like to check:");
+                Console.WriteLine("0. Exit\n" + "1. Chef\n" + "2.Task\n" + "3.Dependency\n");
                 choice = Console.Read();
-                //if(choice!=0)
-                //{
-                //    Console.WriteLine("בחר את המתודה לבצע:");
-                //    Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" + "6.Delete\n");
-                //    subChoice = Console.Read();
-                //}
+
                 try
                 {
                     switch (choice)//main menu
                     {
                         case 1://sub-menu chef
-
+                            switchFunChef();
                             break;
 
                         case 2://sub-menu tasks
+                            switchFunTask();
+                            break;
+
+                        case 3://sub-menu Dependency
 
                             break;
 
-                        case 3://sub-menu link
-
-                            break;
                         case 0://exit
                             break;
+
                         default:
                             break;
                     }
@@ -136,8 +244,6 @@ namespace DalTest
                 {
                     Console.WriteLine(ex.ToString());
                 }
-
-
 
             }
 
