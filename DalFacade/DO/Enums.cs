@@ -3,7 +3,7 @@
 public enum ChefExperience
 {
     Beginner, 
-    Advanced Beginner, 
+    AdvancedBeginner, 
     Intermediate, 
     Advanced, 
     Expert
