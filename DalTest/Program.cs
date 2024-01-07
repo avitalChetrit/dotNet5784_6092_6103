@@ -9,17 +9,17 @@ namespace DalTest
 {
     internal class Program
     {
-        public static Task inputAndCreateTask()
+        public static Task inputAndCreateTask(int id=0)
         {
             Console.WriteLine("Enter alias,Description,IsMilestone,Complexity,CreatedAtDate," +
                         "RequiredTime,StartDate,ScheduledDate,DeadLineDate,CompleteDate,Deliveables,Remarks,ChefId :");
 
             //INPUT
-            int Id = 0;
+            int Id = id;
             string? Alias = Console.ReadLine();
             string? Description = Console.ReadLine();
             bool IsMilestone = false;
-            ChefExperience? Complexity = (ChefExperience)Console.Read();
+            ChefExperience? Complexity = ChefExperience.Beginner;
             DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
             TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
             DateTime? StartDate = DateTime.Parse(Console.ReadLine());
@@ -28,7 +28,7 @@ namespace DalTest
             DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
             string? Deliveables = Console.ReadLine();
             string? Remarks = Console.ReadLine();
-            int? ChefId = Console.Read();
+            int? ChefId = (int)ReadNum();
             ///
 
             Task tCreate = new Task(Id, Alias, Description, IsMilestone, Complexity, CreatedAtDate, RequiredTime,
@@ -60,6 +60,7 @@ namespace DalTest
             Console.WriteLine(c.Name);
             Console.WriteLine(c.Email);
             Console.WriteLine(c.Cost);
+            Console.WriteLine();
              
         }
 
@@ -89,8 +90,8 @@ namespace DalTest
             //sub menu for chef
             Console.WriteLine("Choose a method to preform:");
             Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
-            string? input = Console.ReadLine();
-            int choice = int.Parse(input);
+            
+            int choice = (int)ReadNum();
 
             switch (choice)
             {
@@ -164,8 +165,8 @@ namespace DalTest
             //sub menu for Task
             Console.WriteLine("Choose a method to preform:");
             Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
-            string? input = Console.ReadLine();
-            int choice = int.Parse(input);
+            
+            int choice = (int)ReadNum();
 
             switch (choice)
             {
@@ -181,7 +182,7 @@ namespace DalTest
 
                 case 3: //Read
                     Console.WriteLine("Enter id:");
-                    int id = Console.Read();
+                    int id = (int)ReadNum(); 
                     Task? tRead = s_dalTask.Read(id);
                     if (tRead == null)
                         Console.WriteLine("Doesn't Exist");
@@ -198,7 +199,7 @@ namespace DalTest
                 case 5: //Update
                     //print the object to update (and then update it)
                     Console.WriteLine("Enter id");
-                    int TaskIdUpdate = Console.Read();
+                    int TaskIdUpdate = (int)ReadNum();
 
                     Task taskUpdate = s_dalTask.Read(TaskIdUpdate);
                     if (taskUpdate == null)
@@ -209,7 +210,7 @@ namespace DalTest
                     else
                         printTask(taskUpdate);
 
-                    Task taskUpdateNew = inputAndCreateTask();
+                    Task taskUpdateNew = inputAndCreateTask(TaskIdUpdate);
                     if (
                         taskUpdateNew.Alias == null ||
                         taskUpdateNew.Description == null ||

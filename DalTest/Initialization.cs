@@ -104,10 +104,7 @@ internal static class Initialization
         {
             //find a unique random number 
             int _id= 0;   //will get a value in create metod.
-            //do
-            //    _id = NextTaskId;
-            //while (s_dalTask!.Read(_id) != null);
-
+            
             //add description
             string _description = "need to " + _AlisasName;
 
