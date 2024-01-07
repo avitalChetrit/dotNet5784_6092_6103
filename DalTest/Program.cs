@@ -51,7 +51,7 @@ namespace DalTest
         }
         void printDependency(Dependency d)
         {
-            Console.WriteLine(d.Id, d.preTask, d.currTask);
+            Console.WriteLine(d.Id+ d.preTask+ d.currTask);
         }
 
         static void switchFunChef()
@@ -255,17 +255,17 @@ namespace DalTest
                     else
                         printDependency(dependencyUpdate);
 
-                    // the update
+                    // the updated.
                     Dependency dependencyUpdateNew = inputAndCreateDependency();
-                    if (dependencyUpdateNew. == null || dependencyUpdateNew. == null || dependencyUpdateNew. == null)
+                    if (dependencyUpdateNew.Id == null || dependencyUpdateNew.preTask == null || dependencyUpdateNew.currTask == null)
                         break;
                     s_dalDependency!.Update(dependencyUpdateNew);
-
                     break;
 
                 default:
                     break;
             }
+        }
 
         private static IChef? s_dalChef = new ChefImplementation(); //stage 1
         private static ITask? s_dalTask = new TaskImplementation(); //stage 1
@@ -303,7 +303,7 @@ namespace DalTest
                             break;
 
                         case 3://sub-menu Dependency
-
+                            switchFunDependency();
                             break;
 
                         case 0://exit
