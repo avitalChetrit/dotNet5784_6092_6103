@@ -116,10 +116,11 @@ internal static class Initialization
         //range
         const int MIN_ID = 1000;
         const int MAX_ID = 3000;
+        int? _preId = null;
 
         foreach (Task _copyTask in copyListTask) //for each node in tasks
         {
-            int _id
+            int _id;
             do
                 _id = s_rand.Next(MIN_ID, MAX_ID);
             while (s_dalDependency!.Read(_id) != null);
@@ -128,12 +129,12 @@ internal static class Initialization
 
             if(i!=0)
             {
-            int preTask = random.Next(0, i);//number between 0-(i-1)
-            int _preId = copyListTask[preTask].Id;
+                int preTask = s_rand.Next(0, i);//number between 0-(i-1)
+                _preId = copyListTask[preTask].Id;
             }
 
             i++;
-            Dependency newDepend = new(_id, _preId, currId);
+            Dependency newDepend = new(_id, _preId, _currId);
             s_dalDependency!.Create(newDepend);
         }
 
