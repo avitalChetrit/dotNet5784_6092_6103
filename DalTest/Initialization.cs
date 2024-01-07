@@ -52,9 +52,48 @@ internal static class Initialization
     private static void createTasks()
     {
         //Alias for tasks
-        string[] Alias = { "Make bread", "Wash dishes", "Cook Pasta", "Cook Ravioli", "Buy Dishes", "Clean Tables", "Order Supply", "Clean Kitchen", 
-        "Bake cake", "Prepare Salad", "Set the table", "Organize pantry", "Sweep the floor", "Mop the kitchen", "Water plants", "Plan menu for the week", 
-        "Create grocery list", "Test new recipe", "Arrange kitchenware", "Dispose of expired items" };
+        string[] Alias = {
+    "Chop vegetables",
+    "Grill chicken",
+    "Marinate meat",
+    "Brew coffee",
+    "Steam vegetables",
+    "Wash kitchen towels",
+    "Clean oven",
+    "Sharpen knives",
+    "Boil eggs",
+    "Set up coffee maker",
+    "Defrost freezer",
+    "Wipe countertops",
+    "Empty trash bin",
+    "Label food containers",
+    "Clean refrigerator",
+    "Fix kitchen appliances",
+    "Arrange spice rack",
+    "Sterilize cutting boards",
+    "Mix ingredients",
+    "Prepare breakfast",
+    "Cook rice",
+    "Taste-test recipes",
+    "Create a weekly meal plan",
+    "Organize recipe cards",
+    "Stock pantry shelves",
+    "Create a cooking schedule",
+    "Make grocery budget",
+    "Pack lunch for tomorrow",
+    "Sharpen kitchen scissors",
+    "Check expiration dates",
+    "Prepare smoothies",
+    "Scrub pots and pans",
+    "Replace kitchen sponges",
+    "Set up a compost bin",
+    "Clean kitchen exhaust fan",
+    "Label kitchen drawers",
+    "Arrange baking sheets",
+    "Dust kitchen shelves",
+    "Clean blender after use"
+};
+
 
         //range of id
         const int MIN_ID = 200000000;
@@ -110,7 +149,7 @@ internal static class Initialization
         createTasks();
         List <Task> copyListTask= s_dalTask!.ReadAll();
 
-        int[] copyTaskId = new int[copyListTask.Count];     //הקצאה דינאמית למערך של מספר מזהה של משימה
+        //int[] copyTaskId = new int[copyListTask.Count];     //הקצאה דינאמית למערך של מספר מזהה של משימה
         int i = 0;
 
         //range
@@ -137,6 +176,30 @@ internal static class Initialization
             Dependency newDepend = new(_id, _preId, _currId);
             s_dalDependency!.Create(newDepend);
         }
+        //task 39 in copyListTask depend on tasks 25, 24 ,23 in copyListTask
+        int currtId = copyListTask[39].Id;
+        int preId = copyListTask[25].Id;
+        Dependency newDep = new(0, preId, currtId);
+        s_dalDependency!.Create(newDep);
+        preId = copyListTask[24].Id;
+        newDep = new(0, preId, currtId);
+        s_dalDependency!.Create(newDep);
+        preId = copyListTask[23].Id;
+        newDep = new(0, preId, currtId);
+        s_dalDependency!.Create(newDep);
+
+        //task 38 in copyListTask depend on tasks 25, 24 ,23 in copyListTask
+        currtId = copyListTask[38].Id;
+        preId = copyListTask[25].Id;
+        newDep = new(0, preId, currtId);
+        s_dalDependency!.Create(newDep);
+        preId = copyListTask[24].Id;
+        newDep = new(0, preId, currtId);
+        s_dalDependency!.Create(newDep);
+        preId = copyListTask[23].Id;
+        newDep = new(0, preId, currtId);
+        s_dalDependency!.Create(newDep);
+
 
     }
 

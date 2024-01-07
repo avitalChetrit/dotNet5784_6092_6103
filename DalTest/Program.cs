@@ -37,8 +37,20 @@ namespace DalTest
         }
         public static void printTask(Task task)
         {
-            //Console.WriteLine(task.Id + task.Alias + task.Description + task.IsMilestone + task.Complexity + task.CreatedAtDate + task.RequiredTime,
-            //            task.StartDate + task.ScheduledDate + task.DeadLineDate + task.CompleteDate + task.Deliveables + task.Remarks + task.ChefId);
+            Console.WriteLine(task.Id);
+            Console.WriteLine(task.Alias);
+            Console.WriteLine(task.Description);
+            Console.WriteLine(task.IsMilestone);
+            Console.WriteLine(task.Complexity);
+            Console.WriteLine(task.CreatedAtDate);
+            Console.WriteLine(task.RequiredTime);
+            Console.WriteLine(task.StartDate);
+            Console.WriteLine(task.ScheduledDate);
+            Console.WriteLine(task.DeadLineDate);
+            Console.WriteLine(task.CompleteDate);
+            Console.WriteLine(task.Deliveables);
+            Console.WriteLine(task.Remarks);
+            Console.WriteLine(task.ChefId);
 
         }
 
@@ -51,12 +63,12 @@ namespace DalTest
             Dependency d = new Dependency(Id, preTask, currTask);
             return d;
         }
-        void printDependency(Dependency d)
+        public static void printDependency(Dependency d)
         {
             Console.WriteLine(d.Id+ d.preTask+ d.currTask);
         }
 
-        static void switchFunChef()
+        public static void switchFunChef()
         {
             //sub menu for chef
             Console.WriteLine("Choose a method to preform:");
@@ -133,7 +145,7 @@ namespace DalTest
                     break;
             }
         }
-        static void switchFunTask()
+        public static void switchFunTask()
         {
             //sub menu for Task
             Console.WriteLine("Choose a method to preform:");
@@ -211,7 +223,7 @@ namespace DalTest
                     break;
             }
         }
-        static void switchFunDependency()
+        public static void switchFunDependency()
         {
             //sub menu for dependency
             Console.WriteLine("Choose a method to preform:");
@@ -327,5 +339,3 @@ namespace DalTest
         }
     }
 }
-
-
