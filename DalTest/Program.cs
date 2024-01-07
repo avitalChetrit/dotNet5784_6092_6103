@@ -64,18 +64,21 @@ namespace DalTest
              
         }
 
-            public static Dependency? inputAndCreateDependency()
+        public static Dependency? inputAndCreateDependency(int id=0)
         {
             Console.WriteLine("Enter preTask and currTask:");
-            int Id = 0;
-            int? preTask = Console.Read();
-            int? currTask = Console.Read();
+            int Id = id;
+            int? preTask = (int)ReadNum();
+            int? currTask = (int)ReadNum();
             Dependency d = new Dependency(Id, preTask, currTask);
             return d;
         }
         public static void printDependency(Dependency d)
         {
-            Console.WriteLine(d.Id+ d.preTask+ d.currTask);
+            Console.WriteLine("Id:"+d.Id);
+;           Console.WriteLine("preTask:"+d.preTask);
+            Console.WriteLine("currTask:"+d.currTask);
+            Console.WriteLine();
         }
 
         public static double? ReadNum()
@@ -244,8 +247,7 @@ namespace DalTest
             //sub menu for dependency
             Console.WriteLine("Choose a method to preform:");
             Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
-            string? input = Console.ReadLine();
-            int choice = int.Parse(input);
+            int choice = (int)ReadNum();
 
             switch (choice)
             {
@@ -259,7 +261,7 @@ namespace DalTest
 
                 case 3: //Read
                     Console.WriteLine("Enter id:");
-                    int id = Console.Read();
+                    int id = (int)ReadNum();
                     Dependency? dRead = s_dalDependency.Read(id);
                     if (dRead == null)
                         Console.WriteLine("Doesn't Exist");
@@ -278,7 +280,7 @@ namespace DalTest
                 case 5: //Update
                     //print the object to update(and then update it)
                     Console.WriteLine("Enter id");
-                    int dependencyIdUpdate = Console.Read();
+                    int dependencyIdUpdate = (int)ReadNum(); ;
                     Dependency? dependencyUpdate = s_dalDependency.Read(dependencyIdUpdate);
                     if (dependencyUpdate == null)
                     {
@@ -289,7 +291,7 @@ namespace DalTest
                         printDependency(dependencyUpdate);
 
                     // the updated.
-                    Dependency dependencyUpdateNew = inputAndCreateDependency();
+                    Dependency dependencyUpdateNew = inputAndCreateDependency(dependencyIdUpdate);
                     if (dependencyUpdateNew.Id == null || dependencyUpdateNew.preTask == null || dependencyUpdateNew.currTask == null)
                         break;
                     s_dalDependency!.Update(dependencyUpdateNew);
