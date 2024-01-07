@@ -9,8 +9,8 @@
 public record Dependency
 (
     int Id, //random
-    int? preTask=null,
-    int? currTask = null     //depend on the previous task
+    int? preTask=null,      //depend on the previous task
+    int? currTask = null     
 )
 {
     public Dependency() : this(0) { }           // empty ctor

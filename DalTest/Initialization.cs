@@ -108,29 +108,34 @@ internal static class Initialization
     private static void createDependencys()
     {
         createTasks();
-        List < Task > copyListTask= s_dalTask!.ReadAll();
+        List <Task> copyListTask= s_dalTask!.ReadAll();
 
-        //int[] copyTaskId = new int[copyListTask.Count];     //הקצאה דינאמית למערך של מספר מזהה של משימה
-        //int i = 0;
+        int[] copyTaskId = new int[copyListTask.Count];     //הקצאה דינאמית למערך של מספר מזהה של משימה
+        int i = 0;
 
-        ////range
-        //const int MIN_ID = 1000;
-        //const int MAX_ID = 3000;
+        //range
+        const int MIN_ID = 1000;
+        const int MAX_ID = 3000;
 
-        //foreach ( Task _copyTask in copyListTask) //for each what?
-        //{
-        //    int _id;
-        //    do
-        //        _id = s_rand.Next(MIN_ID, MAX_ID);
-        //    while (s_dalDependency!.Read(_id) != null);
-        //    int _preId = _copyTask.Id;
-        //    //int _currId=?
-       
-
-        //    Dependency newDepend = new(_id, _preId, currId);
-        //    s_dalDependency!.Create(newDepend);
+        foreach (Task _copyTask in copyListTask) //for each node in tasks
+        {
+            int _id
+            do
+                _id = s_rand.Next(MIN_ID, MAX_ID);
+            while (s_dalDependency!.Read(_id) != null);
             
-        //}
+            int _currId = _copyTask.Id;
+
+            if(i!=0)
+            {
+            int preTask = random.Next(0, i);//number between 0-(i-1)
+            int _preId = copyListTask[preTask].Id;
+            }
+
+            i++;
+            Dependency newDepend = new(_id, _preId, currId);
+            s_dalDependency!.Create(newDepend);
+        }
 
     }
 
