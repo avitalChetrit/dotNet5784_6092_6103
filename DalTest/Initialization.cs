@@ -64,10 +64,10 @@ internal static class Initialization
         foreach (var _AlisasName in Alias)
         {
             //find a unique random number 
-            int _id;
-            do
-                _id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalTask!.Read(_id) != null);
+            int _id= 0;   //will get a value in create metod.
+            //do
+            //    _id = NextTaskId;
+            //while (s_dalTask!.Read(_id) != null);
 
             //add description
             string _description = "need to " + _AlisasName;
@@ -120,10 +120,10 @@ internal static class Initialization
 
         foreach (Task _copyTask in copyListTask) //for each node in tasks
         {
-            int _id;
-            do
-                _id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalDependency!.Read(_id) != null);
+            int _id=0;
+            //do
+            //    _id = s_rand.Next(MIN_ID, MAX_ID);
+            //while (s_dalDependency!.Read(_id) != null);
             
             int _currId = _copyTask.Id;
 

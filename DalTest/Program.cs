@@ -3,49 +3,49 @@ using DalApi;
 using DO;
 //using System.Linq.Expressions;
 //using System;
-//using Task = DO.Task;
+using Task = DO.Task;
 
 namespace DalTest
 {
     internal class Program
     {
-        //public static Task inputAndCreateTask()
-        //{
-        //    Console.WriteLine("Enter alias,Description,IsMilestone,Complexity,CreatedAtDate," +
-        //                "RequiredTime,StartDate,ScheduledDate,DeadLineDate,CompleteDate,Deliveables,Remarks,ChefId :");
+        public static Task inputAndCreateTask()
+        {
+            Console.WriteLine("Enter alias,Description,IsMilestone,Complexity,CreatedAtDate," +
+                        "RequiredTime,StartDate,ScheduledDate,DeadLineDate,CompleteDate,Deliveables,Remarks,ChefId :");
 
-        //    //INPUT
-        //    int Id = NextTaskId();
-        //    string? Alias = Console.ReadLine();
-        //    string? Description = Console.ReadLine();
-        //    bool IsMilestone = (bool)Console.Read();
-        //    ChefExperience? Complexity = (ChefExperience)Console.Read();
-        //    DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
-        //    TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
-        //    DateTime? StartDate = DateTime.Parse(Console.ReadLine());
-        //    DateTime? ScheduledDate = DateTime.Parse(Console.ReadLine());
-        //    DateTime? DeadLineDate = DateTime.Parse(Console.ReadLine());
-        //    DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
-        //    string? Deliveables = Console.ReadLine();
-        //    string? Remarks = Console.ReadLine();
-        //    int? ChefId = Console.Read();
-        //    ///
+            //INPUT
+            int Id = 0;
+            string? Alias = Console.ReadLine();
+            string? Description = Console.ReadLine();
+            bool IsMilestone = false;
+            ChefExperience? Complexity = (ChefExperience)Console.Read();
+            DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
+            TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
+            DateTime? StartDate = DateTime.Parse(Console.ReadLine());
+            DateTime? ScheduledDate = DateTime.Parse(Console.ReadLine());
+            DateTime? DeadLineDate = DateTime.Parse(Console.ReadLine());
+            DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
+            string? Deliveables = Console.ReadLine();
+            string? Remarks = Console.ReadLine();
+            int? ChefId = Console.Read();
+            ///
 
-        //    Task tCreate = new Task(Id, Alias, Description, IsMilestone, Complexity, CreatedAtDate, RequiredTime,
-        //        StartDate, ScheduledDate, DeadLineDate, CompleteDate, Deliveables, Remarks, ChefId);
-        //    return tCreate;
-        //}
+            Task tCreate = new Task(Id, Alias, Description, IsMilestone, Complexity, CreatedAtDate, RequiredTime,
+                StartDate, ScheduledDate, DeadLineDate, CompleteDate, Deliveables, Remarks, ChefId);
+            return tCreate;
+        }
         public static void printTask(Task task)
         {
-            Console.WriteLine(task.Id + task.Alias + task.Description + task.IsMilestone + task.Complexity + task.CreatedAtDate + task.RequiredTime,
-                        task.StartDate + task.ScheduledDate + task.DeadLineDate + task.CompleteDate + task.Deliveables + task.Remarks + task.ChefId);
+            //Console.WriteLine(task.Id + task.Alias + task.Description + task.IsMilestone + task.Complexity + task.CreatedAtDate + task.RequiredTime,
+            //            task.StartDate + task.ScheduledDate + task.DeadLineDate + task.CompleteDate + task.Deliveables + task.Remarks + task.ChefId);
 
         }
 
-        Dependency? inputAndCreateDependency()
+        public static Dependency? inputAndCreateDependency()
         {
             Console.WriteLine("Enter preTask and currTask:");
-            int Id = NextTaskDependency();
+            int Id = 0;
             int? preTask = Console.Read();
             int? currTask = Console.Read();
             Dependency d = new Dependency(Id, preTask, currTask);
@@ -146,29 +146,9 @@ namespace DalTest
                     break;
 
                 case 2: //Create
-                    Console.WriteLine("Enter alias,Description,IsMilestone,Complexity,CreatedAtDate," +
-                        "RequiredTime,StartDate,ScheduledDate,DeadLineDate,CompleteDate,Deliveables,Remarks,ChefId :");
+                      
+                    Task tCreate = inputAndCreateTask();
 
-                    //INPUT
-                    int Id = Console.Read(); /*NextTaskId();*/   //what is NextTaskId() doing?
-                    string? Alias = Console.ReadLine();
-                    string? Description = Console.ReadLine();
-                    bool IsMilestone = false;
-                    ChefExperience? Complexity = (ChefExperience)Console.Read();
-                    DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
-                    TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
-                    DateTime? StartDate = DateTime.Parse(Console.ReadLine());
-                    DateTime? ScheduledDate = DateTime.Parse(Console.ReadLine());
-                    DateTime? DeadLineDate = DateTime.Parse(Console.ReadLine());
-                    DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
-                    string? Deliveables = Console.ReadLine();
-                    string? Remarks = Console.ReadLine();
-                    int? ChefId = Console.Read();
-                    ///
-
-                    Task tCreate = new(Id, Alias, Description, IsMilestone, Complexity, CreatedAtDate, RequiredTime,
-                        StartDate, ScheduledDate, DeadLineDate, CompleteDate, Deliveables, Remarks, ChefId);
-                    //Task tCreate = inputAndCreateTask();
                     s_dalTask!.Create(tCreate);
                     break;
 
@@ -203,7 +183,7 @@ namespace DalTest
                         printTask(taskUpdate);
 
                     Task taskUpdateNew = inputAndCreateTask();
-                    if (taskUpdateNew.Id == null ||
+                    if (
                         taskUpdateNew.Alias == null ||
                         taskUpdateNew.Description == null ||
                         taskUpdateNew.IsMilestone == null ||
@@ -223,7 +203,7 @@ namespace DalTest
                     else
                     {
 
-                        s_dalChef!.Update(taskUpdateDet);
+                        s_dalTask!.Update(taskUpdateNew);
                         break;
                     }
 
