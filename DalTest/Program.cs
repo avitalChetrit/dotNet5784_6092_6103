@@ -9,11 +9,11 @@ namespace DalTest
     {
         Task? inputAndCreateTask()
         {
-            Console.WriteLine("Enter id, alias,Description,IsMilestone,Complexity,CreatedAtDate," +
+            Console.WriteLine("Enter alias,Description,IsMilestone,Complexity,CreatedAtDate," +
                         "RequiredTime,StartDate,ScheduledDate,DeadLineDate,CompleteDate,Deliveables,Remarks,ChefId :");
 
             //INPUT
-            int Id = Console.Read();
+            int Id = NextTaskId();
             string? Alias = Console.ReadLine();
             string? Description = Console.ReadLine();
             bool IsMilestone = (bool)Console.Read();
@@ -38,6 +38,20 @@ namespace DalTest
             Console.WriteLine(task.Id + task.Alias + task.Description + task.IsMilestone + task.Complexity + task.CreatedAtDate + task.RequiredTime,
                         task.StartDate + task.ScheduledDate + task.DeadLineDate + task.CompleteDate + task.Deliveables + task.Remarks + task.ChefId);
 
+        }
+
+        Dependency? inputAndCreateDependency()
+        {
+            Console.WriteLine("Enter preTask and currTask:");
+            int Id = NextTaskDependency();
+            int? preTask = Console.Read();
+            int? currTask = Console.Read();
+            Dependency d = new Dependency(Id, preTask, currTask);
+            return d;
+        }
+        void printDependency(Dependency d)
+        {
+            Console.WriteLine(d.Id, d.preTask, d.currTask);
         }
 
         static void switchFunChef()
@@ -164,7 +178,7 @@ namespace DalTest
                     else
                         printTask(taskUpdate);
 
-                    Task? taskUpdateDet = inputAndCreateTask();
+                    Task? taskUpdateNew = inputAndCreateTask();
                     if (taskUpdateDet.Id == null ||
                         taskUpdateDet.Alias == null ||
                         taskUpdateDet.Description == null ||
@@ -206,66 +220,49 @@ namespace DalTest
                     break;
 
                 case 2: //Create
-                    Console.WriteLine("Enter id, Level(Beginner/Advanced/Expert), Name, Email and cost:");
-                    int ChefId = Console.Read();                 //unique  
-                    ChefExperience Level = (ChefExperience)Console.Read();
-                    string? Name = Console.ReadLine();
-                    string? Email = Console.ReadLine();
-                    double? Cost = Console.Read();
-                    Chef c = new Chef(ChefId, Level, Name, Email, Cost);
-                    s_dalChef!.Create(c);
-
+                    Dependency dCeate = inputAndCreateDependency();
+                    s_dalDependency!.Create(d);
                     break;
+
                 case 3: //Read
                     Console.WriteLine("Enter id:");
                     int id = Console.Read();
-                    Chef? chef = s_dalChef.Read(id);
-                    if (chef == null)
+                    Dependency? dRead = s_dalDependency.Read(id);
+                    if (dRead == null)
                         Console.WriteLine("Doesn't Exist");
                     else
-                        Console.WriteLine(chef.ChefId + chef.Level + chef.Name + chef.Cost);
-
+                        printDependency(dRead);
                     break;
+
                 case 4: //ReadAll
-                    List<Chef> lCh = s_dalChef!.ReadAll();
-                    foreach (var _chef in lCh)
+                    List<Dependency> lDe = s_dalDependency!.ReadAll();
+                    foreach (var _dependency in lCh)
                     {
-                        Console.WriteLine(_chef.ChefId + _chef.Level + _chef.Name + _chef.Cost);
+                        printDependency(_dependency);
                     }
-
                     break;
+
                 case 5: //Update
                     //print the object to update(and then update it)
                     Console.WriteLine("Enter id");
-                    int ChefId1 = Console.Read();
-                    Chef? chef1 = s_dalChef.Read(ChefId1);
-                    if (chef1 == null)
+                    int dependencyIdUpdate = Console.Read();
+                    Dependency? dependencyUpdate = s_dalDependency.Read(dependencyIdUpdate);
+                    if (dependencyUpdate == null)
                     {
                         Console.WriteLine("Doesn't Exist");
                         break;
                     }
                     else
-                        Console.WriteLine(chef1.ChefId + chef1.Level + chef1.Name + chef1.Cost);
+                        printDependency(dependencyUpdate);
 
                     // the update
-                    Console.WriteLine("Enter Level(Beginner/Advanced/Expert), Name and cost:");
-                    ChefExperience? Level1 = (ChefExperience)Console.Read();
-                    string? Name1 = Console.ReadLine();
-                    string? Email1 = Console.ReadLine();
-                    double? Cost1 = Console.Read();
-                    if (Level1 == null || Name1 == null || Email1 == null || Cost1 == null)
+                    Dependency dependencyUpdateNew = inputAndCreateDependency();
+                    if (dependencyUpdateNew. == null || dependencyUpdateNew. == null || dependencyUpdateNew. == null)
                         break;
-                    Chef ch = new Chef(ChefId1, Level1, Name1, Email1, Cost1);
-                    s_dalChef!.Update(ch);
+                    s_dalDependency!.Update(dependencyUpdateNew);
 
                     break;
 
-                //case 6: //Delete
-                //    Console.WriteLine("Enter id:");
-                //    int idDel = Console.Read();
-                //    s_dalChef!.Delete(idDel);
-
-                //    break;
                 default:
                     break;
             }
