@@ -2,7 +2,7 @@
 using DalApi;
 using DO;
 
-public class ChefImplementation : IChef
+internal class ChefImplementation : IChef
 {
     public int Create(Chef item)
     {

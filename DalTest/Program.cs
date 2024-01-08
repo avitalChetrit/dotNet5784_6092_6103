@@ -151,13 +151,13 @@ namespace DalTest
                     Console.Write("Enter id: ");
                     int ChefId = (int)ReadNum(); // unique
                     Chef c = inputAndCreateChef(ChefId);
-                    s_dalChef!.Create(c);
+                    s_dal!.Chef.Create(c);
                     break;
 
                 case 3: //Read
                     Console.WriteLine("Enter id: ");
                     int id = (int)ReadNum();
-                    Chef? chef = s_dalChef.Read(id);
+                    Chef? chef = s_dal!.Chef.Read(id);
                     if (chef == null)
                         Console.WriteLine("Doesn't Exist");
                     else
@@ -165,7 +165,7 @@ namespace DalTest
                     break;
                     
                 case 4: //ReadAll
-                    List<Chef> lCh = s_dalChef!.ReadAll();
+                    List<Chef> lCh = s_dal!.Chef.ReadAll();
                     foreach (var _chef in lCh)
                     {
                         printChef(_chef);
@@ -177,7 +177,7 @@ namespace DalTest
                     Console.WriteLine("Enter id: ");
                     int ChefUpdateId = (int)ReadNum();
 
-                    Chef? chefUpdate = s_dalChef.Read(ChefUpdateId);
+                    Chef? chefUpdate = s_dal!.Chef.Read(ChefUpdateId);
                     if (chefUpdate == null)
                     {
                         Console.WriteLine("Doesn't Exist");
@@ -191,7 +191,7 @@ namespace DalTest
                         || chefUpdate.Email == null || chefUpdate.Cost == null)
                         break;
 
-                    s_dalChef!.Update(chefUpdate);
+                    s_dal!.Chef.Update(chefUpdate);
                     break;
 
                 default:
@@ -215,13 +215,13 @@ namespace DalTest
                       
                     Task tCreate = inputAndCreateTask();
 
-                    s_dalTask!.Create(tCreate);
+                    s_dal!.Task.Create(tCreate);
                     break;
 
                 case 3: //Read
                     Console.WriteLine("Enter id:");
                     int id = (int)ReadNum(); 
-                    Task? tRead = s_dalTask.Read(id);
+                    Task? tRead = s_dal!.Task.Read(id);
                     if (tRead == null)
                         Console.WriteLine("Doesn't Exist");
                     else
@@ -229,7 +229,7 @@ namespace DalTest
                     break;
 
                 case 4: //ReadAll
-                    List<Task> lTa = s_dalTask!.ReadAll();
+                    List<Task> lTa = s_dal!.Task.ReadAll();
                     foreach (var _task in lTa)
                         printTask(_task);
                     break;
@@ -239,7 +239,7 @@ namespace DalTest
                     Console.WriteLine("Enter id");
                     int TaskIdUpdate = (int)ReadNum();
 
-                    Task taskUpdate = s_dalTask.Read(TaskIdUpdate);
+                    Task taskUpdate = s_dal!.Task.Read(TaskIdUpdate);
                     if (taskUpdate == null)
                     {
                         Console.WriteLine("Doesn't Exist");
@@ -269,7 +269,7 @@ namespace DalTest
                     else
                     {
 
-                        s_dalTask!.Update(taskUpdateNew);
+                        s_dal!.Task.Update(taskUpdateNew);
                         break;
                     }
 
@@ -291,13 +291,13 @@ namespace DalTest
 
                 case 2: //Create
                     Dependency dCreate = inputAndCreateDependency();
-                    s_dalDependency!.Create(dCreate);
+                    s_dal!.Dependency.Create(dCreate);
                     break;
 
                 case 3: //Read
                     Console.WriteLine("Enter id:");
                     int id = (int)ReadNum();
-                    Dependency? dRead = s_dalDependency.Read(id);
+                    Dependency? dRead = s_dal!.Dependency.Read(id);
                     if (dRead == null)
                         Console.WriteLine("Doesn't Exist");
                     else
@@ -305,7 +305,7 @@ namespace DalTest
                     break;
 
                 case 4: //ReadAll
-                    List<Dependency> lDe = s_dalDependency!.ReadAll();
+                    List<Dependency> lDe = s_dal!.Dependency.ReadAll();
                     foreach (var _dependency in lDe)
                     {
                         printDependency(_dependency);
@@ -316,7 +316,7 @@ namespace DalTest
                     //print the object to update(and then update it)
                     Console.WriteLine("Enter id");
                     int dependencyIdUpdate = (int)ReadNum(); ;
-                    Dependency? dependencyUpdate = s_dalDependency.Read(dependencyIdUpdate);
+                    Dependency? dependencyUpdate = s_dal!.Dependency.Read(dependencyIdUpdate);
                     if (dependencyUpdate == null)
                     {
                         Console.WriteLine("Doesn't Exist");
@@ -329,7 +329,7 @@ namespace DalTest
                     Dependency dependencyUpdateNew = inputAndCreateDependency(dependencyIdUpdate);
                     if (dependencyUpdateNew.Id == null || dependencyUpdateNew.PreTask == null || dependencyUpdateNew.CurrTask == null)
                         break;
-                    s_dalDependency!.Update(dependencyUpdateNew);
+                    s_dal!.Dependency.Update(dependencyUpdateNew);
                     break;
 
                 default:
@@ -337,15 +337,17 @@ namespace DalTest
             }
         }
 
-        private static IChef? s_dalChef = new ChefImplementation(); //stage 1
-        private static ITask? s_dalTask = new TaskImplementation(); //stage 1
-        private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
+        //private static IChef? s_dalChef = new ChefImplementation(); //stage 1
+        //private static ITask? s_dalTask = new TaskImplementation(); //stage 1
+        //private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
+        private static readonly IDal? s_dal = new DalList(); //stage 2
+
 
         static void Main()
         {
             try
             {
-                Initialization.Do(s_dalChef, s_dalTask, s_dalDependency);
+                Initialization.Do(s_dal);
             }
             catch (Exception ex)
             {
