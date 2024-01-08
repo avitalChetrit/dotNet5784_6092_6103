@@ -54,7 +54,7 @@ internal static class Initialization
     {
         //Alias for tasks
         string[] Alias = {
-    "0. Order Supply"
+    "0. Order Supply",
     "1. Chop Vegetables",
     "2. Marinate Meat",
     "3. Preheat Oven",
@@ -126,9 +126,35 @@ internal static class Initialization
     }
     private static void createDependencys()
     {
+        List<Task> copyListTask = s_dalTask!.ReadAll();
+        string[] Alias = {
+    "0. Order Supply",
+    "1. Chop Vegetables",
+    "2. Marinate Meat",
+    "3. Preheat Oven",
+    "4. Boil Pasta",
+    "5. Saute Onions",
+    "6. Grill Chicken",
+    "7. Bake Cookies",
+    "8. Blend Smoothie",
+    "9. Roast Vegetables",
+    "10. Steam Broccoli",
+    "11. Slice Bread",
+    "12. Prepare Salad",
+    "13. Cook Rice",
+    "14. Fry Eggs",
+    "15. Mix Batter",
+    "16. Toast Bread",
+    "17. Make Coffee",
+    "18. Whisk Eggs",
+    "19. Peel Potatoes",
+    "20. Chop Herbs"
+};
+        Dependency newDepend = new(_id, copyListTask[0].Id, copyListTask[1].Id);
+        s_dalDependency!.Create(newDepend);
         ///@@@@
         createTasks();
-        List <Task> copyListTask= s_dalTask!.ReadAll();
+       
 
         //int[] copyTaskId = new int[copyListTask.Count];     //הקצאה דינאמית למערך של מספר מזהה של משימה
         int i = 0;
