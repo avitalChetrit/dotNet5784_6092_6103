@@ -54,28 +54,38 @@ internal static class Initialization
     {
         //Alias for tasks
         string[] Alias = {
-    "0. Order Supply",
-    "1. Chop Vegetables",
-    "2. Marinate Meat",
-    "3. Preheat Oven",
-    "4. Boil Pasta",
-    "5. Saute Onions",
-    "6. Grill Chicken",
-    "7. Bake Cookies",
-    "8. Blend Smoothie",
-    "9. Roast Vegetables",
-    "10. Steam Broccoli",
-    "11. Slice Bread",
-    "12. Prepare Salad",
-    "13. Cook Rice",
-    "14. Fry Eggs",
-    "15. Mix Batter",
-    "16. Toast Bread",
-    "17. Make Coffee",
-    "18. Whisk Eggs",
-    "19. Peel Potatoes",
-    "20. Chop Herbs"
+    "Order Supply",
+    "Chop Vegetables",
+    "Marinate Meat",
+    "Preheat Oven",
+    "Boil Water",
+    "Saute Onions",
+    "Grill Chicken",
+    "Bake Cookies",
+    "Blend Smoothie",
+    "Roast Vegetables",
+    "Steam Broccoli",
+    "Slice Bread",
+    "Prepare Salad",
+    "Cook Rice",
+    "Fry Eggs",
+    "Mix Batter",
+    "Toast Bread",
+    "Make Coffee",
+    "Whisk Eggs",
+    "Peel Potatoes",
+    "Chop Herbs",
+    "Cook Pasta",
+    "Add Seasoning",
+    "Clean Pots",
+    "Peel Fruits",
+    "Clean Kitchen",
+    "Set The Tables",
+    "Heat Oil",
+    "Fry Chips",
+    "Bake Cake"
 };
+
 
 
         //range of id
@@ -127,87 +137,89 @@ internal static class Initialization
     private static void createDependencys()
     {
         List<Task> copyListTask = s_dalTask!.ReadAll();
-        string[] Alias = {
-    "0. Order Supply",
-    "1. Chop Vegetables",
-    "2. Marinate Meat",
-    "3. Preheat Oven",
-    "4. Boil Pasta",
-    "5. Saute Onions",
-    "6. Grill Chicken",
-    "7. Bake Cookies",
-    "8. Blend Smoothie",
-    "9. Roast Vegetables",
-    "10. Steam Broccoli",
-    "11. Slice Bread",
-    "12. Prepare Salad",
-    "13. Cook Rice",
-    "14. Fry Eggs",
-    "15. Mix Batter",
-    "16. Toast Bread",
-    "17. Make Coffee",
-    "18. Whisk Eggs",
-    "19. Peel Potatoes",
-    "20. Chop Herbs"
-};
-        Dependency newDepend = new(_id, copyListTask[0].Id, copyListTask[1].Id);
+        
+        int _id = 0;
+        Dependency newDepend = new(_id, copyListTask[0].Id, copyListTask[1].Id); //Task 1 depend on Task 0
         s_dalDependency!.Create(newDepend);
-        ///@@@@
-        createTasks();
-       
-
-        //int[] copyTaskId = new int[copyListTask.Count];     //הקצאה דינאמית למערך של מספר מזהה של משימה
-        int i = 0;
-
-        //range
-        const int MIN_ID = 1000;
-        const int MAX_ID = 3000;
-        int? _preId = null;
-
-        foreach (Task _copyTask in copyListTask) //for each node in tasks
-        {
-            int _id=0;
-            //do
-            //    _id = s_rand.Next(MIN_ID, MAX_ID);
-            //while (s_dalDependency!.Read(_id) != null);
-            
-            int _currId = _copyTask.Id;
-
-            if(i!=0)
-            {
-                int preTask = s_rand.Next(0, i);//number between 0-(i-1)
-                _preId = copyListTask[preTask].Id;
-            }
-
-            i++;
-            Dependency newDepend = new(_id, _preId, _currId);
-            s_dalDependency!.Create(newDepend);
-        }
-        //task 39 in copyListTask depend on tasks 25, 24 ,23 in copyListTask
-        int currtId = copyListTask[39].Id;
-        int preId = copyListTask[25].Id;
-        Dependency newDep = new(0, preId, currtId);
-        s_dalDependency!.Create(newDep);
-        preId = copyListTask[24].Id;
-        newDep = new(0, preId, currtId);
-        s_dalDependency!.Create(newDep);
-        preId = copyListTask[23].Id;
-        newDep = new(0, preId, currtId);
-        s_dalDependency!.Create(newDep);
-
-        //task 38 in copyListTask depend on tasks 25, 24 ,23 in copyListTask
-        currtId = copyListTask[38].Id;
-        preId = copyListTask[25].Id;
-        newDep = new(0, preId, currtId);
-        s_dalDependency!.Create(newDep);
-        preId = copyListTask[24].Id;
-        newDep = new(0, preId, currtId);
-        s_dalDependency!.Create(newDep);
-        preId = copyListTask[23].Id;
-        newDep = new(0, preId, currtId);
-        s_dalDependency!.Create(newDep);
-
-
+        newDepend = new(_id, copyListTask[0].Id, copyListTask[19].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[0].Id, copyListTask[2].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[0].Id, copyListTask[11].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[1].Id, copyListTask[9].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[1].Id, copyListTask[10].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[18].Id, copyListTask[14].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[11].Id, copyListTask[16].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[4].Id, copyListTask[21].Id); //Pasta
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[21].Id, copyListTask[22].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[1].Id, copyListTask[5].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[1].Id, copyListTask[12].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[3].Id, copyListTask[7].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[4].Id, copyListTask[13].Id); //Rice
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[4].Id, copyListTask[17].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[15].Id, copyListTask[7].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[0].Id, copyListTask[21].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[0].Id, copyListTask[13].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[23].Id, copyListTask[21].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[23].Id, copyListTask[13].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[18].Id, copyListTask[16].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[19].Id, copyListTask[6].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[20].Id, copyListTask[6].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[22].Id, copyListTask[6].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[24].Id, copyListTask[8].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[7].Id, copyListTask[25].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[16].Id, copyListTask[25].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[12].Id, copyListTask[25].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[0].Id, copyListTask[19].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[27].Id, copyListTask[28].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[27].Id, copyListTask[5].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[7].Id, copyListTask[26].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[6].Id, copyListTask[26].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[16].Id, copyListTask[26].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[11].Id, copyListTask[26].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[15].Id, copyListTask[16].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[2].Id, copyListTask[25].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[18].Id, copyListTask[29].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[15].Id, copyListTask[29].Id);
+        s_dalDependency!.Create(newDepend);
+        newDepend = new(_id, copyListTask[3].Id, copyListTask[29].Id);
+        s_dalDependency!.Create(newDepend);
+        
     }
 
     public static void Do(IChef? dalChef, ITask? dalTask, IDependency? dalDependency)     
