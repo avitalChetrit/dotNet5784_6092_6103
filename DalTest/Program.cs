@@ -1,86 +1,14 @@
 ﻿using Dal;
 using DalApi;
 using DO;
-//using System.Linq.Expressions;
-//using System;
+
+
 using Task = DO.Task;
 
 namespace DalTest
 {
     internal class Program
     {
-        public static Task inputAndCreateTask(int id=0)
-        {
-            Console.WriteLine("Enter alias,Description,IsMilestone,Complexity,CreatedAtDate," +
-                        "RequiredTime,StartDate,ScheduledDate,DeadLineDate,CompleteDate,Deliveables,Remarks,ChefId :");
-
-            //INPUT
-            int Id = id;
-            string? Alias = Console.ReadLine();
-            string? Description = Console.ReadLine();
-            bool IsMilestone = false;
-            ChefExperience? Complexity = ChefExperience.Beginner;
-            DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
-            TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
-            DateTime? StartDate = DateTime.Parse(Console.ReadLine());
-            DateTime? ScheduledDate = DateTime.Parse(Console.ReadLine());
-            DateTime? DeadLineDate = DateTime.Parse(Console.ReadLine());
-            DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
-            string? Deliveables = Console.ReadLine();
-            string? Remarks = Console.ReadLine();
-            int? ChefId = (int)ReadNum();
-            ///
-
-            Task tCreate = new Task(Id, Alias, Description, IsMilestone, Complexity, CreatedAtDate, RequiredTime,
-                StartDate, ScheduledDate, DeadLineDate, CompleteDate, Deliveables, Remarks, ChefId);
-            return tCreate;
-        }
-        public static void printTask(Task task)
-        {
-            Console.WriteLine(task.Id);
-            Console.WriteLine(task.Alias);
-            Console.WriteLine(task.Description);
-            Console.WriteLine(task.IsMilestone);
-            Console.WriteLine(task.Complexity);
-            Console.WriteLine(task.CreatedAtDate);
-            Console.WriteLine(task.RequiredTime);
-            Console.WriteLine(task.StartDate);
-            Console.WriteLine(task.ScheduledDate);
-            Console.WriteLine(task.DeadLineDate);
-            Console.WriteLine(task.CompleteDate);
-            Console.WriteLine(task.Deliveables);
-            Console.WriteLine(task.Remarks);
-            Console.WriteLine(task.ChefId);
-
-        }
-        public static void printChef(Chef c)
-        {
-            Console.WriteLine(c.ChefId);
-            Console.WriteLine("Beginner");
-            Console.WriteLine(c.Name);
-            Console.WriteLine(c.Email);
-            Console.WriteLine(c.Cost);
-            Console.WriteLine();
-             
-        }
-
-        public static Dependency? inputAndCreateDependency(int id=0)
-        {
-            Console.WriteLine("Enter preTask and currTask:");
-            int Id = id;
-            int? preTask = (int)ReadNum();
-            int? currTask = (int)ReadNum();
-            Dependency d = new Dependency(Id, preTask, currTask);
-            return d;
-        }
-        public static void printDependency(Dependency d)
-        {
-            Console.WriteLine("Id:"+d.Id);
-;           Console.WriteLine("preTask:"+d.preTask);
-            Console.WriteLine("currTask:"+d.currTask);
-            Console.WriteLine();
-        }
-
         public static double? ReadNum()
         {
             string? input = Console.ReadLine();
@@ -88,11 +16,129 @@ namespace DalTest
             return num;
         }
 
+        //functions get objects and prints them
+        public static void printChef(Chef c)
+        {
+            Console.WriteLine("ChefId: " + c.ChefId);
+            Console.WriteLine("Experience: " + c.Level);
+            Console.WriteLine("Name: " + c.Name);
+            Console.WriteLine("Email: " + c.Email);
+            Console.WriteLine("Cost: " + c.Cost);
+            Console.WriteLine();
+        }
+        public static void printTask(Task task)
+        {
+            Console.WriteLine("id: " + task.Id);
+            Console.WriteLine("Alias: " + task.Alias);
+            Console.WriteLine("Description: " + task.Description);
+            Console.WriteLine("IsMilestone: " + task.IsMilestone);
+            Console.WriteLine("Complexity: " + task.Complexity);
+            Console.WriteLine("CreatedAtDate: " + task.CreatedAtDate);
+            Console.WriteLine("RequiredTime: " + task.RequiredTime);
+            Console.WriteLine("StartDate: " + task.StartDate);
+            Console.WriteLine("ScheduledDate: " + task.ScheduledDate);
+            Console.WriteLine("DeadLineDate: " + task.DeadLineDate);
+            Console.WriteLine("CompleteDate: " + task.CompleteDate);
+            Console.WriteLine("Deliverables: " + task.Deliveables);
+            Console.WriteLine("Remarks: " + task.Remarks);
+            Console.WriteLine("ChefId: " + task.ChefId);
+            Console.WriteLine();
+
+        }
+        public static void printDependency(Dependency d)
+        {
+            Console.WriteLine("Id:" + d.Id);
+            ; Console.WriteLine("PreTask: " + d.PreTask);
+            Console.WriteLine("CurrTask: " + d.CurrTask);
+            Console.WriteLine();
+        }
+
+        //functions get input from user and return an object using the input
+        public static Chef inputAndCreateChef(int ChefId)
+        {   
+            Console.Write("Enter Level (Beginner/Advanced/Expert): ");
+            ChefExperience Level = Enum.Parse<ChefExperience>(Console.ReadLine());
+
+            Console.Write("Enter Name: ");
+            string? Name = Console.ReadLine();
+
+            Console.Write("Enter Email: ");
+            string? Email = Console.ReadLine();
+
+            Console.Write("Enter Cost: ");
+            double? Cost = ReadNum();
+
+            Chef c = new(ChefId, Level, Name, Email, Cost);
+            return c;  
+        }
+        public static Task inputAndCreateTask(int id = 0)
+        {
+            // INPUT
+            int Id = 0;
+
+            Console.Write("Enter Alias: ");
+            string? Alias = Console.ReadLine();
+
+            Console.Write("Enter Description: ");
+            string? Description = Console.ReadLine();
+
+            Console.Write("IsMilestone (true/false): ");
+            bool IsMilestone = bool.Parse(Console.ReadLine());
+
+            Console.Write("Complexity (Beginner/Intermediate/Advanced): ");
+            ChefExperience? Complexity = Enum.Parse<ChefExperience>(Console.ReadLine());
+
+            Console.Write("Enter CreatedAtDate (yyyy-MM-dd): ");
+            DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter RequiredTime (hh:mm:ss): ");
+            TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
+
+            Console.Write("Enter StartDate (yyyy-MM-dd): ");
+            DateTime? StartDate = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter ScheduledDate (yyyy-MM-dd): ");
+            DateTime? ScheduledDate = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter DeadLineDate (yyyy-MM-dd): ");
+            DateTime? DeadLineDate = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter CompleteDate (yyyy-MM-dd): ");
+            DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter Deliverables: ");
+            string? Deliveables = Console.ReadLine();
+
+            Console.Write("Enter Remarks: ");
+            string? Remarks = Console.ReadLine();
+
+            Console.Write("Enter ChefId: ");
+            int? ChefId = (int)ReadNum();
+
+            Task tCreate = new Task(Id, Alias, Description, IsMilestone, Complexity, 
+                            CreatedAtDate, RequiredTime, StartDate, ScheduledDate, DeadLineDate, 
+                            CompleteDate, Deliveables, Remarks, ChefId);
+            return tCreate;
+        }
+        public static Dependency? inputAndCreateDependency(int id=0)
+        {
+            int Id = 0;
+
+            Console.Write("Enter PreTask: ");
+            int? PreTask = (int)ReadNum();
+
+            Console.Write("Enter CurrTask: ");
+            int? CurrTask = (int)ReadNum();
+
+            Dependency d = new Dependency(Id, PreTask, CurrTask);
+            return d;
+        }
+
         public static void switchFunChef()
         {
             //sub menu for chef
             Console.WriteLine("Choose a method to preform:");
-            Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
+            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
             
             int choice = (int)ReadNum();
 
@@ -102,61 +148,50 @@ namespace DalTest
                     break;
 
                 case 2: //Create
-                    Console.WriteLine("Enter id, Level(Beginner/Advanced/Expert), Name, Email and cost:");
-
-                    int ChefId = (int)ReadNum();                 //unique  
-                    ChefExperience Level = ChefExperience.Beginner;
-                    string? Name = Console.ReadLine();
-                    string? Email = Console.ReadLine();
-                    double? Cost = ReadNum();
-
-
-                    Chef c = new(ChefId, Level, Name, Email, Cost);
+                    Console.Write("Enter id: ");
+                    int ChefId = (int)ReadNum(); // unique
+                    Chef c = inputAndCreateChef(ChefId);
                     s_dalChef!.Create(c);
-
                     break;
+
                 case 3: //Read
-                    Console.WriteLine("Enter id:");
+                    Console.WriteLine("Enter id: ");
                     int id = (int)ReadNum();
                     Chef? chef = s_dalChef.Read(id);
                     if (chef == null)
                         Console.WriteLine("Doesn't Exist");
                     else
                         printChef(chef);
-
                     break;
+                    
                 case 4: //ReadAll
                     List<Chef> lCh = s_dalChef!.ReadAll();
                     foreach (var _chef in lCh)
                     {
                         printChef(_chef);
                     }
-
                     break;
+
                 case 5: //Update
                     //print the object to update(and then update it)
-                    Console.WriteLine("Enter id");
-                    int ChefId1 = (int)ReadNum();
-                    Chef? chef1 = s_dalChef.Read(ChefId1);
-                    if (chef1 == null)
+                    Console.WriteLine("Enter id: ");
+                    int ChefUpdateId = (int)ReadNum();
+
+                    Chef? chefUpdate = s_dalChef.Read(ChefUpdateId);
+                    if (chefUpdate == null)
                     {
                         Console.WriteLine("Doesn't Exist");
                         break;
                     }
                     else
-                        printChef(chef1);
+                        printChef(chefUpdate);
 
-                    // the update
-                    Console.WriteLine("Enter Level(Beginner/Advanced/Expert), Name, Email and cost:");
-                    ChefExperience? Level1 = ChefExperience.Beginner;
-                    string? Name1 = Console.ReadLine();
-                    string? Email1 = Console.ReadLine();
-                    double? Cost1 = ReadNum();
-                    if (Level1 == null || Name1 == null || Email1 == null || Cost1 == null)
+                    chefUpdate = inputAndCreateChef(ChefUpdateId);                    
+                    if (   chefUpdate.Level == null || chefUpdate.Name == null 
+                        || chefUpdate.Email == null || chefUpdate.Cost == null)
                         break;
-                    Chef ch = new Chef(ChefId1, Level1, Name1, Email1, Cost1);
-                    s_dalChef!.Update(ch);
 
+                    s_dalChef!.Update(chefUpdate);
                     break;
 
                 default:
@@ -167,7 +202,7 @@ namespace DalTest
         {
             //sub menu for Task
             Console.WriteLine("Choose a method to preform:");
-            Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
+            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
             
             int choice = (int)ReadNum();
 
@@ -246,7 +281,7 @@ namespace DalTest
         {
             //sub menu for dependency
             Console.WriteLine("Choose a method to preform:");
-            Console.WriteLine("1. Exit\n" + "2. Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
+            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
             int choice = (int)ReadNum();
 
             switch (choice)
@@ -292,7 +327,7 @@ namespace DalTest
 
                     // the updated.
                     Dependency dependencyUpdateNew = inputAndCreateDependency(dependencyIdUpdate);
-                    if (dependencyUpdateNew.Id == null || dependencyUpdateNew.preTask == null || dependencyUpdateNew.currTask == null)
+                    if (dependencyUpdateNew.Id == null || dependencyUpdateNew.PreTask == null || dependencyUpdateNew.CurrTask == null)
                         break;
                     s_dalDependency!.Update(dependencyUpdateNew);
                     break;
@@ -306,7 +341,7 @@ namespace DalTest
         private static ITask? s_dalTask = new TaskImplementation(); //stage 1
         private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
 
-        static void Main(string[] args)
+        static void Main()
         {
             try
             {
@@ -323,13 +358,11 @@ namespace DalTest
             while (choice != 0)
             {
                 Console.WriteLine("Choose an entity you'd like to check:");
-                Console.WriteLine("0. Exit\n" + "1. Chef\n" + "2.Task\n" + "3.Dependency\n");
-                input = Console.ReadLine();
-                choice=int.Parse(input);
+                Console.WriteLine("0.Exit\n" + "1.Chef\n" + "2.Task\n" + "3.Dependency\n");
+                choice=(int)ReadNum();
 
                 try
                 {
-
                     switch (choice)//main menu
                     {
                         case 0://exit

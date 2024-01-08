@@ -41,7 +41,8 @@ internal static class Initialization
 
             _cost = s_rand.Next(MIN_COST, MAX_COST);      // create random cost
 
-            _email = _name + "@gmail.com";
+            _email = _name.Replace(" ", "");
+            _email += "@gmail.com";
 
             Chef newCh = new(_id, _level, _name, _email, _cost); //create new chef 
 
@@ -53,45 +54,27 @@ internal static class Initialization
     {
         //Alias for tasks
         string[] Alias = {
-    "Chop vegetables",
-    "Grill chicken",
-    "Marinate meat",
-    "Brew coffee",
-    "Steam vegetables",
-    "Wash kitchen towels",
-    "Clean oven",
-    "Sharpen knives",
-    "Boil eggs",
-    "Set up coffee maker",
-    "Defrost freezer",
-    "Wipe countertops",
-    "Empty trash bin",
-    "Label food containers",
-    "Clean refrigerator",
-    "Fix kitchen appliances",
-    "Arrange spice rack",
-    "Sterilize cutting boards",
-    "Mix ingredients",
-    "Prepare breakfast",
-    "Cook rice",
-    "Taste-test recipes",
-    "Create a weekly meal plan",
-    "Organize recipe cards",
-    "Stock pantry shelves",
-    "Create a cooking schedule",
-    "Make grocery budget",
-    "Pack lunch for tomorrow",
-    "Sharpen kitchen scissors",
-    "Check expiration dates",
-    "Prepare smoothies",
-    "Scrub pots and pans",
-    "Replace kitchen sponges",
-    "Set up a compost bin",
-    "Clean kitchen exhaust fan",
-    "Label kitchen drawers",
-    "Arrange baking sheets",
-    "Dust kitchen shelves",
-    "Clean blender after use"
+    "0. Order Supply"
+    "1. Chop Vegetables",
+    "2. Marinate Meat",
+    "3. Preheat Oven",
+    "4. Boil Pasta",
+    "5. Saute Onions",
+    "6. Grill Chicken",
+    "7. Bake Cookies",
+    "8. Blend Smoothie",
+    "9. Roast Vegetables",
+    "10. Steam Broccoli",
+    "11. Slice Bread",
+    "12. Prepare Salad",
+    "13. Cook Rice",
+    "14. Fry Eggs",
+    "15. Mix Batter",
+    "16. Toast Bread",
+    "17. Make Coffee",
+    "18. Whisk Eggs",
+    "19. Peel Potatoes",
+    "20. Chop Herbs"
 };
 
 
@@ -143,6 +126,7 @@ internal static class Initialization
     }
     private static void createDependencys()
     {
+        ///@@@@
         createTasks();
         List <Task> copyListTask= s_dalTask!.ReadAll();
 

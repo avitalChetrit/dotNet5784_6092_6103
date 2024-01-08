@@ -14,11 +14,6 @@ public class ChefImplementation : IChef
         }
         DataSource.Chefs.Add(item);//add c to chefs list
         return item.ChefId;//return c chefId
-
-        /* int chefId = DataSource.Config.NextChefId;*/
-        //create a chefId to variable c
-        //Chef c = item with { ChefId = chefId };//create a copy of item called c, with ChefId = chefId
-        //DataSource.Chefs.add(c);//add c to chefs list
     }
 
     public void Delete(int id)  //Chef can't be deleted!!!
