@@ -16,7 +16,7 @@ internal class DependencyImplementation : IDependency
 
     public void Delete(int id)
     {
-        throw new Exception("Can't delete the Dependency object!");
+        throw new DalDeletionImpossible("Can't delete the Dependency object!");
     }
 
     public Dependency? Read(int id)
@@ -49,7 +49,7 @@ internal class DependencyImplementation : IDependency
         }
         else//such item is not on list
         {
-            throw new Exception($"Dependency with ID={item.Id} does Not exist");
+            throw new DalDoesNotExistException($"Dependency with ID={item.Id} does Not exist");
         }
     }
 }

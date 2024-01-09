@@ -16,7 +16,7 @@ internal class TaskImplementation : ITask
 
     public void Delete(int id)
     {
-        throw new Exception("Can't delete the Task object!");
+        throw new DalDeletionImpossible("Can't delete the Task object!");
     }
 
     public Task? Read(int id)
@@ -48,7 +48,7 @@ internal class TaskImplementation : ITask
         }
         else//such item is not on list
         {
-            throw new Exception($"Task with ID={item.Id} does Not exist");
+            throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist");
         }
     }
 }

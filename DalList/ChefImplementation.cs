@@ -6,11 +6,11 @@ internal class ChefImplementation : IChef
 {
     public int Create(Chef item)
     {
-        bool isExist;//check if there's already a chef in list chefs with the same ID
-        isExist = DataSource.Chefs.Exists(x => x.ChefId == item.ChefId);
-        if (isExist)
+        //bool isExist;//check if there's already a chef in list chefs with the same ID
+        //isExist = DataSource.Chefs.Exists(x => x.ChefId == item.ChefId);
+        if (Read(item.ChefId) is not null)
         {
-            throw new Exception($"Chef with ID={item.ChefId} already exists");
+            throw new DalAlreadyExistsException($"Chef with ID={item.ChefId} already exists");
         }
         DataSource.Chefs.Add(item);//add c to chefs list
         return item.ChefId;//return c chefId
@@ -18,7 +18,7 @@ internal class ChefImplementation : IChef
 
     public void Delete(int id)  //Chef can't be deleted!!!
     {
-        throw new Exception("Can't delete the chef object!");
+        throw new DalDeletionImpossible("Can't delete the chef object!");
     }
 
     public Chef? Read(int id)
@@ -52,7 +52,7 @@ internal class ChefImplementation : IChef
         }
         else//such item is not on list
         {
-            throw new Exception($"Chef with ID={item.ChefId} does Not exist");
+            throw new DalDoesNotExistException($"Chef with ID={item.ChefId} does Not exist");
         }
     }
 }
