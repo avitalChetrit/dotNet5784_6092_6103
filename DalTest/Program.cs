@@ -122,7 +122,6 @@ namespace DalTest
         }
         public static Dependency? inputAndCreateDependency(int id=0)
         {
-            int Id = 0;
 
             Console.Write("Enter PreTask: ");
             int? PreTask = (int)ReadNum();
@@ -130,7 +129,7 @@ namespace DalTest
             Console.Write("Enter CurrTask: ");
             int? CurrTask = (int)ReadNum();
 
-            Dependency d = new Dependency(Id, PreTask, CurrTask);
+            Dependency d = new Dependency(id, PreTask, CurrTask);
             return d;
         }
 
