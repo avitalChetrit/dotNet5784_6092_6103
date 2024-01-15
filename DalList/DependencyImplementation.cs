@@ -21,21 +21,19 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        bool isExist;
-        isExist = DataSource.Dependencys.Exists(x => x.Id == id);//checks if there's an object with id in Dependency list 
-        if (isExist)//object Id's was found on list
-        {
-            Dependency dep = DataSource.Dependencys.Find(x => x.Id == id)!;
-            return dep;
-        }
-        else//object Id's is not on list
-            return null;
-        
+        return DataSource.Dependencys.FirstOrDefault(item => item.Id == id);
     }
 
-    public List<Dependency> ReadAll()
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
-        return new List<Dependency>(DataSource.Dependencys);//retuns copy of Dependencys list
+        if (filter != null)
+        {
+            return from item in DataSource.Dependencys
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Dependencys
+               select item;
     }
 
     public void Update(Dependency item)
@@ -51,5 +49,10 @@ internal class DependencyImplementation : IDependency
         {
             throw new DalDoesNotExistException($"Dependency with ID={item.Id} does Not exist");
         }
+    }
+    public Dependency? Read(Func<Dependency, bool> filter) // stage 2
+    {
+        return DataSource.Dependencys.FirstOrDefault(item => filter(item));
+
     }
 }

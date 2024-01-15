@@ -23,22 +23,22 @@ internal class ChefImplementation : IChef
 
     public Chef? Read(int id)
     {
-        bool isExist;
-        isExist = DataSource.Chefs.Exists(x => x.ChefId == id);//checks if there's an object with id in chefs list 
-        if (isExist)//object id is found on list
-        {
-            Chef c= DataSource.Chefs.Find(x => x.ChefId == id)!;
-            return c;
-        }
-        else//object id is not on list
-        {
-            return null;
-        }
+        return DataSource.Chefs.FirstOrDefault(item => item.ChefId == id);
+        //return DataSource.Chefs.Select(item => item);
+        //return DataSource.Chefs.Where(filter);
+
     }
 
-    public List<Chef> ReadAll()
+    public IEnumerable<Chef> ReadAll(Func<Chef, bool>? filter = null) //stage 2
     {
-        return new List<Chef>(DataSource.Chefs);//retuns copy of chefs list
+        if (filter != null)
+        {
+            return from item in DataSource.Chefs
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Chefs
+               select item;
     }
 
     public void Update(Chef item)
@@ -55,4 +55,15 @@ internal class ChefImplementation : IChef
             throw new DalDoesNotExistException($"Chef with ID={item.ChefId} does Not exist");
         }
     }
+    public Chef? Read(Func<Chef, bool> filter) // stage 2
+    {
+        return DataSource.Chefs.FirstOrDefault(item => filter(item));
+
+
+        //return from item in DataSource.Chefs
+        //       where filter(item)
+        //       select item;
+
+    }
+
 }

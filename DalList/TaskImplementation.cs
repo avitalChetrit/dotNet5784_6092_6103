@@ -1,6 +1,9 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Threading.Tasks;
+using Task = DO.Task;
+
 //using System.Collections.Generic;
 
 internal class TaskImplementation : ITask
@@ -21,20 +24,19 @@ internal class TaskImplementation : ITask
 
     public Task? Read(int id)
     {
-        bool isExist;
-        isExist = DataSource.Tasks.Exists(x => x.Id == id);//checks if there's an object with id in Task list 
-        if (isExist)//object Id's was found on list
-        {
-            Task dep = DataSource.Tasks.Find(x => x.Id == id)!;
-            return dep;
-        }
-        else//object Id's is not on list
-            return null;
+        return DataSource.Tasks.FirstOrDefault(item => item.Id == id);
     }
 
-    public List<Task> ReadAll()
+    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {
-        return new List<Task>(DataSource.Tasks); //retuns copy of Tasks list();
+        if (filter != null)
+        {
+            return from item in DataSource.Tasks
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Tasks
+               select item;
     }
 
     public void Update(Task item)
@@ -50,5 +52,9 @@ internal class TaskImplementation : ITask
         {
             throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist");
         }
+    }
+    public Task? Read(Func<Task, bool> filter) // stage 2
+    {
+        return DataSource.Tasks.FirstOrDefault(item => filter(item));
     }
 }

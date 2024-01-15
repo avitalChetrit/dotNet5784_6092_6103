@@ -164,7 +164,7 @@ namespace DalTest
                     break;
                     
                 case 4: //ReadAll
-                    List<Chef> lCh = s_dal!.Chef.ReadAll();
+                    List<Chef> lCh = s_dal!.Chef.ReadAll().ToList<Chef>();
                     foreach (var _chef in lCh)
                     {
                         printChef(_chef);
@@ -228,7 +228,7 @@ namespace DalTest
                     break;
 
                 case 4: //ReadAll
-                    List<Task> lTa = s_dal!.Task.ReadAll();
+                    List<Task> lTa = s_dal!.Task.ReadAll().ToList<Task>();
                     foreach (var _task in lTa)
                         printTask(_task);
                     break;
@@ -304,7 +304,7 @@ namespace DalTest
                     break;
 
                 case 4: //ReadAll
-                    List<Dependency> lDe = s_dal!.Dependency.ReadAll();
+                    List<Dependency> lDe = s_dal!.Dependency.ReadAll().ToList<Dependency>();
                     foreach (var _dependency in lDe)
                     {
                         printDependency(_dependency);

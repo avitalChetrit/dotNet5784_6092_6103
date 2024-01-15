@@ -139,7 +139,7 @@ internal static class Initialization
     }
     private static void createDependencys()
     {
-        List<Task> copyListTask = s_dal!.Task.ReadAll();
+        List<Task> copyListTask = s_dal!.Task.ReadAll().ToList<Task>();
         
         int _id = 0;
         Dependency newDepend = new(_id, copyListTask[0].Id, copyListTask[1].Id); //Task 1 depend on Task 0
