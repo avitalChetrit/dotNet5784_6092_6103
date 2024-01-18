@@ -1,15 +1,37 @@
 ﻿using DalApi;
 using DO;
-
+using System.Xml.Linq;
 namespace Dal;
 
 internal class DependencyImplementation : IDependency
 {
     readonly string s_dependencys_xml = "dependencys";
+    XElement dependencyRoot;
+
+    static Dependency getDependency(XElement d)
+    {
+        return new Dependency()
+        {
+            Id = d.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
+
+            PreTask = d.ToIntNullable("PreTask") ?? null,
+
+            CurrTask = d.ToIntNullable("CurrTask") ?? null
+        };
+    }
+
+
 
     public int Create(Dependency item)
     {
-        throw new NotImplementedException();
+
+        XElement id = new XElement("id", item.Id);
+        XElement preTask = new XElement("preTask", item.PreTask);
+        XElement currTask = new XElement("currTask", item.CurrTask);
+
+        dependencyRoot.Add(new XElement("dependency", id, preTask, currTask));
+        dependencyRoot.Save(s_dependencys_xml);
+        return item.Id;
     }
 
     public void Delete(int id)
@@ -19,7 +41,9 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        throw new NotImplementedException();
+        //XElement
+        XElement? studentElem = XMLTools.LoadListFromXMLElement(s_students_xal).Elements().FirstOrDefault(st(int ?)st.Element("Id") id); return studentElem is null null getStudent(student Elem);
+
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
