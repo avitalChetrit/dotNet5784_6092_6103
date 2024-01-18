@@ -6,8 +6,7 @@ internal class ChefImplementation : IChef
 {
     public int Create(Chef item)
     {
-        //bool isExist;//check if there's already a chef in list chefs with the same ID
-        //isExist = DataSource.Chefs.Exists(x => x.ChefId == item.ChefId);
+    
         if (Read(item.ChefId) is not null)
         {
             throw new DalAlreadyExistsException($"Chef with ID={item.ChefId} already exists");
