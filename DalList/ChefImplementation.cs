@@ -24,8 +24,6 @@ internal class ChefImplementation : IChef
     public Chef? Read(int id)
     {
         return DataSource.Chefs.FirstOrDefault(item => item.ChefId == id);
-        //return DataSource.Chefs.Select(item => item);
-        //return DataSource.Chefs.Where(filter);
 
     }
 
@@ -58,12 +56,6 @@ internal class ChefImplementation : IChef
     public Chef? Read(Func<Chef, bool> filter) // stage 2
     {
         return DataSource.Chefs.FirstOrDefault(item => filter(item));
-
-
-        //return from item in DataSource.Chefs
-        //       where filter(item)
-        //       select item;
-
     }
 
 }
