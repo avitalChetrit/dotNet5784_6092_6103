@@ -6,7 +6,6 @@ namespace Dal;
 internal class DependencyImplementation : IDependency
 {
     readonly string s_dependencys_xml = "dependencys";
-    XElement dependencyRoot;
 
     static Dependency getDependency(XElement d)
     {
@@ -20,44 +19,60 @@ internal class DependencyImplementation : IDependency
         };
     }
 
-
-
-    public int Create(Dependency item)
+    static XElement getElement(Dependency item)
     {
-
         XElement id = new XElement("id", item.Id);
         XElement preTask = new XElement("preTask", item.PreTask);
         XElement currTask = new XElement("currTask", item.CurrTask);
 
-        dependencyRoot.Add(new XElement("dependency", id, preTask, currTask));
-        dependencyRoot.Save(s_dependencys_xml);
+        XElement e=new XElement("dependency", id, preTask, currTask);
+
+        return e;
+    }
+
+    public int Create(Dependency item)
+    {
+        XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
+        rootDep.Add(item);
+        XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
         return item.Id;
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        throw new DalDeletionImpossible("Can't delete the Dependenc object!");
     }
 
     public Dependency? Read(int id)
     {
-        //XElement
-        XElement? studentElem = XMLTools.LoadListFromXMLElement(s_students_xal).Elements().FirstOrDefault(st(int ?)st.Element("Id") id); return studentElem is null null getStudent(student Elem);
-
+        XElement? dependencyElem = XMLTools.LoadListFromXMLElement(s_dependencys_xml).Elements().FirstOrDefault(d=>(int ?)d.Element("Id") ==id); 
+        return dependencyElem is null? null: getDependency(dependencyElem);
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        throw new NotImplementedException();
+        return XMLTools.LoadListFromXMLElement(s_dependencys_xml).Elements().Select(d=> getDependency(d)).FirstOrDefault(filter);
     }
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        if(filter == null)
+            return XMLTools.LoadListFromXMLElement(s_dependencys_xml).Elements().Select(d=> getDependency(d));
+        else
+            return XMLTools.LoadListFromXMLElement(s_dependencys_xml).Elements().Select(d => getDependency(d)).Where(filter);
     }
 
     public void Update(Dependency item)
     {
-        throw new NotImplementedException();
+        XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
+        XElement? elementItem=(from p in rootDep.Elements()
+                              where Convert.ToInt32(p.Element("Id")) == item.Id
+                              select p).FirstOrDefault();
+        if(elementItem == null) 
+        {
+            throw new DalDoesNotExistException($"Dependency with ID={item.Id} does Not exist");
+        }
+        elementItem.Remove();
+        XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
     }
 }
