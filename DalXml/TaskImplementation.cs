@@ -63,12 +63,12 @@ internal class TaskImplementation : ITask
             Task dep = Tasks.Find(x => x.Id == item.Id)!;//finds the object with the same id
             Tasks.Remove(dep);//removes the old objects
             Tasks.Add(item);//add the new object
+            XMLTools.SaveListToXMLSerializer(Tasks, s_tasks_xml);  //save
         }
         else//such item is not on list
         {
             throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist");
         }
 
-        XMLTools.SaveListToXMLSerializer(Tasks, s_tasks_xml);  //save
     }
 }
