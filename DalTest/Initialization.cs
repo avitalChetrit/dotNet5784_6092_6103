@@ -229,8 +229,11 @@ internal static class Initialization
     {
         s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
 
-        //s_dalChef = dalChef ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal!.Dependency.Clear();
+        s_dal!.Chef.Clear();
+        s_dal!.Dependency.Clear();
 
+        //s_dalChef = dalChef ?? throw new NullReferenceException("DAL can not be null!");
         createChefs();
 
         //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");

@@ -340,6 +340,7 @@ namespace DalTest
         //private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
 
         //static readonly IDal s_dal = new DalList(); //stage 2
+
         static readonly IDal s_dal = new DalXml(); //stage 3
 
 
@@ -388,8 +389,6 @@ namespace DalTest
                             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
                             if (ans == "Y") //stage 3
                             {
-                                XElement rootElem = null;
-                                XmlTools.SaveListToXMLElement(rootElem, "dependencys");
                                 Initialization.Do(s_dal); //stage 2
                             }
                             break;
