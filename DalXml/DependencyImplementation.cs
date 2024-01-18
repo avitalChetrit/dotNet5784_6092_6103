@@ -38,7 +38,7 @@ internal class DependencyImplementation : IDependency
         return item.Id;
     }
 
-    public void Delete(int id)
+    public void Delete(int id) //שאלנו את המרצה מה לעשות בקשר למחיקות והיא אמרה שהיא תבדוק ותעדכן אותנו
     {
         throw new DalDeletionImpossible("Can't delete the Dependenc object!");
     }
@@ -73,6 +73,7 @@ internal class DependencyImplementation : IDependency
             throw new DalDoesNotExistException($"Dependency with ID={item.Id} does Not exist");
         }
         elementItem.Remove();
+        rootDep.Add(item);
         XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
     }
 }

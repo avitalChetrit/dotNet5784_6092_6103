@@ -1,8 +1,6 @@
 ﻿using Dal;
 using DalApi;
 using DO;
-
-
 using Task = DO.Task;
 
 namespace DalTest
@@ -339,19 +337,22 @@ namespace DalTest
         //private static IChef? s_dalChef = new ChefImplementation(); //stage 1
         //private static ITask? s_dalTask = new TaskImplementation(); //stage 1
         //private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
-        private static readonly IDal? s_dal = new DalList(); //stage 2
+
+        //static readonly IDal s_dal = new DalList(); //stage 2
+        static readonly IDal s_dal = new DalXml(); //stage 3
+
 
 
         static void Main()
         {
-            try
-            {
-                Initialization.Do(s_dal);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
+            //try    // stage 1
+            //{
+            //    Initialization.Do(s_dal);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //}
 
             int choice = 1;
             string? input = null;
@@ -359,7 +360,7 @@ namespace DalTest
             while (choice != 0)
             {
                 Console.WriteLine("Choose an entity you'd like to check:");
-                Console.WriteLine("0.Exit\n" + "1.Chef\n" + "2.Task\n" + "3.Dependency\n");
+                Console.WriteLine("0.Exit\n" + "1.Chef\n" + "2.Task\n" + "3.Dependency\n" + "4.Initialization\n");
                 choice=(int)ReadNum();
 
                 try
@@ -379,6 +380,16 @@ namespace DalTest
 
                         case 3://sub-menu Dependency
                             switchFunDependency();
+                            break;
+
+                        case 4://sub-menu Initialization
+                            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+                            if (ans == "Y") //stage 3
+                            {
+
+                                Initialization.Do(s_dal); //stage 2
+                            }
                             break;
 
                         default:
