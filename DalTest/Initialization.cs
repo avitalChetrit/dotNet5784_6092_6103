@@ -230,6 +230,7 @@ internal static class Initialization
         s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
 
         //s_dalChef = dalChef ?? throw new NullReferenceException("DAL can not be null!");
+
         createChefs();
 
         //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
