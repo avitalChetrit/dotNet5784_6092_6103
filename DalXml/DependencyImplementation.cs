@@ -7,6 +7,13 @@ internal class DependencyImplementation : IDependency
 {
     readonly string s_dependencys_xml = "dependencys";
 
+    public void Clear()
+    {
+        XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
+        rootDep.RemoveAll();
+        XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
+    }
+
     static Dependency getDependency(XElement d)
     {
         return new Dependency()

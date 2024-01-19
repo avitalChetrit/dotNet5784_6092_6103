@@ -8,6 +8,13 @@ internal class ChefImplementation : IChef
 {
     readonly string s_chefs_xml = "chefs";
 
+    public void Clear()
+    {
+        List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
+        Chefs.Clear();
+        XMLTools.SaveListToXMLSerializer(Chefs, s_chefs_xml);  //save
+    }
+
     public int Create(Chef item)
     {
         List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
