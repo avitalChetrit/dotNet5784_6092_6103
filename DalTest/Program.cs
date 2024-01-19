@@ -388,8 +388,6 @@ namespace DalTest
                             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
                             if (ans == "Y") //stage 3
                             {
-                                XElement rootElem = null;
-                                XmlTools.SaveListToXMLElement(rootElem, "dependencys");
                                 Initialization.Do(s_dal); //stage 2
                             }
                             break;
