@@ -57,4 +57,8 @@ internal class ChefImplementation : IChef
         return DataSource.Chefs.FirstOrDefault(item => filter(item));
     }
 
+    public void Clear()
+    {
+        DataSource.Chefs.Clear(); 
+    }
 }

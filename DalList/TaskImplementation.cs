@@ -57,4 +57,9 @@ internal class TaskImplementation : ITask
     {
         return DataSource.Tasks.FirstOrDefault(item => filter(item));
     }
+
+    public void Clear()
+    {
+        DataSource.Tasks.Clear();
+    }
 }

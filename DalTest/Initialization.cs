@@ -231,7 +231,7 @@ internal static class Initialization
 
         s_dal!.Dependency.Clear();
         s_dal!.Chef.Clear();
-        s_dal!.Dependency.Clear();
+        s_dal!.Task.Clear();
 
         //s_dalChef = dalChef ?? throw new NullReferenceException("DAL can not be null!");
         createChefs();

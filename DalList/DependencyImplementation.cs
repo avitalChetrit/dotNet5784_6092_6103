@@ -53,6 +53,9 @@ internal class DependencyImplementation : IDependency
     public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
         return DataSource.Dependencys.FirstOrDefault(item => filter(item));
-
+    }
+    public void Clear()
+    {
+        DataSource.Dependencys.Clear();
     }
 }
