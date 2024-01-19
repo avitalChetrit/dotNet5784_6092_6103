@@ -20,13 +20,13 @@ internal class DependencyImplementation : IDependency
         };
     }
 
-    static XElement getElement(Dependency item)
+    static XElement toXElement(Dependency item)
     {
-        XElement id = new XElement("id", item.Id);
-        XElement preTask = new XElement("preTask", item.PreTask);
-        XElement currTask = new XElement("currTask", item.CurrTask);
+        XElement id = new XElement("Id", item.Id);
+        XElement preTask = new XElement("PreTask", item.PreTask);
+        XElement currTask = new XElement("CurrTask", item.CurrTask);
 
-        XElement e=new XElement("dependency", id, preTask, currTask);
+        XElement e=new XElement("Dependency", id, preTask, currTask);
 
         return e;
     }
@@ -34,9 +34,11 @@ internal class DependencyImplementation : IDependency
     public int Create(Dependency item)
     {
         XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
-        rootDep.Add(item);
+        int id = Config.NextDependencyId;
+        Dependency copy = item with { Id = id };
+        rootDep.Add(toXElement(copy));
         XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
-        return item.Id;
+        return copy.Id;
     }
 
     public void Delete(int id) //שאלנו את המרצה מה לעשות בקשר למחיקות והיא אמרה שהיא תבדוק ותעדכן אותנו
@@ -66,15 +68,16 @@ internal class DependencyImplementation : IDependency
     public void Update(Dependency item)
     {
         XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
-        XElement? elementItem=(from p in rootDep.Elements()
-                              where Convert.ToInt32(p.Element("Id")) == item.Id
-                              select p).FirstOrDefault();
-        if(elementItem == null) 
+        XElement? elementItem = (from p in rootDep.Elements("Dependency")
+                                 where (int)p.Element("Id") == item.Id
+                                select p).FirstOrDefault();
+
+        if (elementItem == null) 
         {
             throw new DalDoesNotExistException($"Dependency with ID={item.Id} does Not exist");
         }
         elementItem.Remove();
-        rootDep.Add(item);
+        rootDep.Add(toXElement(item));
         XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
     }
 
