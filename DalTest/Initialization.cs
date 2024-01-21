@@ -89,8 +89,6 @@ internal static class Initialization
     "Bake Cake"
 };
 
-
-
         //range of id
         const int MIN_ID = 200000000;
         const int MAX_ID = 400000000;
