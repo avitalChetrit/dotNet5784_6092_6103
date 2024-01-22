@@ -5,6 +5,11 @@ using DO;
 
 internal class DependencyImplementation : IDependency
 {
+    /// <summary>
+    /// Create an object of class Dependency 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>int</returns>
     public int Create(Dependency item)
     {
         //for entities with auto id
@@ -14,16 +19,31 @@ internal class DependencyImplementation : IDependency
         return id;
     }
 
+    /// <summary>
+    /// delete an object of class Dependency
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
         throw new DalDeletionImpossible("Can't delete the Dependency object!");
     }
 
+    /// <summary>
+    /// read an object of class Dependency
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Dependency? Read(int id)
     {
         return DataSource.Dependencys.FirstOrDefault(item => item.Id == id);
     }
 
+    /// <summary>
+    /// Read objects of class Dependency
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
         if (filter != null)

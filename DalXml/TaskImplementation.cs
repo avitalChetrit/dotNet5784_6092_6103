@@ -15,7 +15,11 @@ internal class TaskImplementation : ITask
         Tasks.Clear();
         XMLTools.SaveListToXMLSerializer(Tasks, s_tasks_xml);  //save
     }
-
+    /// <summary>
+    /// Create task - creates a new task
+    /// </summary>
+    /// <param name="item">type Task</param>
+    /// <returns>int</returns>
     public int Create(Task item)
     {
         List<Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);  //Load
