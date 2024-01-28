@@ -8,6 +8,11 @@ using Task = DO.Task;
 
 internal class TaskImplementation : ITask
 {
+    /// <summary>
+    /// Create an object of type Task
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public int Create(Task item)
     {
         //for entities with auto id
@@ -17,16 +22,31 @@ internal class TaskImplementation : ITask
         return id;
     }
 
+    /// <summary>
+    /// Delete an object of type Task
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
         throw new DalDeletionImpossible("Can't delete the Task object!");
     }
 
+    /// <summary>
+    /// Read an object of type Task
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Task? Read(int id)
     {
         return DataSource.Tasks.FirstOrDefault(item => item.Id == id);
     }
 
+    /// <summary>
+    /// ReadAll objects of type Task according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {
         if (filter != null)
@@ -39,6 +59,11 @@ internal class TaskImplementation : ITask
                select item;
     }
 
+    /// <summary>
+    /// Update an object of type Task
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(Task item)
     {
         bool isExist = DataSource.Tasks.Exists(x => x.Id == item.Id);//checks if there is an objects with the same id on list
@@ -53,11 +78,19 @@ internal class TaskImplementation : ITask
             throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist");
         }
     }
+    /// <summary>
+    /// Read an object of type Task according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public Task? Read(Func<Task, bool> filter) // stage 2
     {
         return DataSource.Tasks.FirstOrDefault(item => filter(item));
     }
 
+    /// <summary>
+    /// Clear Tasks from all objects
+    /// </summary>
     public void Clear()
     {
         DataSource.Tasks.Clear();

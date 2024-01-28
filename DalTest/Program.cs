@@ -136,7 +136,7 @@ namespace DalTest
         {
             //sub menu for chef
             Console.WriteLine("Choose a method to preform:");
-            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
+            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" + "6.Delete\n");
             
             int choice = (int)ReadNum();
 
@@ -190,6 +190,20 @@ namespace DalTest
                         break;
 
                     s_dal!.Chef.Update(chefUpdate);
+                    break;
+
+                case 6: //Delete
+                    Console.WriteLine("Enter id: ");
+                    int ChefDelteId = (int)ReadNum();
+
+                    Chef? chefDel = s_dal!.Chef.Read(ChefDelteId);
+                    if (chefDel == null)
+                    {
+                        Console.WriteLine("Doesn't Exist");
+                        break;
+                    }
+                    else
+                        s_dal!.Chef.Delete(ChefDelteId);
                     break;
 
                 default:

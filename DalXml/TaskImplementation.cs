@@ -9,6 +9,9 @@ internal class TaskImplementation : ITask
 {
     readonly string s_tasks_xml = "tasks";
 
+    /// <summary>
+    /// Clear
+    /// </summary>
     public void Clear()
     {
         List<Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);  //Load

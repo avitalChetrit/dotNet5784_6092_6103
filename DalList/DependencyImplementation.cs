@@ -3,8 +3,14 @@ using DalApi;
 using DO;
 //using System.Collections.Generic;
 
+
 internal class DependencyImplementation : IDependency
 {
+    /// <summary>
+    /// Create an object of type Dependency
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>int</returns>
     public int Create(Dependency item)
     {
         //for entities with auto id
@@ -14,16 +20,31 @@ internal class DependencyImplementation : IDependency
         return id;
     }
 
+    /// <summary>
+    /// Delete an object of type Dependency
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
         throw new DalDeletionImpossible("Can't delete the Dependency object!");
     }
 
+    /// <summary>
+    /// Read an object of type Dependency
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Dependency? Read(int id)
     {
         return DataSource.Dependencys.FirstOrDefault(item => item.Id == id);
     }
 
+    /// <summary>
+    /// ReadAll objects of type Dependency according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
         if (filter != null)
@@ -36,6 +57,11 @@ internal class DependencyImplementation : IDependency
                select item;
     }
 
+    /// <summary>
+    /// Update an object of type Dependency
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(Dependency item)
     {
         bool isExist = DataSource.Dependencys.Exists(x => x.Id == item.Id);//checks if there is an objects with the same id on list
@@ -50,10 +76,18 @@ internal class DependencyImplementation : IDependency
             throw new DalDoesNotExistException($"Dependency with ID={item.Id} does Not exist");
         }
     }
+    /// <summary>
+    /// Read an object of type Dependency according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
         return DataSource.Dependencys.FirstOrDefault(item => filter(item));
     }
+    /// <summary>
+    /// Clear all objects of Dependencys
+    /// </summary>
     public void Clear()
     {
         DataSource.Dependencys.Clear();
