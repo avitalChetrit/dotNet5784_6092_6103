@@ -48,7 +48,16 @@ internal class ChefImplementation : IChef
     public Chef? Read(int id)
     {
         return DataSource.Chefs.FirstOrDefault(item => item.ChefId == id);
+    }
 
+    /// <summary>
+    /// Read an object of class chef with the given filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns>Chef?</returns>
+    public Chef? Read(Func<Chef, bool> filter) // stage 2
+    {
+        return DataSource.Chefs.FirstOrDefault(item => filter(item));
     }
 
     /// <summary>
