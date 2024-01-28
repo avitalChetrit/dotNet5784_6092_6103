@@ -8,6 +8,9 @@ internal class ChefImplementation : IChef
 {
     readonly string s_chefs_xml = "chefs";
 
+    /// <summary>
+    /// Clear dataSource of chef
+    /// </summary>
     public void Clear()
     {
         List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
@@ -15,6 +18,12 @@ internal class ChefImplementation : IChef
         XMLTools.SaveListToXMLSerializer(Chefs, s_chefs_xml);  //save
     }
 
+    /// <summary>
+    /// Create an object of type chef
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    /// <exception cref="DalAlreadyExistsException"></exception>
     public int Create(Chef item)
     {
         List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
@@ -30,23 +39,55 @@ internal class ChefImplementation : IChef
         return item.ChefId;//return c chefId
     }
 
+    /// <summary>
+    /// Delete an object of type chef
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Delete(int id)
     {
-        throw new DalDeletionImpossible("Can't delete the chef object!");
+        List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
+
+        bool isExist = Chefs.Exists(x => x.ChefId == id);//checks if there is an objects with the same id on list
+        if (isExist)//such item is on list
+        {
+            Chef c = Chefs.Find(x => x.ChefId == id)!;//finds the object with the same id
+            Chefs.Remove(c);//removes the old objects
+            XMLTools.SaveListToXMLSerializer(Chefs, s_chefs_xml);  //save
+        }
+        else//such item is not on list
+        {
+            throw new DalDoesNotExistException($"Chef with ID={id} does Not exist");
+        }
     }
 
+    /// <summary>
+    /// Read an object of type chef
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Chef? Read(int id)
     {
         List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
         return Chefs.FirstOrDefault(item => item.ChefId == id);
     }
 
+    /// <summary>
+    /// Read an object of type chef according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public Chef? Read(Func<Chef, bool> filter)
     {
         List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
         return Chefs.FirstOrDefault(item => filter(item));
     }
 
+    /// <summary>
+    /// ReadAll objects of type chef according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Chef?> ReadAll(Func<Chef, bool>? filter = null)
     {
         List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load
@@ -60,6 +101,11 @@ internal class ChefImplementation : IChef
                select item;
     }
 
+    /// <summary>
+    /// Update an object of type chef
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(Chef item)
     {
         List<Chef> Chefs = XMLTools.LoadListFromXMLSerializer<Chef>(s_chefs_xml);  //Load

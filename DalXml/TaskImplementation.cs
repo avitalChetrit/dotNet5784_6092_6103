@@ -37,23 +37,43 @@ internal class TaskImplementation : ITask
         return id;//return id
     }
 
+    /// <summary>
+    /// Delete an object of type Task
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
         throw new DalDeletionImpossible("Can't delete the Task object!");
     }
 
+    /// <summary>
+    /// Read an object of type Task
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Task? Read(int id)
     {
         List<Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);  //Load
         return Tasks.FirstOrDefault(item => item.Id == id);
     }
 
+    /// <summary>
+    /// Read an object of type Task according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public Task? Read(Func<Task, bool> filter)
     {
         List<Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);  //Load
         return Tasks.FirstOrDefault(item => filter(item));
     }
 
+    /// <summary>
+    /// ReadAll objects of type Task according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
     {
         List<Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);  //Load
@@ -67,6 +87,11 @@ internal class TaskImplementation : ITask
                select item;
     }
 
+    /// <summary>
+    /// Update an object of type Task 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(Task item)
     {
         List<Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);  //Load

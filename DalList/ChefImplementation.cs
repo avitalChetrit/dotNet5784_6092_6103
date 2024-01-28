@@ -97,15 +97,6 @@ internal class ChefImplementation : IChef
         }
     }
 
-    /// <summary>
-    /// Read an object of type chef according to filter
-    /// </summary>
-    /// <param name="filter"></param>
-    /// <returns></returns>
-    public Chef? Read(Func<Chef, bool> filter) // stage 2
-    {
-        return DataSource.Chefs.FirstOrDefault(item => filter(item));
-    }
 
     /// <summary>
     /// Clear the dataSource of Chefs

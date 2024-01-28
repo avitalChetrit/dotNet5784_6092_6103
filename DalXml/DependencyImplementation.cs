@@ -7,7 +7,12 @@ internal class DependencyImplementation : IDependency
 {
     readonly string s_dependencys_xml = "dependencys";
 
-
+    /// <summary>
+    /// Convert XElement to Dependency
+    /// </summary>
+    /// <param name="d"></param>
+    /// <returns></returns>
+    /// <exception cref="FormatException"></exception>
     static Dependency getDependency(XElement d)
     {
         return new Dependency()
@@ -20,6 +25,11 @@ internal class DependencyImplementation : IDependency
         };
     }
 
+    /// <summary>
+    /// Convert Dependency to XElement
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     static XElement toXElement(Dependency item)
     {
         XElement id = new XElement("Id", item.Id);
@@ -31,6 +41,11 @@ internal class DependencyImplementation : IDependency
         return e;
     }
 
+    /// <summary>
+    /// Create an object of type Dependency
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public int Create(Dependency item)
     {
         XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
@@ -41,22 +56,42 @@ internal class DependencyImplementation : IDependency
         return copy.Id;
     }
 
+    /// <summary>
+    /// Delete an object of type Dependency
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id) //שאלנו את המרצה מה לעשות בקשר למחיקות והיא אמרה שהיא תבדוק ותעדכן אותנו
     {
         throw new DalDeletionImpossible("Can't delete the Dependenc object!");
     }
 
+    /// <summary>
+    /// Read an object of type Dependency
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Dependency? Read(int id)
     {
         XElement? dependencyElem = XMLTools.LoadListFromXMLElement(s_dependencys_xml).Elements().FirstOrDefault(d=>(int ?)d.Element("Id") ==id); 
         return dependencyElem is null? null: getDependency(dependencyElem);
     }
 
+    /// <summary>
+    /// Read an object of type Dependency according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         return XMLTools.LoadListFromXMLElement(s_dependencys_xml).Elements().Select(d=> getDependency(d)).FirstOrDefault(filter);
     }
 
+    /// <summary>
+    /// ReadAll objects of type Dependency according to filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
         if(filter == null)
@@ -65,6 +100,11 @@ internal class DependencyImplementation : IDependency
             return XMLTools.LoadListFromXMLElement(s_dependencys_xml).Elements().Select(d => getDependency(d)).Where(filter);
     }
 
+    /// <summary>
+    /// Update an object of type Dependency
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(Dependency item)
     {
         XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
@@ -81,6 +121,9 @@ internal class DependencyImplementation : IDependency
         XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
     }
 
+    /// <summary>
+    /// Clear Dependency dataSource
+    /// </summary>
     public void Clear()
     {
         XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);

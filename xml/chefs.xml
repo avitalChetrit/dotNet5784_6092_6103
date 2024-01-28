@@ -42,11 +42,4 @@
     <Email>ShiraIsraelof@gmail.com</Email>
     <Cost>224</Cost>
   </Chef>
-  <Chef>
-    <ChefId>55</ChefId>
-    <Level>Expert</Level>
-    <Name>aa</Name>
-    <Email>bb</Email>
-    <Cost>200</Cost>
-  </Chef>
 </ArrayOfChef>
