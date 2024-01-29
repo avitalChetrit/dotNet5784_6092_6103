@@ -9,6 +9,8 @@ namespace BO;
 /// <param name="Name">Private Name of the Chef</param>
 /// <param name="Level">the level of the Chef</param>
 /// <param name="Cost">the cost of the Chef</param>
+
+///ישות לוגית ראשית
 public class Chef
 {
     public int Id {get; init;}
@@ -17,6 +19,9 @@ public class Chef
     public string? Email { get; set; }
     public double? Cost { get; set; }
     public ChefSpeciality? Speciality { get; set; }
+    public bool Famous { get; set; }
+    public int? Task { get; set; }
+
 
     //public override string ToString() => this.ToStringProperty();
 }
