@@ -215,7 +215,7 @@ namespace DalTest
         {
             //sub menu for Task
             Console.WriteLine("Choose a method to preform:");
-            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
+            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" + "6.Delete\n");
             
             int choice = (int)ReadNum();
 
@@ -286,6 +286,19 @@ namespace DalTest
                         break;
                     }
 
+                case 6: //Delete
+                    Console.WriteLine("Enter id: ");
+                    int TaskDelId = (int)ReadNum();
+
+                    Task? TaskDel = s_dal!.Task.Read(TaskDelId);
+                    if (TaskDel == null)
+                    {
+                        Console.WriteLine("Doesn't Exist");
+                        break;
+                    }
+                    else
+                        s_dal!.Task.Delete(TaskDelId);
+                    break;
                 default:
                     break;
             }
@@ -294,7 +307,7 @@ namespace DalTest
         {
             //sub menu for dependency
             Console.WriteLine("Choose a method to preform:");
-            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n");
+            Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" + "6.Delete\n");
             int choice = (int)ReadNum();
 
             switch (choice)
@@ -343,6 +356,20 @@ namespace DalTest
                     if (dependencyUpdateNew.Id == null || dependencyUpdateNew.PreTask == null || dependencyUpdateNew.CurrTask == null)
                         break;
                     s_dal!.Dependency.Update(dependencyUpdateNew);
+                    break;
+
+                case 6: //Delete
+                    Console.WriteLine("Enter id: ");
+                    int DependencyDelteId = (int)ReadNum();
+
+                    Dependency? DependencyDel = s_dal!.Dependency.Read(DependencyDelteId);
+                    if (DependencyDel == null)
+                    {
+                        Console.WriteLine("Doesn't Exist");
+                        break;
+                    }
+                    else
+                        s_dal!.Dependency.Delete(DependencyDelteId);
                     break;
 
                 default:

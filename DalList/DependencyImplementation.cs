@@ -27,7 +27,16 @@ internal class DependencyImplementation : IDependency
     /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
-        throw new DalDeletionImpossible("Can't delete the Dependency object!");
+        bool isExist = DataSource.Dependencys.Exists(x => x.Id == id);//checks if there is an objects with the same id on list
+        if (isExist)//such item is on list
+        {
+            Dependency d = DataSource.Dependencys.Find(x => x.Id == id)!;//finds the object with the same id
+            DataSource.Dependencys.Remove(d);//removes the old objects
+        }
+        else//such item is not on list
+        {
+            throw new DalDoesNotExistException($"Dependency with ID={id} does Not exist");
+        }
     }
 
     /// <summary>

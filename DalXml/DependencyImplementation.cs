@@ -63,7 +63,18 @@ internal class DependencyImplementation : IDependency
     /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id) //שאלנו את המרצה מה לעשות בקשר למחיקות והיא אמרה שהיא תבדוק ותעדכן אותנו
     {
-        throw new DalDeletionImpossible("Can't delete the Dependenc object!");
+        XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencys_xml);
+        XElement? elementItem = (from p in rootDep.Elements("Dependency")
+                                 where (int)p.Element("Id") == id
+                                 select p).FirstOrDefault();
+
+        if (elementItem == null)
+        {
+            throw new DalDoesNotExistException($"Dependency with ID={id} does Not exist");
+        }
+        elementItem.Remove();
+        XMLTools.SaveListToXMLElement(rootDep, s_dependencys_xml);
+
     }
 
     /// <summary>

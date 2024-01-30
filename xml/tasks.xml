@@ -365,20 +365,6 @@
     <ChefId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>366</Id>
-    <Alias>Set The Tables</Alias>
-    <Description>need to Set The Tables</Description>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Beginner</Complexity>
-    <CreatedAtDate>2008-04-15T00:00:00</CreatedAtDate>
-    <RequiredTime>P11D</RequiredTime>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <DeadLineDate>2024-12-14T00:00:00+02:00</DeadLineDate>
-    <CompleteDate xsi:nil="true" />
-    <ChefId xsi:nil="true" />
-  </Task>
-  <Task>
     <Id>367</Id>
     <Alias>Heat Oil</Alias>
     <Description>need to Heat Oil</Description>

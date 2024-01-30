@@ -29,7 +29,16 @@ internal class TaskImplementation : ITask
     /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
-        throw new DalDeletionImpossible("Can't delete the Task object!");
+        bool isExist = DataSource.Tasks.Exists(x => x.Id == id);//checks if there is an objects with the same id on list
+        if (isExist)//such item is on list
+        {
+            Task t = DataSource.Tasks.Find(x => x.Id == id)!;//finds the object with the same id
+            DataSource.Tasks.Remove(t);//removes the old objects
+        }
+        else//such item is not on list
+        {
+            throw new DalDoesNotExistException($"Task with ID={id} does Not exist");
+        }
     }
 
     /// <summary>

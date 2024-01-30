@@ -41,10 +41,21 @@ internal class TaskImplementation : ITask
     /// Delete an object of type Task
     /// </summary>
     /// <param name="id"></param>
-    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
-        throw new DalDeletionImpossible("Can't delete the Task object!");
+        List<Task> Tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);  //Load
+
+        bool isExist = Tasks.Exists(x => x.Id == id);//checks if there is an objects with the same id on list
+        if (isExist)//such item is on list
+        {
+            Task t = Tasks.Find(x => x.Id == id)!;//finds the object with the same id
+            Tasks.Remove(t);//removes the old objects
+            XMLTools.SaveListToXMLSerializer(Tasks, s_tasks_xml);  //save
+        }
+        else//such item is not on list
+        {
+            throw new DalDoesNotExistException($"Task with ID={id} does Not exist");
+        }
     }
 
     /// <summary>

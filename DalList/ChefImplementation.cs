@@ -26,7 +26,7 @@ internal class ChefImplementation : IChef
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="DalDoesNotExistException"></exception>
-    public void Delete(int id)  //Chef can't be deleted!!!
+    public void Delete(int id)  
     {
         bool isExist = DataSource.Chefs.Exists(x => x.ChefId == id);//checks if there is an objects with the same id on list
         if (isExist)//such item is on list
