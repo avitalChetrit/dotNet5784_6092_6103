@@ -10,5 +10,6 @@ public interface IChef
     public IEnumerable<BO.Chef> ReadAll();
     public void Update(BO.Chef item);
     public void Delete(int id);
+
     //public BO.StudentInCourse GetDetailedCourseForStudent(int StudentId, int CourseId);
 }

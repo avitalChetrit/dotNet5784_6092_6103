@@ -9,14 +9,10 @@ public enum ChefExperience
     Expert
 }
 
-/// <summary>
-/// 
-/// </summary>
-public enum ChefSpeciality
+public enum Status
 {
-    Baker,
-    Meat,
-    SeaFood,
-    Dairy
+    Unscheduled, 
+    Scheduled, 
+    OnTrack, // (Started)
+    Done
 }
-
