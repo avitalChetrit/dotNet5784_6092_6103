@@ -18,12 +18,13 @@
 /// <param name="Remarks">הערות</param>
 /// <param name="Chef"></param>
 /// <param name="Complexity"></param>
-public record Task(int Id, string? Description, string? Alias, DateTime? CreatedAtDate, BO.Status Status, TimeSpan RequiredEffortTime, DateTime StartDate, DateTime SchedueldDate, DateTime ForecastDate, DateTime DeadlineDate, DateTime CompleteDate, string Deliverables, string Remarks, BO.ChefInTask Chef, BO.ChefExperience Complexity)
+public class Task
 {
-    public string? Description { get; set; } = Description;
-    public string? Alias { get; set; } = Alias;
-    public DateTime? CreatedAtDate { get; set; } = CreatedAtDate;
-    public BO.Status Status { get; set; } = Status;
+    public int Id { get; init; }
+    public string? Description { get; set; } 
+    public string? Alias { get; set; }
+    public DateTime? CreatedAtDate { get; set; } 
+    public BO.Status Status { get; set; } 
     public List<BO.TaskInList> Dependecies { get; set; }
     //Milestone
     //public BO.MilestoneInTask Milestone {  get; set; }  

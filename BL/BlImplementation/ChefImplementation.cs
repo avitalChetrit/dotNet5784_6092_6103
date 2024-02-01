@@ -1,8 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
-using BO;
 //using DalApi;
-
 //using BO;
 //using DalApi;
 //using DO;
