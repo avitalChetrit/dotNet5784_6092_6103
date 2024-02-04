@@ -22,7 +22,7 @@ internal class TaskImplementation : ITask
         DO.Task doTask = new DO.Task (item.Id, item.Description, item.Alias, false,
             (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime, item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables, item.Remarks, item.Chef.Id);
         if(item.Id<=0 && item.Alias=="" )
-            throw new BO.BlWorngInputException("Worng Input");
+            throw new BO.BlWrongInputException("Wrong Input");
         try
         {
             int idStud = _dal.Task.Create(doTask);

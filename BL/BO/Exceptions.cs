@@ -9,9 +9,9 @@ public class BlNullPropertyException : Exception
 
 // Worng Input
 [Serializable]
-public class BlWorngInputException : Exception
+public class BlWrongInputException : Exception
 {
-    public BlWorngInputException(string? message) : base(message) { }
+    public BlWrongInputException(string? message) : base(message) { }
 }
 
 
