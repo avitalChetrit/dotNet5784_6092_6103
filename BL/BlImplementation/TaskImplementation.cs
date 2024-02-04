@@ -1,6 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
-using DalApi;
+//using DalApi;
 using System.Data;
 
 //using BO;
@@ -10,6 +10,7 @@ using System.Data;
 
 internal class TaskImplementation : ITask
 {
+    private static DalApi.IDal? _dal; //stage 4
     /// <summary>
     /// 
     /// </summary>
@@ -18,18 +19,19 @@ internal class TaskImplementation : ITask
     /// <exception cref="NotImplementedException"></exception>
     public int Create(BO.Task item)
     {
-        DO.Task doTask = new DO.Task (item.Id, item.Alias, item.IsActive, item.BirthDate);
+        DO.Task doTask = new DO.Task (item.Id, item.Description, item.Alias, false,
+            (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime, item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables, item.Remarks, item.Chef.Id);
         if(item.Id<=0 && item.Alias=="" )
-        //    throw BO.BlWorngInputExeption($"Student with ID={boStudent.Id} already exists", ex);
-        //try
-        //{
-        //    int idStud = _dal.Student.Create(doStudent);
-        //    return idStud;
-        //}
-        //catch (DO.DalAlreadyExistsException ex)
-        //{
-        //    throw new BO.BlAlreadyExistsException($"Student with ID={boStudent.Id} already exists", ex);
-        //}
+            throw new BO.BlWorngInputException("Worng Input");
+        try
+        {
+            int idStud = _dal.Task.Create(doTask);
+            return idStud;
+        }
+        catch (DO.DalAlreadyExistsException ex)
+        {
+            throw new BO.BlAlreadyExistsException($"Student with ID={item.Id} already exists", ex);
+        }
 
     }
 

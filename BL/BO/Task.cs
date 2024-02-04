@@ -29,15 +29,15 @@ public class Task
     //Milestone
     //public BO.MilestoneInTask Milestone {  get; set; }  
 
-    public TimeSpan RequiredEffortTime { get; set; } = RequiredEffortTime;
-    public DateTime StartDate { get; set; } = StartDate;
-    public DateTime SchedueldDate { get; set; } = SchedueldDate;
-    public DateTime ForecastDate { get; set; } = ForecastDate;
+    public TimeSpan RequiredTime { get; set; } 
+    public DateTime StartDate { get; set; }
+    public DateTime ScheduledDate { get; set; }
+    public DateTime ForecastDate { get; set; }
     //Milestone
     //public DateTime DeadlineDate { get; set; } = DeadlineDate; 
-    public DateTime CompleteDate { get; set; } = CompleteDate;
-    public string Deliverables { get; set; } = Deliverables;
-    public string Remarks { get; set; } = Remarks;
-    public BO.ChefInTask? Chef { get; set; } = Chef;
-    public BO.ChefExperience Complexity { get; set; } = Complexity;
+    public DateTime CompleteDate { get; set; } 
+    public string Deliveables { get; set; } 
+    public string Remarks { get; set; } 
+    public BO.ChefInTask? Chef { get; set; }
+    public BO.ChefExperience Complexity { get; set; } 
 }

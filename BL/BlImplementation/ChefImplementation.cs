@@ -9,14 +9,14 @@ using BlApi;
 internal class ChefImplementation : IChef
 {
     private static DalApi.IDal? _dal; //stage 4
-    public int Create(BO.Chef boChef)
+    public int Create(BO.Chef item)
     {
-        if(boChef.Id<=0 || boChef.Name=="" || boChef.Cost<=0 || !boChef.Email.Contains("@gmail.com"))
+        if(item.Id<=0 || item.Name=="" || item.Cost<=0 || !item.Email.Contains("@gmail.com"))
         {
-            throw new Exception(); //to לתקן
+            throw new BO.BlWorngInputException("Worng Input");
         }
         DO.Chef doChef = new DO.Chef
-        (boChef.Id, (DO.ChefExperience?)boChef.Level, boChef.Name, boChef.Email, boChef.Cost);
+        (item.Id, (DO.ChefExperience?)item.Level, item.Name, item.Email, item.Cost);
         try
         {
             int idChef = _dal.Chef.Create(doChef);
