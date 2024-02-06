@@ -4,21 +4,66 @@ using BlApi;
 
 internal class ChefImplementation : IChef
 {
-    //private DalApi.IDal _dal = DalApi.Factory.Get;
+    private DalApi.IDal _dal; /*= /*DalApi.Factory.Get*/
 
     public int Create(BO.Chef item)
     {
-        throw new NotImplementedException();
+        if (item.Id <= 0 || item.Name == "" || item.Cost <= 0 || !item.Email.Contains("@gmail.com"))
+        {
+            throw new BO.BlWrongInputException("Invalid Input");
+        }
+        DO.Chef doChef = new DO.Chef
+        (item.Id, (DO.ChefExperience?)item.Level, item.Name, item.Email, item.Cost);
+        try
+        {
+            int idChef = _dal.Chef.Create(doChef);
+            return idChef;
+        }
+        catch (DO.DalAlreadyExistsException ex)
+        {
+            throw new BO.BlAlreadyExistsException($"Chef with ID={item.Id} already exists", ex);
+        }
     }
-
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            DO.Chef item = _dal.Chef.Read(id)!;
+            var tasks = _dal.Task.ReadAll();
+            bool taskExists = tasks.Any(task => task.Id == id);
+            if (taskExists)
+            {
+                throw new BO.BlDeletionImpossible($"Chef with ID={id} cannot be deleted!");
+            }
+            else
+            {
+                _dal.Chef.Delete(id);
+            }
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Chef with ID={id} does Not exist", ex);
+        }
     }
 
     public BO.Chef? Read(int id)
     {
-        throw new NotImplementedException();
+        DO.Chef? item = _dal.Chef.Read(id);
+        if (item == null)
+            throw new BO.BlDoesNotExistException($"Chef with ID={id} does Not exist");
+
+        DO.Task? dotask = _dal.Task.ReadAll().FirstOrDefault(task => task.ChefId == id && task.CompleteDate == null);
+        BO.TaskInChef? taskInChef = (dotask!=null)? new BO.TaskInChef() { Id = dotask.Id, Alias = dotask.Alias, }: null; 
+        
+        return new BO.Chef()
+        {
+            Id = id,
+            Name = item.Name,
+            Email = item.Email,
+            Level = (BO.ChefExperience?)item.Level,
+            Cost = item.Cost,
+            Task = taskInChef,
+        };
     }
 
     public IEnumerable<BO.Chef> ReadAll(Func<BO.Chef, bool>? filter = null)

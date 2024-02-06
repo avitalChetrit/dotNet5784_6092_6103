@@ -7,7 +7,7 @@ public class BlNullPropertyException : Exception
     public BlNullPropertyException(string? message) : base(message) { }
 }
 
-// Worng Input
+// Wrong Input
 [Serializable]
 public class BlWrongInputException : Exception
 {

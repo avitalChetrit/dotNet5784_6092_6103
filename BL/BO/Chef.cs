@@ -20,7 +20,7 @@ public class Chef
     public string? Email { get; set; }
     public ChefExperience? Level { get; set; }
     public double? Cost { get; set; }
-    BO.TaskInChef Task { get; set; }
+    public BO.TaskInChef? Task { get; set; }
 
     //public override string ToString() => this.ToStringProperty();
 }
