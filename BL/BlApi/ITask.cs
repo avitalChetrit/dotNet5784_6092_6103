@@ -10,7 +10,6 @@ public interface ITask
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null); //stage 4
     public void Update(BO.Task item);
     public void Delete(int id);
-
     public void UpdateDate(int id, DateTime d);
 
 
