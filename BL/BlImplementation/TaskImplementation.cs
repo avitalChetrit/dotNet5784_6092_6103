@@ -1,5 +1,8 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using BO;
+using DO;
+//using BO;
 //using DalApi;
 using System.Data;
 
@@ -19,14 +22,14 @@ internal class TaskImplementation : ITask
     /// <exception cref="NotImplementedException"></exception>
     public int Create(BO.Task item)
     {
-        DO.Task doTask = new DO.Task (item.Id, item.Description, item.Alias, false,
+        DO.Task doTask = new DO.Task(item.Id, item.Description, item.Alias, false,
             (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime, item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables, item.Remarks, item.Chef.Id);
-        if(item.Id<=0 && item.Alias=="" )
+        if (item.Id <= 0 && item.Alias == "")
             throw new BO.BlWrongInputException("Wrong Input");
         try
         {
-            int idStud = _dal.Task.Create(doTask);
-            return idStud;
+            int idTask = _dal.Task.Create(doTask);
+            return idTask;
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -37,17 +40,40 @@ internal class TaskImplementation : ITask
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        DO.Task? item = _dal.Task.Read(id);
+        if (item == null)
+            throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
+
+
+
     }
 
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        return (from DO.Task doTask in _dal.Chef.ReadAll() //for each chef from the data list of chefs
+                let item = Read(doTask.ChefId)            //create a new logic chef
+                where (filter == null) ? true : filter(item) //if it answer the filter
+                select item);
     }
 
     public void Update(BO.Task item)
     {
-        throw new NotImplementedException();
+        DO.Chef? doChef = _dal.Chef.Read(item.Id);
+        if (doChef == null)
+            throw new BO.BlDoesNotExistException($"Chef with ID={boChef.Id} does Not exist");
+        if (item.Level < (BO.ChefExperience)doChef.Level!)
+            throw new BO.BlWrongInputException("Invalid Input");
+
+        DO.Task? doTask = _dal.Task.Read(boChef.Task.Id);
+        if (doTask == null)
+        {
+            throw new BO.BlDoesNotExistException($"Task with ID={boChef.Task.Id} does Not exist");
+        }
+        doTask = doTask with { ChefId = boChef.Id };
+        _dal.Task.Update(doTask);
+
+
+        _dal.Chef.Update(doChef);
     }
 
     public void UpdateDate(int id, DateTime d)
@@ -62,6 +88,30 @@ internal class TaskImplementation : ITask
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
 
         //function to find DeadLineDate, and isMileStons
+        BO.ChefInTask c;
+        if (item.ChefId == null)
+        {
+            c = null;
+        }
+        else
+        {
+            DO.Chef? chefi = _dal.Chef.Read(item.ChefId);
+            c = new BO.ChefInTask() { Id = chefi.ChefId, Name = chefi.Name };
+        }
+
+        IEnumerable<Dependency>? ls = _dal.Dependency.ReadAll();
+        List<int> lint = ((List<int>)(from Dependency dep in ls //for each chef from the data list of chefs
+                                      where (dep.PreTask == id)
+                                      select dep.CurrTask));                            //choose it
+
+
+        TaskInList taskInList = new TaskInList()
+        {
+             Id
+             Description
+             Alias
+             Status
+        }
 
 
         return new BO.Task()
@@ -71,14 +121,16 @@ internal class TaskImplementation : ITask
             Alias = item.Alias,
             Complexity = (BO.ChefExperience)item.Complexity,
             CreatedAtDate = item.CreatedAtDate,
+            //status
+            Dependecies =
             RequiredTime = item.RequiredTime,
             StartDate = item.StartDate,
             ScheduledDate = item.ScheduledDate,
-            DeadLineDate = item.StartDate + item.RequiredTime,
+            ForecastDate = item.StartDate + item.RequiredTime,
             CompleteDate = item.CompleteDate,
             Deliveables = item.Deliveables,
             Remarks = item.Remarks,
-            Chef = item.ChefId
+            Chef = c
         };
     }
 }
