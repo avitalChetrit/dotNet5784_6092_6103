@@ -4,7 +4,7 @@ using DO;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
-internal static class Initialization
+public static class Initialization
 {
     //private static IChef? s_dalChef; //stage 1
     //private static ITask? s_dalTask; //stage 1

@@ -11,8 +11,8 @@ public enum ChefExperience
 
 public enum Status
 {
-    Unscheduled, 
-    Scheduled, 
-    OnTrack, // (Started)
-    Done
+    Unscheduled,  //no ScheduledDate date (ScheduledDate=null)
+    Scheduled,    //(ScheduledDate != null)
+    OnTrack,      //(Start != null)
+    Done          //CompleteDate != 
 }
