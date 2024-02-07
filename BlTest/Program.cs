@@ -2,6 +2,7 @@
 using BO;
 using Task = BO.Task;
 using System.Xml.Linq;
+using System.Reflection.Emit;
 namespace BlTest;
 
 internal class Program
@@ -36,37 +37,29 @@ internal class Program
     public static Task inputAndCreateTask(int id = 0)
     {
         // INPUT
-        int Id = 0;
-
         Console.Write("Enter Alias: ");
         string? Alias = Console.ReadLine();
 
         Console.Write("Enter Description: ");
         string? Description = Console.ReadLine();
 
-        Console.Write("IsMilestone (true/false): ");
-        bool IsMilestone = bool.Parse(Console.ReadLine());
-
         Console.Write("Complexity (Beginner/Intermediate/Advanced): ");
         ChefExperience? Complexity = Enum.Parse<ChefExperience>(Console.ReadLine());
 
         Console.Write("Enter CreatedAtDate (yyyy-MM-dd): ");
-        DateTime? CreatedAtDate = DateTime.Parse(Console.ReadLine());
+        DateTime CreatedAtDate = DateTime.Parse(Console.ReadLine());
 
         Console.Write("Enter RequiredTime (hh:mm:ss): ");
-        TimeSpan? RequiredTime = TimeSpan.Parse(Console.ReadLine());
+        TimeSpan RequiredTime = TimeSpan.Parse(Console.ReadLine());
 
         Console.Write("Enter StartDate (yyyy-MM-dd): ");
-        DateTime? StartDate = DateTime.Parse(Console.ReadLine());
+        DateTime StartDate = DateTime.Parse(Console.ReadLine());
 
         Console.Write("Enter ScheduledDate (yyyy-MM-dd): ");
-        DateTime? ScheduledDate = DateTime.Parse(Console.ReadLine());
-
-        Console.Write("Enter DeadLineDate (yyyy-MM-dd): ");
-        DateTime? DeadLineDate = DateTime.Parse(Console.ReadLine());
+        DateTime ScheduledDate = DateTime.Parse(Console.ReadLine());
 
         Console.Write("Enter CompleteDate (yyyy-MM-dd): ");
-        DateTime? CompleteDate = DateTime.Parse(Console.ReadLine());
+        DateTime CompleteDate = DateTime.Parse(Console.ReadLine());
 
         Console.Write("Enter Deliverables: ");
         string? Deliveables = Console.ReadLine();
@@ -75,12 +68,24 @@ internal class Program
         string? Remarks = Console.ReadLine();
 
         Console.Write("Enter ChefId: ");
-        int? ChefId = (int)ReadNum();
+        int? ChefId = int.Parse(Console.ReadLine());
 
-        Task tCreate = new Task(Id, Alias, Description, IsMilestone, Complexity,
-                        CreatedAtDate, RequiredTime, StartDate, ScheduledDate, DeadLineDate,
-                        CompleteDate, Deliveables, Remarks, ChefId);
-        return tCreate;
+        Task task = new Task()
+        {
+            Id = id,
+            Alias= Alias, 
+            Description = Description, 
+            Complexity= (BO.ChefExperience)Complexity,
+            CreatedAtDate= CreatedAtDate,
+            RequiredTime=RequiredTime, 
+            StartDate= StartDate, 
+            ScheduledDate= ScheduledDate, 
+            CompleteDate= CompleteDate, 
+            Deliveables= Deliveables, 
+            Remarks= Remarks, 
+        };
+        
+        return task;
     }
     public static void switchFunChef()
     {
@@ -177,7 +182,7 @@ internal class Program
         Console.WriteLine("Choose a method to preform:");
         Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" + "6.Delete\n");
 
-        int choice = (int)ReadNum();
+        int choice = int.Parse(Console.ReadLine());
 
         switch (choice)
         {
@@ -185,79 +190,72 @@ internal class Program
                 break;
 
             case 2: //Create
-
                 Task tCreate = inputAndCreateTask();
-
-                s_dal!.Task.Create(tCreate);
+                s_bl!.Task.Create(tCreate);
                 break;
 
             case 3: //Read
                 Console.WriteLine("Enter id:");
-                int id = (int)ReadNum();
-                Task? tRead = s_dal!.Task.Read(id);
+                int id = int.Parse(Console.ReadLine());
+                Task? tRead = s_bl!.Task.Read(id);
                 if (tRead == null)
                     Console.WriteLine("Doesn't Exist");
                 else
-                    printTask(tRead);
+                    Console.WriteLine(tRead); 
                 break;
 
             case 4: //ReadAll
-                List<Task> lTa = s_dal!.Task.ReadAll().ToList<Task>();
+                List<Task> lTa = s_bl!.Task.ReadAll().ToList<Task>();
                 foreach (var _task in lTa)
-                    printTask(_task);
+                    Console.WriteLine(_task);
                 break;
 
             case 5: //Update
                     //print the object to update (and then update it)
                 Console.WriteLine("Enter id");
-                int TaskIdUpdate = (int)ReadNum();
+                int TaskIdUpdate = int.Parse(Console.ReadLine());
 
-                Task taskUpdate = s_dal!.Task.Read(TaskIdUpdate);
+                Task taskUpdate = s_bl!.Task.Read(TaskIdUpdate);
                 if (taskUpdate == null)
                 {
                     Console.WriteLine("Doesn't Exist");
                     break;
                 }
                 else
-                    printTask(taskUpdate);
+                    Console.WriteLine(taskUpdate);
 
                 Task taskUpdateNew = inputAndCreateTask(TaskIdUpdate);
                 if (
                     taskUpdateNew.Alias == null ||
                     taskUpdateNew.Description == null ||
-                    taskUpdateNew.IsMilestone == null ||
                     taskUpdateNew.Complexity == null ||
                     taskUpdateNew.CreatedAtDate == null ||
                     taskUpdateNew.RequiredTime == null ||
                     taskUpdateNew.StartDate == null ||
                     taskUpdateNew.ScheduledDate == null ||
-                    taskUpdateNew.DeadLineDate == null ||
                     taskUpdateNew.CompleteDate == null ||
                     taskUpdateNew.Deliveables == null ||
-                    taskUpdateNew.Remarks == null ||
-                    taskUpdateNew.ChefId == null)
+                    taskUpdateNew.Remarks == null)
                 {
                     break;
                 }
                 else
                 {
-
-                    s_dal!.Task.Update(taskUpdateNew);
+                    s_bl!.Task.Update(taskUpdateNew);
                     break;
                 }
 
             case 6: //Delete
                 Console.WriteLine("Enter id: ");
-                int TaskDelId = (int)ReadNum();
-
-                Task? TaskDel = s_dal!.Task.Read(TaskDelId);
+                int TaskDelId = int.Parse(Console.ReadLine());
+                Task? TaskDel = s_bl!.Task.Read(TaskDelId);
                 if (TaskDel == null)
                 {
                     Console.WriteLine("Doesn't Exist");
                     break;
                 }
                 else
-                    s_dal!.Task.Delete(TaskDelId);
+                    s_bl!.Task.Delete(TaskDelId);
                 break;
             default:
                 break;
