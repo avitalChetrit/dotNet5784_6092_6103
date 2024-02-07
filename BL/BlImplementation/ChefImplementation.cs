@@ -1,6 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
-
+using System.Runtime.InteropServices;
 
 internal class ChefImplementation : IChef
 {
@@ -113,10 +113,16 @@ internal class ChefImplementation : IChef
         if(boChef.Level< (BO.ChefExperience)doChef.Level!)
             throw new BO.BlWrongInputException("Invalid Input");
 
-        //TODO: FIX THE UPDATE TASK
+        DO.Task? doTask = _dal.Task.Read(boChef.Task.Id);
+        if (doTask == null)
+        {
+            throw new BO.BlDoesNotExistException($"Task with ID={boChef.Task.Id} does Not exist");
+        }
+        doTask = doTask with { ChefId = boChef.Id };
+        _dal.Task.Update(doTask);
+
+
         _dal.Chef.Update(doChef);
-
-
     }
     //public int Create(BO.Chef item)
     //{

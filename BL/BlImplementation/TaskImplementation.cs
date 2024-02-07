@@ -57,6 +57,28 @@ internal class TaskImplementation : ITask
 
     BO.Task? ITask.Read(int id)
     {
-        throw new NotImplementedException();
+        DO.Task? item = _dal.Task.Read(id);
+        if (item == null)
+            throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
+
+        //function to find DeadLineDate, and isMileStons
+
+
+        return new BO.Task()
+        {
+            Id = id,
+            Description = item.Description,
+            Alias = item.Alias,
+            Complexity = (BO.ChefExperience)item.Complexity,
+            CreatedAtDate = item.CreatedAtDate,
+            RequiredTime = item.RequiredTime,
+            StartDate = item.StartDate,
+            ScheduledDate = item.ScheduledDate,
+            DeadLineDate = item.StartDate + item.RequiredTime,
+            CompleteDate = item.CompleteDate,
+            Deliveables = item.Deliveables,
+            Remarks = item.Remarks,
+            Chef = item.ChefId
+        };
     }
 }

@@ -48,7 +48,7 @@ namespace DalTest
         public static void printDependency(Dependency d)
         {
             Console.WriteLine("Id:" + d.Id);
-            ; Console.WriteLine("PreTask: " + d.PreTask);
+            Console.WriteLine("PreTask: " + d.PreTask);
             Console.WriteLine("CurrTask: " + d.CurrTask);
             Console.WriteLine();
         }

@@ -10,6 +10,4 @@ public interface IChef
     public IEnumerable<BO.Chef> ReadAll(Func<BO.Chef, bool>? filter = null); //stage 4
     public void Update(BO.Chef item);
     public void Delete(int id);
-
-    //public BO.StudentInCourse GetDetailedCourseForStudent(int StudentId, int CourseId);
 }
