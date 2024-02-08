@@ -78,10 +78,12 @@ internal class TaskImplementation : ITask
 
     public void UpdateDate(int id, DateTime d)
     {
-        throw new NotImplementedException();
+        BO.Task? item = Read(id);
+        item.Dependecies.All( task=> DO.Task t=_dal.Task.Read(task.Id))
+
     }
 
-    BO.Task? ITask.Read(int id)
+    public BO.Task? Read(int id)
     {
         DO.Task? item = _dal.Task.Read(id);
         if (item == null)

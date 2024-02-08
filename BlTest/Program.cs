@@ -10,6 +10,12 @@ internal class Program
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
     //public static Sheduled Sheduled = new Sheduled { level= ScheduleLevel.Planning, StartDate=null };
+
+    //public static void Mid()
+    //{
+
+
+    //}
     public static Chef inputAndCreateChef(int ChefId)
     {
         Console.Write("Enter Level (Beginner/Advanced/Expert): ");
@@ -179,6 +185,7 @@ internal class Program
     }
     public static void switchFunTask()
     {
+        ScheduleLevel lev = s_bl!.Sheduled.levelStatuas();
         //sub menu for Task
         Console.WriteLine("Choose a method to preform:");
         Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" + "6.Delete\n");
