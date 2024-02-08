@@ -2,8 +2,5 @@
 using DO;
 
 
-public interface IChef : ICrud<Chef>
-{
-    Chef? Read(int? chefId);
-}
+public interface IChef : ICrud<Chef> {}
 

@@ -7,5 +7,7 @@ internal class Bl : IBl
 
     public ITask Task => new TaskImplementation();
 
+    public I
+
     //public DateTime Start => new StartImplementation();
 }
