@@ -58,22 +58,22 @@ internal class TaskImplementation : ITask
 
     public void Update(BO.Task item)
     {
-        DO.Chef? doChef = _dal.Chef.Read(item.Id);
-        if (doChef == null)
-            throw new BO.BlDoesNotExistException($"Chef with ID={boChef.Id} does Not exist");
-        if (item.Level < (BO.ChefExperience)doChef.Level!)
-            throw new BO.BlWrongInputException("Invalid Input");
+        //DO.Chef? doChef = _dal.Chef.Read(item.Id);
+        //if (doChef == null)
+        //    throw new BO.BlDoesNotExistException($"Chef with ID={boChef.Id} does Not exist");
+        //if (item.Level < (BO.ChefExperience)doChef.Level!)
+        //    throw new BO.BlWrongInputException("Invalid Input");
 
-        DO.Task? doTask = _dal.Task.Read(boChef.Task.Id);
-        if (doTask == null)
-        {
-            throw new BO.BlDoesNotExistException($"Task with ID={boChef.Task.Id} does Not exist");
-        }
-        doTask = doTask with { ChefId = boChef.Id };
-        _dal.Task.Update(doTask);
+        //DO.Task? doTask = _dal.Task.Read(boChef.Task.Id);
+        //if (doTask == null)
+        //{
+        //    throw new BO.BlDoesNotExistException($"Task with ID={boChef.Task.Id} does Not exist");
+        //}
+        //doTask = doTask with { ChefId = boChef.Id };
+        //_dal.Task.Update(doTask);
 
 
-        _dal.Chef.Update(doChef);
+        //_dal.Chef.Update(doChef);
     }
 
     public void UpdateDate(int id, DateTime d)
@@ -107,10 +107,10 @@ internal class TaskImplementation : ITask
 
         TaskInList taskInList = new TaskInList()
         {
-             Id
-             Description
-             Alias
-             Status
+             Id=item.Id,
+             Description= item.Description,
+             Alias= item.Alias,
+             Status=
         }
 
 
@@ -121,7 +121,7 @@ internal class TaskImplementation : ITask
             Alias = item.Alias,
             Complexity = (BO.ChefExperience)item.Complexity,
             CreatedAtDate = item.CreatedAtDate,
-            //status
+            Status = findStat(),
             Dependecies =
             RequiredTime = item.RequiredTime,
             StartDate = item.StartDate,
@@ -132,5 +132,12 @@ internal class TaskImplementation : ITask
             Remarks = item.Remarks,
             Chef = c
         };
+    }
+
+    public BO.Status findStat(BO.Task item)
+    {
+        if(item.Status== Unscheduled)
+            return BO.Status.Unscheduled;
+        else
     }
 }
