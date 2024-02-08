@@ -9,6 +9,7 @@ internal class Program
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+    //public static Sheduled Sheduled = new Sheduled { level= ScheduleLevel.Planning, StartDate=null };
     public static Chef inputAndCreateChef(int ChefId)
     {
         Console.Write("Enter Level (Beginner/Advanced/Expert): ");
@@ -261,6 +262,7 @@ internal class Program
                 break;
         }
     }
+   
     static void Main()
     {
         Console.Write("Would you like to create Initial data? (Y/N)");

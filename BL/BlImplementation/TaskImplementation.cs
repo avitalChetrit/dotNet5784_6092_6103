@@ -23,9 +23,11 @@ internal class TaskImplementation : ITask
     public int Create(BO.Task item)
     {
         DO.Task doTask = new DO.Task(item.Id, item.Description, item.Alias, false,
-            (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime, item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables, item.Remarks, item.Chef.Id);
+            (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime, 
+            item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables, item.Remarks, item.Chef.Id);
         if (item.Id <= 0 && item.Alias == "")
             throw new BO.BlWrongInputException("Wrong Input");
+
         try
         {
             int idTask = _dal.Task.Create(doTask);
@@ -43,9 +45,7 @@ internal class TaskImplementation : ITask
         DO.Task? item = _dal.Task.Read(id);
         if (item == null)
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
-
-
-
+        _dal.Task.Delete(id);
     }
 
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)

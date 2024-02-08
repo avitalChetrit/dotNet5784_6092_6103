@@ -16,3 +16,11 @@ public enum Status
     OnTrack,      //(Start != null)
     Done          //CompleteDate != 
 }
+
+public enum ScheduleLevel
+{
+    Planning,
+    Mid,
+    Execution
+}
+

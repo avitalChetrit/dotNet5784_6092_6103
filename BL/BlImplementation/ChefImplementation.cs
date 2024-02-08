@@ -1,5 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using BO;
 using System.Runtime.InteropServices;
 
 internal class ChefImplementation : IChef
@@ -120,7 +121,6 @@ internal class ChefImplementation : IChef
         }
         doTask = doTask with { ChefId = boChef.Id };
         _dal.Task.Update(doTask);
-
 
         _dal.Chef.Update(doChef);
     }
