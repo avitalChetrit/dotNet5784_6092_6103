@@ -7,6 +7,12 @@ public class BlNullPropertyException : Exception
     public BlNullPropertyException(string? message) : base(message) { }
 }
 
+[Serializable]
+public class BlUnableToPreformActionInThisProjectStageException : Exception
+{
+    public BlUnableToPreformActionInThisProjectStageException(string? message) : base(message) { }
+}
+
 // Wrong Input
 [Serializable]
 public class BlWrongInputException : Exception

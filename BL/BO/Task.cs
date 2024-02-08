@@ -25,21 +25,20 @@ public class Task
     public string? Alias { get; set; }
     public DateTime? CreatedAtDate { get; set; } 
     public BO.Status Status { get; set; } 
-    public List<BO.TaskInList> Dependecies { get; set; }
-    //Milestone
-    //public BO.MilestoneInTask Milestone {  get; set; }  
-
+    public List<BO.TaskInList> Dependecies { get; set; }    
     public TimeSpan? RequiredTime { get; set; } 
     public DateTime? StartDate { get; set; }
     public DateTime? ScheduledDate { get; set; }
     public DateTime? ForecastDate { get; set; }
-    //Milestone
-    //public DateTime DeadlineDate { get; set; } = DeadlineDate; 
     public DateTime? CompleteDate { get; set; } 
     public string? Deliveables { get; set; } 
     public string? Remarks { get; set; } 
     public BO.ChefInTask? Chef { get; set; }
     public BO.ChefExperience Complexity { get; set; }
+
+    //Milestone
+    //public DateTime DeadlineDate { get; set; } = DeadlineDate; 
+    //public BO.MilestoneInTask Milestone {  get; set; }  
 
     //public override string ToString() => this.ToStringProperty();
 }

@@ -5,6 +5,7 @@ using DO;
 //using BO;
 //using DalApi;
 using System.Data;
+using System.Runtime.InteropServices;
 
 //using BO;
 //using System;
@@ -15,72 +16,110 @@ internal class TaskImplementation : ITask
 {
     private static DalApi.IDal? _dal; //stage 4
     /// <summary>
-    /// 
+    /// Create a logical Task
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     public int Create(BO.Task item)
     {
+        //Can only create object on first stage
+        if (Sheduled.level != ScheduleLevel.Planning)
+            throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create chef In This Project Stage");
+
         DO.Task doTask = new DO.Task(item.Id, item.Description, item.Alias, false,
-            (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime, 
-            item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables, item.Remarks, item.Chef.Id);
+            (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime,
+            item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables,
+            item.Remarks, item.Chef.Id);
+        
+        //Check Input
         if (item.Id <= 0 && item.Alias == "")
             throw new BO.BlWrongInputException("Wrong Input");
-
+        //Create Task
         try
         {
             int idTask = _dal.Task.Create(doTask);
-            return idTask;
         }
         catch (DO.DalAlreadyExistsException ex)
         {
             throw new BO.BlAlreadyExistsException($"Student with ID={item.Id} already exists", ex);
         }
 
+        //create dependecies
+        item.Dependecies.ForEach(Dep =>
+        { _dal.Dependency.Create(new Dependency(0, Dep.Id, item.Id)); });
+
+        return item.Id;
     }
 
     public void Delete(int id)
     {
-        DO.Task? item = _dal.Task.Read(id);
+        //Can only del object on first stage
+        if (Sheduled.level != ScheduleLevel.Planning)
+            throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Delete chef In This Project Stage");
+        BO.Task? item = Read(id);
+        //Check if task exists
         if (item == null)
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
+        //check if this task has no dependecies
+        if (item.Dependecies != null)
+            throw new BO.BlDeletionImpossible($"Task with ID={id} can not be deleted");
         _dal.Task.Delete(id);
     }
 
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
     {
-        return (from DO.Task doTask in _dal.Chef.ReadAll() //for each chef from the data list of chefs
-                let item = Read(doTask.ChefId)            //create a new logic chef
-                where (filter == null) ? true : filter(item) //if it answer the filter
+        return (from DO.Task doTask in _dal.Task.ReadAll()
+                let item = Read(doTask.Id)
+                where (filter == null) ? true : filter(item)
                 select item);
     }
 
-    public void Update(BO.Task item)
+    public void Update(BO.Task boTask)
     {
-        //DO.Chef? doChef = _dal.Chef.Read(item.Id);
-        //if (doChef == null)
-        //    throw new BO.BlDoesNotExistException($"Chef with ID={boChef.Id} does Not exist");
-        //if (item.Level < (BO.ChefExperience)doChef.Level!)
-        //    throw new BO.BlWrongInputException("Invalid Input");
+        DO.Task? doTask = _dal.Task.Read(boTask.Id);
+        if (doTask == null)
+            throw new BO.BlDoesNotExistException($"Chef with ID={doTask.Id} does Not exist");
+        DO.Task updateTask = new DO.Task
+        {
+            Id = boTask.Id,
+            Description = boTask.Description ?? doTask.Description,
+            Alias = boTask.Alias ?? doTask.Alias,
+            CreatedAtDate = boTask.CreatedAtDate ?? doTask.CreatedAtDate,
+            RequiredTime = boTask.RequiredTime ?? doTask.RequiredTime,
+            StartDate = boTask.StartDate ?? doTask.StartDate,
+            ScheduledDate = boTask.ScheduledDate ?? doTask.ScheduledDate,
+            CompleteDate = boTask.CompleteDate ?? doTask.CompleteDate,
+            Deliveables = boTask.Deliveables ?? doTask.Deliveables,
+            Remarks = boTask.Remarks ?? doTask.Remarks,
+            ChefId = (boTask.Chef!=null) ? boTask.Chef.Id : doTask.ChefId,
+            Complexity = (DO.ChefExperience)boTask.Complexity,
+        };
 
-        //DO.Task? doTask = _dal.Task.Read(boChef.Task.Id);
-        //if (doTask == null)
-        //{
-        //    throw new BO.BlDoesNotExistException($"Task with ID={boChef.Task.Id} does Not exist");
-        //}
-        //doTask = doTask with { ChefId = boChef.Id };
-        //_dal.Task.Update(doTask);
+        //TODO: לממש מחיקה והוספה של התלויות
 
-
-        //_dal.Chef.Update(doChef);
+        _dal.Task.Update(updateTask);
     }
-
     public void UpdateDate(int id, DateTime d)
     {
         BO.Task? item = Read(id);
-        item.Dependecies.All( task=> DO.Task t=_dal.Task.Read(task.Id))
+        if (item == null)
+            throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
 
+        foreach(var dep in item.Dependecies)
+        {
+            BO.Task? task = Read(dep.Id);
+            if (task == null)
+                throw new BlDoesNotExistException($"Task with ID={id} does Not exist");
+            if (task.ScheduledDate == null)
+                throw new BlWrongInputException("Previous task has no Scheduled Date");
+            if (task.ScheduledDate > d)
+                throw new BlWrongInputException("Date is too early");
+        }
+        if (item != null)
+            item.ScheduledDate = d;
+
+        Update(item);
     }
 
     public BO.Task? Read(int id)
@@ -109,10 +148,10 @@ internal class TaskImplementation : ITask
 
         TaskInList taskInList = new TaskInList()
         {
-             Id=item.Id,
-             Description= item.Description,
-             Alias= item.Alias,
-             Status=
+            Id = item.Id,
+            Description = item.Description,
+            Alias = item.Alias,
+            Status =
         }
 
 
@@ -138,8 +177,22 @@ internal class TaskImplementation : ITask
 
     public BO.Status findStat(BO.Task item)
     {
-        if(item.Status== Unscheduled)
+        if (item.ScheduledDate == null)
+        {
             return BO.Status.Unscheduled;
-        else
+        }
+
+        if (item.CompleteDate != null)
+        {
+            return BO.Status.Done;
+        }
+
+        if (item.StartDate == null)
+        {
+            return BO.Status.Scheduled;
+        }
+
+        return BO.Status.OnTrack;
+
     }
 }

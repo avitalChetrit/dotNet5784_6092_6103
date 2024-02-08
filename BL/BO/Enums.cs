@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using System.Diagnostics.Contracts;
+
+namespace BO;
 
 public enum ChefExperience
 {
