@@ -9,13 +9,43 @@ internal class Program
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-    //public static Sheduled Sheduled = new Sheduled { level= ScheduleLevel.Planning, StartDate=null };
+    public static void printChef(Chef c)
+    {
+        Console.WriteLine("ChefId: " + c.Id);
+        Console.WriteLine("Experience: " + c.Level);
+        Console.WriteLine("Name: " + c.Name);
+        Console.WriteLine("Email: " + c.Email);
+        Console.WriteLine("Cost: " + c.Cost);
+        Console.WriteLine();
+    }
+    public static void printTask(Task task)
+    {
+        Console.WriteLine("id: " + task.Id);
+        Console.WriteLine("Alias: " + task.Alias);
+        Console.WriteLine("Description: " + task.Description);
+        Console.WriteLine("Complexity: " + task.Complexity);
+        Console.WriteLine("CreatedAtDate: " + task.CreatedAtDate);
+        Console.WriteLine("RequiredTime: " + task.RequiredTime);
+        Console.WriteLine("StartDate: " + task.StartDate);
+        Console.WriteLine("ScheduledDate: " + task.ScheduledDate);
+        Console.WriteLine("ForecastDate: " + task.ForecastDate);
+        Console.WriteLine("CompleteDate: " + task.CompleteDate);
+        Console.WriteLine("Deliverables: " + task.Deliveables);
+        Console.WriteLine("Remarks: " + task.Remarks);
+        Console.WriteLine("Status: " + task.Status);
+        if(task.Chef is not null) 
+            Console.WriteLine("Chef In Task: Id="+ task.Chef.Id+ "Name= " + task.Chef.Name);
+        Console.WriteLine("Task In List: ");
+        foreach( var dep in task.Dependecies)
+        {
+            Console.WriteLine("Id= " + dep.Id +
+                "Description= " + dep.Description +
+                "Alias= " + dep.Alias +
+                "Status= " + dep.Status);
+        }
+        Console.WriteLine();
 
-    //public static void Mid()
-    //{
-
-
-    //}
+    }
     public static Chef inputAndCreateChef(int ChefId)
     {
         Console.Write("Enter Level (Beginner/Advanced/Expert): ");
@@ -41,60 +71,122 @@ internal class Program
         };
         return c;
     }
+
     public static Task inputAndCreateTask(int id = 0)
     {
+        if (Sheduled.level != ScheduleLevel.Planning)
+            throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create chef In This Project Stage");
+
+        DateTime CreatedAtDate = DateTime.Today;
+        BO.Status Status = BO.Status.Unscheduled;
+        DateTime? StartDate = null;
+        DateTime? ScheduledDate = null;
+        DateTime? ForecastDate = null;
+        DateTime? CompleteDate = null;
+
         // INPUT
-        Console.Write("Enter Alias: ");
-        string? Alias = Console.ReadLine();
 
         Console.Write("Enter Description: ");
         string? Description = Console.ReadLine();
 
-        Console.Write("Complexity (Beginner/Intermediate/Advanced): ");
-        ChefExperience? Complexity = Enum.Parse<ChefExperience>(Console.ReadLine());
+        Console.Write("Enter Alias: ");
+        string? Alias = Console.ReadLine();
 
-        Console.Write("Enter CreatedAtDate (yyyy-MM-dd): ");
-        DateTime CreatedAtDate = DateTime.Parse(Console.ReadLine());
-
-        Console.Write("Enter RequiredTime (hh:mm:ss): ");
+        Console.Write("Enter Required Time (in format hh:mm:ss): ");
         TimeSpan RequiredTime = TimeSpan.Parse(Console.ReadLine());
 
-        Console.Write("Enter StartDate (yyyy-MM-dd): ");
-        DateTime StartDate = DateTime.Parse(Console.ReadLine());
-
-        Console.Write("Enter ScheduledDate (yyyy-MM-dd): ");
-        DateTime ScheduledDate = DateTime.Parse(Console.ReadLine());
-
-        Console.Write("Enter CompleteDate (yyyy-MM-dd): ");
-        DateTime CompleteDate = DateTime.Parse(Console.ReadLine());
-
         Console.Write("Enter Deliverables: ");
-        string? Deliveables = Console.ReadLine();
+        String Deliveables = Console.ReadLine();
 
         Console.Write("Enter Remarks: ");
-        string? Remarks = Console.ReadLine();
+        String Remarks = Console.ReadLine();
 
-        Console.Write("Enter ChefId: ");
-        int? ChefId = int.Parse(Console.ReadLine());
+        Console.Write("Enter Chef Complexity (Low/Medium/High): ");
+        BO.ChefExperience Complexity = (BO.ChefExperience)Enum.Parse(typeof(BO.ChefExperience), Console.ReadLine());
 
-        Task task = new Task()
+
+        Console.Write("Dependencies (comma-separated, as integers): ");
+        List<BO.TaskInList> dependencies = new List<BO.TaskInList>();
+        string[] dependenciesId = Console.ReadLine().Split(',');
+        foreach (var dependency in dependenciesId)
+        {
+            Task task = s_bl.Task.Read(int.Parse(dependency));
+            if (task == null)
+                throw new BlWrongInputException("Wrong Input");
+            dependencies.Add(new BO.TaskInList
+            {
+                Id = task.Id,
+                Alias = task.Alias,
+                Description = task.Description,
+                Status = s_bl!.Task.findStat(task.Id)
+            });
+        }
+
+        return new Task()
         {
             Id = id,
-            Alias= Alias, 
-            Description = Description, 
-            Complexity= (BO.ChefExperience)Complexity,
-            CreatedAtDate= CreatedAtDate,
-            RequiredTime=RequiredTime, 
-            StartDate= StartDate, 
-            ScheduledDate= ScheduledDate, 
-            CompleteDate= CompleteDate, 
-            Deliveables= Deliveables, 
-            Remarks= Remarks, 
+            Alias = Alias,
+            Description = Description,
+            Complexity = (BO.ChefExperience)Complexity,
+            CreatedAtDate = CreatedAtDate,
+            RequiredTime = RequiredTime,
+            StartDate = StartDate,
+            ScheduledDate = ScheduledDate,
+            CompleteDate = CompleteDate,
+            Deliveables = Deliveables,
+            Remarks = Remarks,
         };
-        
-        return task;
+
+
     }
-    public static void switchFunChef()
+
+    public static Task inputAndUpdateTask(int id = 0)
+    {
+        
+            DateTime? CreatedAtDate = null;
+            BO.Status? Status = null;
+            DateTime? StartDate = null;
+            DateTime? ScheduledDate = null;
+            DateTime? ForecastDate = null;
+            DateTime? CompleteDate = null;
+            TimeSpan? RequiredTime = null;
+            List<BO.TaskInList> dependencies = null;
+
+        // INPUT
+
+            Console.Write("Enter Description: ");
+            string? Description = Console.ReadLine();
+
+            Console.Write("Enter Alias: ");
+            string? Alias = Console.ReadLine();
+
+            Console.Write("Enter Deliverables: ");
+            String Deliveables = Console.ReadLine();
+
+            Console.Write("Enter Remarks: ");
+            String Remarks = Console.ReadLine();
+
+            Console.Write("Enter Chef Complexity (Low/Medium/High): ");
+            BO.ChefExperience Complexity = (BO.ChefExperience)Enum.Parse(typeof(BO.ChefExperience), Console.ReadLine());
+
+            return new Task()
+            {
+                Id = id,
+                Alias = Alias,
+                Description = Description,
+                Complexity = (BO.ChefExperience)Complexity,
+                CreatedAtDate = CreatedAtDate,
+                RequiredTime = RequiredTime,
+                StartDate = StartDate,
+                ScheduledDate = ScheduledDate,
+                CompleteDate = CompleteDate,
+                Deliveables = Deliveables,
+                Remarks = Remarks,
+            };
+        
+    }
+
+    private static void switchFunChef()
     {
         //sub menu for chef
         Console.WriteLine("Choose a method to preform:");
@@ -121,14 +213,14 @@ internal class Program
                 if (chef == null)
                     Console.WriteLine("Doesn't Exist");
                 else
-                    Console.WriteLine(chef);
+                    printChef(chef);
                 break;
 
             case 4: //ReadAll
                 List<Chef> lCh = s_bl!.Chef.ReadAll().ToList<Chef>();
                 foreach (var _chef in lCh)
                 {
-                    Console.WriteLine(_chef);
+                    printChef(_chef);
                 }
                 break;
 
@@ -144,7 +236,7 @@ internal class Program
                     break;
                 }
                 else
-                    Console.WriteLine(chefUpdate);
+                    printChef(chefUpdate);
 
                 chefUpdate = inputAndCreateChef(ChefUpdateId);
                 Console.WriteLine(" Enter Task id and its Alias: ");
@@ -183,7 +275,7 @@ internal class Program
                 break;
         }
     }
-    public static void switchFunTask()
+    private static void switchFunTask()
     {
         ScheduleLevel lev = s_bl!.Sheduled.levelStatuas();
         //sub menu for Task
@@ -209,13 +301,13 @@ internal class Program
                 if (tRead == null)
                     Console.WriteLine("Doesn't Exist");
                 else
-                    Console.WriteLine(tRead); 
+                    printTask(tRead); 
                 break;
 
             case 4: //ReadAll
                 List<Task> lTa = s_bl!.Task.ReadAll().ToList<Task>();
                 foreach (var _task in lTa)
-                    Console.WriteLine(_task);
+                    printTask(_task);
                 break;
 
             case 5: //Update
@@ -230,9 +322,25 @@ internal class Program
                     break;
                 }
                 else
-                    Console.WriteLine(taskUpdate);
+                    printTask(taskUpdate);
 
-                Task taskUpdateNew = inputAndCreateTask(TaskIdUpdate);
+                if(Sheduled.level == ScheduleLevel.Mid)
+                {
+                    Console.WriteLine("Enter ScheduledDate: ");
+                    DateTime d = DateTime.Parse(Console.ReadLine());
+                    s_bl!.Task.UpdateDate(TaskIdUpdate, d);
+                    s_bl!.Sheduled.levelStatuas();
+                    break;
+                }
+
+                Task taskUpdateNew;
+                if (Sheduled.level == ScheduleLevel.Planning)
+                {
+                    taskUpdateNew = inputAndCreateTask(TaskIdUpdate);
+                }
+                else
+                    taskUpdateNew = inputAndUpdateTask(TaskIdUpdate);
+
                 if (
                     taskUpdateNew.Alias == null ||
                     taskUpdateNew.Description == null ||
@@ -279,11 +387,16 @@ internal class Program
 
         int choice = 1;
         string? input = null;
+        DateTime? start = null;
 
         while (choice != 0)
         {
             Console.WriteLine("Choose an entity you'd like to check:");
-            Console.WriteLine("0.Exit\n" + "1.Chef\n" + "2.Task\n" );
+            Console.WriteLine("0.Exit\n" + "1.Chef\n" + "2.Task\n");
+            if(Sheduled.level == ScheduleLevel.Planning)
+            {
+                Console.WriteLine("3.Initial Start Date\n");
+            }
             choice = int.Parse(Console.ReadLine());
 
             try
@@ -301,15 +414,10 @@ internal class Program
                         switchFunTask();
                         break;
 
-                    //case 3://sub-menu Initialization
-                    //    Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
-                    //    string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
-                    //    if (ans == "Y") //stage 3
-                    //    {
-                    //        //Initialization.Do(s_dal); //stage 2
-                    //        Initialization.Do(); //stage 4
-                    //    }
-                    //    break;
+                    case 3://Initial Start Date
+                        Sheduled.StartDate = DateTime.Parse(Console.ReadLine());
+                        s_bl!.Sheduled.levelStatuas();
+                        break;
 
                     default:
                         break;

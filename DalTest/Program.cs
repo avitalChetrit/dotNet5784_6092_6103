@@ -124,10 +124,10 @@ namespace DalTest
         {
 
             Console.Write("Enter PreTask: ");
-            int? PreTask = (int)ReadNum();
+            int PreTask = (int)ReadNum();
 
             Console.Write("Enter CurrTask: ");
-            int? CurrTask = (int)ReadNum();
+            int CurrTask = (int)ReadNum();
 
             Dependency d = new Dependency(id, PreTask, CurrTask);
             return d;

@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfChef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Chef>
-    <ChefId>391966794</ChefId>
+    <ChefId>276406417</ChefId>
     <Level>Beginner</Level>
     <Name>Dani Levi</Name>
     <Email>DaniLevi@gmail.com</Email>
-    <Cost>382</Cost>
+    <Cost>456</Cost>
   </Chef>
   <Chef>
-    <ChefId>302699731</ChefId>
+    <ChefId>362391874</ChefId>
     <Level>Beginner</Level>
     <Name>Eli Amar</Name>
     <Email>EliAmar@gmail.com</Email>
-    <Cost>258</Cost>
+    <Cost>196</Cost>
   </Chef>
   <Chef>
-    <ChefId>361700873</ChefId>
+    <ChefId>298030726</ChefId>
     <Level>Beginner</Level>
     <Name>Yair Cohen</Name>
     <Email>YairCohen@gmail.com</Email>
-    <Cost>282</Cost>
+    <Cost>483</Cost>
   </Chef>
   <Chef>
-    <ChefId>224600597</ChefId>
+    <ChefId>334643338</ChefId>
     <Level>Beginner</Level>
     <Name>Ariela Levin</Name>
     <Email>ArielaLevin@gmail.com</Email>
-    <Cost>457</Cost>
+    <Cost>347</Cost>
   </Chef>
   <Chef>
-    <ChefId>219956000</ChefId>
+    <ChefId>348317797</ChefId>
     <Level>Beginner</Level>
     <Name>Dina Klein</Name>
     <Email>DinaKlein@gmail.com</Email>
-    <Cost>381</Cost>
+    <Cost>387</Cost>
   </Chef>
   <Chef>
-    <ChefId>289522058</ChefId>
+    <ChefId>245099604</ChefId>
     <Level>Beginner</Level>
     <Name>Shira Israelof</Name>
     <Email>ShiraIsraelof@gmail.com</Email>
-    <Cost>224</Cost>
+    <Cost>152</Cost>
   </Chef>
 </ArrayOfChef>

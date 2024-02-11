@@ -1,8 +1,11 @@
-﻿namespace BlImplementation;
+﻿using BO;
+using DalApi;
+using DO;
+
+namespace BlImplementation;
 using BlApi;
 using BO;
 using DO;
-//using BO;
 //using DalApi;
 using System.Data;
 using System.Runtime.InteropServices;
@@ -14,7 +17,7 @@ using System.Runtime.InteropServices;
 
 internal class TaskImplementation : ITask
 {
-    private static DalApi.IDal? _dal; //stage 4
+    private static DalApi.IDal? _dal = DalApi.Factory.Get; //stage 4
     /// <summary>
     /// Create a logical Task
     /// </summary>
@@ -70,7 +73,7 @@ internal class TaskImplementation : ITask
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         return (from DO.Task doTask in _dal.Task.ReadAll()
-                let item = Read(doTask.Id)
+                let item = doToBoTask(doTask.Id, doTask)
                 where (filter == null) ? true : filter(item)
                 select item);
     }
@@ -96,9 +99,24 @@ internal class TaskImplementation : ITask
             Complexity = (DO.ChefExperience)boTask.Complexity,
         };
 
-        //TODO: לממש מחיקה והוספה של התלויות
 
         _dal.Task.Update(updateTask);
+
+        if(boTask.Dependecies!=null)
+        {
+            IEnumerable<Dependency> dependencies = _dal.Dependency.ReadAll();
+            foreach (var dep in dependencies)
+            {
+                if (dep.CurrTask == boTask.Id)
+                    _dal.Dependency.Delete(dep.Id);
+            }
+            foreach (var dep in boTask.Dependecies)
+            {
+                DO.Dependency dep1 = new Dependency { CurrTask = boTask.Id, PreTask = dep.Id };
+                _dal.Dependency.Create(dep1);
+            }
+        }
+
     }
     public void UpdateDate(int id, DateTime d)
     {
@@ -113,7 +131,7 @@ internal class TaskImplementation : ITask
                 throw new BlDoesNotExistException($"Task with ID={id} does Not exist");
             if (task.ScheduledDate == null)
                 throw new BlWrongInputException("Previous task has no Scheduled Date");
-            if (task.ScheduledDate > d)
+            if (task.ForecastDate > d)
                 throw new BlWrongInputException("Date is too early");
         }
         if (item != null)
@@ -125,10 +143,16 @@ internal class TaskImplementation : ITask
     public BO.Task? Read(int id)
     {
         DO.Task? item = _dal.Task.Read(id);
+        return doToBoTask(id, item);
+    }
+
+    private BO.Task? doToBoTask(int id, DO.Task? item)
+    {
         if (item == null)
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
 
-        //function to find DeadLineDate, and isMileStons
+        //function to find DeadLineDate, and isMileStons=false
+
         BO.ChefInTask c;
         if (item.ChefId == null)
         {
@@ -136,22 +160,28 @@ internal class TaskImplementation : ITask
         }
         else
         {
-            DO.Chef? chefi = _dal.Chef.Read(item.ChefId);
+            DO.Chef? chefi = _dal.Chef.Read((int)item.ChefId);
             c = new BO.ChefInTask() { Id = chefi.ChefId, Name = chefi.Name };
         }
 
-        IEnumerable<Dependency>? ls = _dal.Dependency.ReadAll();
-        List<int> lint = ((List<int>)(from Dependency dep in ls //for each chef from the data list of chefs
-                                      where (dep.PreTask == id)
-                                      select dep.CurrTask));                            //choose it
+        IEnumerable<Dependency> ls = _dal.Dependency.ReadAll();
+        List<int> lint = (from Dependency dep in ls //for each chef from the data list of chefs
+                         where (dep.CurrTask == id)
+                         select dep.PreTask).ToList();                            //choose it
 
-
-        TaskInList taskInList = new TaskInList()
+        List<BO.TaskInList> Dependecies = new List<BO.TaskInList>();
+        foreach (var dep in lint)
         {
-            Id = item.Id,
-            Description = item.Description,
-            Alias = item.Alias,
-            Status =
+            DO.Task pre = _dal.Task.Read(dep);
+            TaskInList taskInList = new TaskInList()
+            {
+                Id = pre.Id,
+                Description = pre.Description,
+                Alias = pre.Alias,
+                Status = findStat(pre.Id)
+            };
+
+            Dependecies.Add(taskInList);
         }
 
 
@@ -162,8 +192,8 @@ internal class TaskImplementation : ITask
             Alias = item.Alias,
             Complexity = (BO.ChefExperience)item.Complexity,
             CreatedAtDate = item.CreatedAtDate,
-            Status = findStat(),
-            Dependecies =
+            Status = findStat(item.Id),
+            Dependecies = Dependecies,
             RequiredTime = item.RequiredTime,
             StartDate = item.StartDate,
             ScheduledDate = item.ScheduledDate,
@@ -175,8 +205,10 @@ internal class TaskImplementation : ITask
         };
     }
 
-    public BO.Status findStat(BO.Task item)
+    public BO.Status findStat(int id)
     {
+        DO.Task item = _dal.Task.Read(id);
+
         if (item.ScheduledDate == null)
         {
             return BO.Status.Unscheduled;
@@ -195,4 +227,63 @@ internal class TaskImplementation : ITask
         return BO.Status.OnTrack;
 
     }
+
+
+
 }
+
+//if (item == null)
+//            throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
+
+//        //function to find DeadLineDate, and isMileStons=false
+
+//        BO.ChefInTask c;
+//        if (item.ChefId == null)
+//        {
+//            c = null;
+//        }
+//        else
+//{
+//    DO.Chef? chefi = _dal.Chef.Read((int)item.ChefId);
+//    c = new BO.ChefInTask() { Id = chefi.ChefId, Name = chefi.Name };
+//}
+
+//IEnumerable<Dependency>? ls = _dal.Dependency.ReadAll();
+//List<int> lint = ((List<int>)(from Dependency dep in ls //for each chef from the data list of chefs
+//                              where (dep.CurrTask == id)
+//                              select dep.PreTask));                            //choose it
+
+//List<BO.TaskInList> Dependecies = new List<BO.TaskInList>();
+//foreach (var dep in lint)
+//{
+//    DO.Task pre = _dal.Task.Read(dep);
+//    TaskInList taskInList = new TaskInList()
+//    {
+//        Id = pre.Id,
+//        Description = pre.Description,
+//        Alias = pre.Alias,
+//        Status = findStat(pre.Id)
+//    };
+
+//    Dependecies.Add(taskInList);
+//}
+
+
+//return new BO.Task()
+//{
+//    Id = id,
+//    Description = item.Description,
+//    Alias = item.Alias,
+//    Complexity = (BO.ChefExperience)item.Complexity,
+//    CreatedAtDate = item.CreatedAtDate,
+//    Status = findStat(item.Id),
+//    Dependecies = Dependecies,
+//    RequiredTime = item.RequiredTime,
+//    StartDate = item.StartDate,
+//    ScheduledDate = item.ScheduledDate,
+//    ForecastDate = item.StartDate + item.RequiredTime,
+//    CompleteDate = item.CompleteDate,
+//    Deliveables = item.Deliveables,
+//    Remarks = item.Remarks,
+//    Chef = c
+//};

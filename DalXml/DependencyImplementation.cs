@@ -19,9 +19,9 @@ internal class DependencyImplementation : IDependency
         {
             Id = d.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
 
-            PreTask = d.ToIntNullable("PreTask") ?? null,
+            PreTask = d.ToIntNullable("PreTask") ?? 0,
 
-            CurrTask = d.ToIntNullable("CurrTask") ?? null
+            CurrTask = d.ToIntNullable("CurrTask") ?? 0
         };
     }
 

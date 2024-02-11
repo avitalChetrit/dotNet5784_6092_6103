@@ -11,7 +11,6 @@ public interface ITask
     public void Update(BO.Task item);
     public void Delete(int id);
     public void UpdateDate(int id, DateTime d);
-    public BO.Status findStat(BO.Task item);
-
+    public BO.Status findStat(int id);
 
 }
