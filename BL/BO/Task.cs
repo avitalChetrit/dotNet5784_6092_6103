@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using System.Xml.Linq;
+
+namespace BO;
 
 /// <summary>
 /// Class for Task
@@ -40,5 +42,13 @@ public class Task
     //public DateTime DeadlineDate { get; set; } = DeadlineDate; 
     //public BO.MilestoneInTask Milestone {  get; set; }  
 
-    //public override string ToString() => this.ToStringProperty();
+    public override string ToString()
+    {
+        return "Id: " + Id + "\n Description: " + Description + "\n Alias: " + Alias + "\n CreatedAtDate: " + CreatedAtDate
+                           + "\n Status: " + Status + "\n Dependecies: " + Dependecies + "\n RequiredTime: " + RequiredTime
+                           + "\n StartDate: " + StartDate + "\n ScheduledDate: " + ScheduledDate + "\n ForecastDate: " + ForecastDate
+                           + "\n CompleteDate: " + CompleteDate + "\n Deliveables: " + Deliveables + "\n Remarks: " + Remarks
+                           + "\n Chef: " + Chef + "\n Complexity: " + Complexity;
+
+    }
 }
