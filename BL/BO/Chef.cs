@@ -22,5 +22,9 @@ public class Chef
     public double? Cost { get; set; }
     public BO.TaskInChef? Task { get; set; }
 
-    //public override string ToString() => this.ToStringProperty();
+    public override string ToString()
+    {
+        return "Id: " + Id + "\n Name: " + Name + "\n Email: " + Email + "\n Level: " + Level + "\n Cost: " + Cost + "\n Task In Chef" + Task;
+    }
+     //=> this.ToStringProperty();
 }
