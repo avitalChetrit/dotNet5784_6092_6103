@@ -166,8 +166,8 @@ internal class TaskImplementation : ITask
 
         IEnumerable<Dependency> ls = _dal.Dependency.ReadAll();
         List<int> lint = (from Dependency dep in ls //for each chef from the data list of chefs
-                         where (dep.CurrTask == id)
-                         select dep.PreTask).ToList();                            //choose it
+                          where (dep.CurrTask == id)
+                          select dep.PreTask).ToList(); //changes                            //choose it
 
         List<BO.TaskInList> Dependecies = new List<BO.TaskInList>();
         foreach (var dep in lint)
