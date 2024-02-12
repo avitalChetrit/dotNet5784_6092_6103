@@ -27,10 +27,8 @@
             <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
         </Grid>
         <!--lIST VIEW-->
-        <ListView Grid.Row="1">
-            <ListView.View 
-                Margin="5" Grid.Row="1" ItemsSource="{Binding Path=CourseList}">
-                
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=CourseList}">
+            <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
