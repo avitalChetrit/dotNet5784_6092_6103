@@ -21,12 +21,6 @@ namespace PL
             MessageBox.Show("Would you like to initialize?");
             MessageBoxResult result= MessageBox.Show("Would you like to initialize?","Initialazion Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            //if( MessageBox.Show(MessageBoxButtons.YesNo)    ==  MessageBoxResult.Yes)
-
-            //MessageBox.Show(@"Do you want to confirm?",
-            //           "Problem!",
-            //            MessageBoxButtons.YesNo);
-
             DalTest.Initialization.Do();
         }
         
