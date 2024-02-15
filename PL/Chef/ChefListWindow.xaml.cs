@@ -28,6 +28,7 @@ namespace PL.Chef
         }
         public static readonly DependencyProperty ChefListProperty =
         DependencyProperty.Register("ChefList", typeof(IEnumerable<BO.Chef>), typeof(ChefListWindow), new PropertyMetadata(null));
+        
         public ChefListWindow()
         {
             InitializeComponent();
