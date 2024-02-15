@@ -9,15 +9,36 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-        public MainWindow()
+        //public IEnumerable<BO.Chef> CourseList
+        //{
+        //    get { return (IEnumerable<BO.Chef>)GetValue(ChefProperty); }
+        //    set { SetValue(ChefProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty ChefListProperty =
+        //    DependencyProperty.Register("CourseList", typeof(IEnumerable<BO.Chef>), typeof(ChefListWindow), new PropertyMetadata(null));
+
+        public MainWindow( int id=0)
         {
             InitializeComponent();
+            //ChefList = s_bl?.Chef.ReadAll()!;
+
+            if (id == 0)
+            {
+                BO.Chef chef = new BO.Chef();
+            }
+            else
+            {
+                BO.Chef chef = s_bl.Chef.Read(id);
+            }
         }
+
 
         private void btnChefs_Click(object sender, RoutedEventArgs e)
         {
             new ChefListWindow().Show();
         }
+
         private void btnInitDB_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Would you like to initialize?");
@@ -29,6 +50,18 @@ namespace PL
             }
             
         }
-        
+        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            
+            
+
+            MessageBox.Show("succeeded");
+        }
+
+        private void btnShowWindow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
