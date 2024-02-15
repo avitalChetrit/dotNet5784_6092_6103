@@ -20,8 +20,8 @@ public static class Initialization
         //names options
         string[] chefNames =
         {
-            "Dani Levi", "Eli Amar", "Yair Cohen",
-            "Ariela Levin", "Dina Klein", "Shira Israelof"
+            "Eyal Shani", "Gordon Ramsay", "Asaf Granit",
+            "Yosi Shitrit", "Moshik Rot", "Meir Adoni"
         };
         //range of id
         const int MIN_ID = 200000000;
