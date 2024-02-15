@@ -7,6 +7,8 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -23,7 +25,7 @@ namespace PL
 
             if (result==MessageBoxResult.Yes) // if the user want to initial
             {
-                DalTest.Initialization.Do();
+                s_bl.InitializeDB();
             }
             
         }

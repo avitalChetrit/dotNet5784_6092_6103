@@ -8,7 +8,9 @@ public enum ChefExperience
     AdvancedBeginner=1,
     Intermediate=2,
     Advanced=3,
-    Expert=4
+    Expert=4,
+    All,
+    None,
 }
 
 public enum Status

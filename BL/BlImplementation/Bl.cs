@@ -9,5 +9,7 @@ internal class Bl : IBl
 
     public ISheduled Sheduled => new SheduledImplementation();
 
+    public void InitializeDB() => DalTest.Initialization.Do();
+
     //public DateTime Start => new StartImplementation();
 }
