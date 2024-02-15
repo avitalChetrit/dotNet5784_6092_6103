@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ChefListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
+  
     <!--Extrnal Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -37,6 +37,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnShowWindow_Click"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
     </Grid>
 </Window>

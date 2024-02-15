@@ -11,5 +11,4 @@
         <Button Content="Handle Chefs" HorizontalAlignment="Left" Margin="65,128,0,0" VerticalAlignment="Top" Height="135" Width="255" RenderTransformOrigin="-0.515,0.353" Click="btnChefs_Click"/>
         <Button Content="Init DB" HorizontalAlignment="Left" Margin="475,128,0,0" VerticalAlignment="Top" Height="135" Width="255" Click="btnInitDB_Click"/>
     </Grid>
-    
 </Window>
