@@ -20,14 +20,17 @@ namespace PL.Chef
     public partial class ChefListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
         public BO.ChefExperience Level { get; set; } = BO.ChefExperience.None;
         public IEnumerable<BO.Chef> ChefList
         {
             get { return (IEnumerable<BO.Chef>)GetValue(ChefListProperty); }
             set { SetValue(ChefListProperty, value); }
         }
+        public BO.Chef SelectedChef;
         public static readonly DependencyProperty ChefListProperty =
         DependencyProperty.Register("ChefList", typeof(IEnumerable<BO.Chef>), typeof(ChefListWindow), new PropertyMetadata(null));
+
         
         public ChefListWindow()
         {
@@ -42,6 +45,28 @@ namespace PL.Chef
                     s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item => item.Level == Level)!;
             
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mouseup(object sender, MouseButtonEventArgs e)
+        {
+            BO.Chef chef = (ChefDataList.SelectedItem as BO.Chef);
+            if(chef!=null)
+            {
+                ChefWindow detailsWindow = new ChefWindow(chef.Id);
+                detailsWindow.ShowDialog(); 
+            }
+
+
+        }
+
+        private void OpenChefDetailsWindow(IEnumerable<BO.Chef> chef)
+        {
+            
         }
     }
 }

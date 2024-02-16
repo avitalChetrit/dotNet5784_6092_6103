@@ -29,16 +29,16 @@ public partial class ChefWindow : Window
     }
     
 
-    public ChefWindow(int id = 0)
+    public ChefWindow(int Id = 0)
     {
         InitializeComponent();
-        if(id == 0) 
+        if(Id == 0) 
         {
             CurrentChef = new BO.Chef();
         }else
         {
-            // Fetch existing entity from the underworld of BL
-            CurrentChef = s_bl.Chef.Read(id)!;
+            // Fetch existing entity from BL
+            CurrentChef = s_bl.Chef.Read(Id)!;
         }
     }
 
