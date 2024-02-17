@@ -24,7 +24,7 @@ public class Chef
 
     public override string ToString()
     {
-        return "Id: " + Id + "\n Name: " + Name + "\n Email: " + Email + "\n Level: " + Level + "\n Cost: " + Cost + "\n Task In Chef" + Task;
+        return "Id: " + Id + "\n Name: " + Name + "\n Email: " + Email + "\n Level: " + Level + "\n Cost: " + Cost +
+               (Task != null ? "\n Task In Chef" + Task : "");
     }
-     //=> this.ToStringProperty();
 }

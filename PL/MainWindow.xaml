@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    
+    <Grid Background="AliceBlue">
         <!--To show ChefList-->
-        <Button Content="Handle Chefs" HorizontalAlignment="Left" Margin="65,128,0,0" VerticalAlignment="Top" Height="135" Width="255" RenderTransformOrigin="-0.515,0.353" Click="btnChefs_Click"/>
-        <Button Content="Init DB" HorizontalAlignment="Left" Margin="475,128,0,0" VerticalAlignment="Top" Height="135" Width="255" Click="btnInitDB_Click"/>
+        <Button Background="White" Content="Handle Chefs" HorizontalAlignment="Left" Margin="65,128,0,0" VerticalAlignment="Top" Height="135" Width="255" RenderTransformOrigin="-0.515,0.353" Click="btnChefs_Click" FontSize="22"/>
+        <!--To intialize-->
+        <Button Background="White" Content="Init DB" HorizontalAlignment="Left" Margin="475,128,0,0" VerticalAlignment="Top" Height="135" Width="255" Click="btnInitDB_Click" FontSize="24"/>
+    
     </Grid>
 </Window>

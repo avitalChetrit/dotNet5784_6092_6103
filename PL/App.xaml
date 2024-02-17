@@ -7,5 +7,6 @@
     <Application.Resources>
         <local:ChefExperiencesCollection x:Key="ChefExperiencesCollectionKey"/>
         <converters:ConvertIdToContent x:Key="ConvertIdToContentConverter"/>
+        <converters:ConvertIdToEnabled x:Key="ConvertIdToEnabledConverter"/>
     </Application.Resources>
 </Application>

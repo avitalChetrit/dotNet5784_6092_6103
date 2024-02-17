@@ -31,6 +31,8 @@ namespace PL.Chef
         public static readonly DependencyProperty ChefListProperty =
         DependencyProperty.Register("ChefList", typeof(IEnumerable<BO.Chef>), typeof(ChefListWindow), new PropertyMetadata(null));
 
+
+
         /// <summary>
         /// when window opnes
         /// </summary>
@@ -39,6 +41,8 @@ namespace PL.Chef
             InitializeComponent();
             ChefList = s_bl?.Chef.ReadAll()!;
         }
+
+        
 
         /// <summary>
         /// event when filtering in combobox
@@ -76,7 +80,14 @@ namespace PL.Chef
                 ChefWindow UpdateChefWindow = new ChefWindow(chosenChef.Id);
                 UpdateChefWindow.ShowDialog();
             }
-             
+
+            ChefList = s_bl?.Chef.ReadAll()!;
+
+        }
+
+        private void UpdateChefList(object sender, RoutedEventArgs e)
+        {
+            ChefList = s_bl?.Chef.ReadAll()!;
         }
     }
 }

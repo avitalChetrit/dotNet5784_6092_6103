@@ -23,7 +23,6 @@ public partial class ChefWindow : Window
 
     public static readonly DependencyProperty ChefProperty =
     DependencyProperty.Register("CurrentChef", typeof(BO.Chef), typeof(ChefWindow));
-
     public BO.Chef CurrentChef
     {
         get { return (BO.Chef)GetValue(ChefProperty); }
@@ -34,19 +33,37 @@ public partial class ChefWindow : Window
     public ChefWindow(int Id = 0)
     {
         InitializeComponent();
+        //if(id==0) we need to create
         if(Id == 0) 
         {
             CurrentChef = new BO.Chef();
-        }else
+        }
+
+        //if(id!=0) we need to update
+        else
         {
             // Fetch existing entity from BL
             CurrentChef = s_bl.Chef.Read(Id)!;
         }
     }
 
-    //event when pressing on button
-    private void Button_Click(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// event when pressing on button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void UpdateOrCreate(object sender, RoutedEventArgs e)
     {
+        String? AddOrUpdate = (sender as Button)?.Content as String;
+        if (AddOrUpdate == "Add")
+        {
+            s_bl.Chef.Create(CurrentChef);
+        }
+        else if (AddOrUpdate == "Update")
+        {
+            s_bl.Chef.Update(CurrentChef);
+        }
         
+        this.Close();
     }
 }

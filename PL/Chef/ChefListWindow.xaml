@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ChefListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-  
+
     <!--Extrnal Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +30,7 @@
                       SelectionChanged="ComboBox_ChefLevelSelectionChanged"/>
         </Grid>
         <!--lIST VIEW-->
-        <ListView x:Name="ChefDataList" Margin="5" Grid.Row="1" ItemsSource="{Binding Path=ChefList}" SelectionMode="Single" MouseDoubleClick="UpdateChef" >
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=ChefList}" SelectionMode="Single" MouseDoubleClick="UpdateChef" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -38,5 +38,7 @@
             </ListView.View>
         </ListView>
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddChefButton_Click"/>
+        <Button Content="⟳" Grid.Row="2" HorizontalAlignment="Left" Height="50" Width="50" FontSize="36" FontFamily="Aharoni" Click="UpdateChefList"/>
+
     </Grid>
 </Window>

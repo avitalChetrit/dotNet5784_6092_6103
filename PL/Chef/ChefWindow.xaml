@@ -10,7 +10,7 @@
    
     
 
-    <Grid>
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
@@ -43,7 +43,8 @@
 
         <!-- Attribute Controls -->
         <TextBox Grid.Column="2" Grid.Row="1" Width="150" Margin="2,2,2,2" Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,
-         ValidatesOnExceptions=True}" IsEnabled="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"></TextBox>
+         ValidatesOnExceptions=True}" 
+        IsEnabled="{Binding Id, Mode=OneWay, Converter={StaticResource ConvertIdToEnabledConverter}}"></TextBox>
         <TextBox Grid.Column="2" Grid.Row="2" Width="150" Margin="2,2,2,2" Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,
             ValidatesOnExceptions=True}"></TextBox>
         <TextBox Grid.Column="2" Grid.Row="3" Width="150" Margin="2,2,2,2" Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,
@@ -53,11 +54,11 @@
          SelectedValue="{Binding Path=Level, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" VerticalAlignment="Center"></ComboBox>
         <TextBox Grid.Column="2" Grid.Row="5" Width="150" Margin="2,2,2,2" Text="{Binding Cost,Mode=TwoWay,NotifyOnValidationError=True,
             ValidatesOnExceptions=True }"></TextBox>
-        <TextBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2" Text="{Binding Task, Mode=TwoWay,NotifyOnValidationError=True,
-            ValidatesOnExceptions=True}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2"></TextBox>
 
-        <Button Grid.Column="1" Grid.Row="7" Height="25" Width="60" Margin="2,10,2,2" 
-         Content="{Binding Id, Mode=OneWay, Converter={StaticResource ConvertIdToContentConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Click="Button_Click"/>
+        <Button Grid.Column="1" Grid.Row="7" Height="37" Width="75" Margin="2,10,2,2" 
+         Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentConverter}}" 
+         HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Click="UpdateOrCreate" />
         
         
     </Grid>
