@@ -31,42 +31,52 @@ namespace PL.Chef
         public static readonly DependencyProperty ChefListProperty =
         DependencyProperty.Register("ChefList", typeof(IEnumerable<BO.Chef>), typeof(ChefListWindow), new PropertyMetadata(null));
 
-        
+        /// <summary>
+        /// when window opnes
+        /// </summary>
         public ChefListWindow()
         {
             InitializeComponent();
             ChefList = s_bl?.Chef.ReadAll()!;
         }
 
+        /// <summary>
+        /// event when filtering in combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_ChefLevelSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
                 ChefList = (Level == BO.ChefExperience.None) ?
                     s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item => item.Level == Level)!;
-            
-
+        }
+       
+        /// <summary>
+        /// event when clicling on button add
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddChefButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChefWindow CreateChefWindow = new ChefWindow();
+            CreateChefWindow.ShowDialog();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        /// <summary>
+        /// event when double clicking on an object in list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateChef(object sender, MouseButtonEventArgs e)
         {
-
-        }
-
-        private void mouseup(object sender, MouseButtonEventArgs e)
-        {
-            BO.Chef chef = (ChefDataList.SelectedItem as BO.Chef);
-            if(chef!=null)
+            BO.Chef? chosenChef = (sender as ListView)?.SelectedItem as BO.Chef;
+            if (chosenChef != null)
             {
-                ChefWindow detailsWindow = new ChefWindow(chef.Id);
-                detailsWindow.ShowDialog(); 
+                ChefWindow UpdateChefWindow = new ChefWindow(chosenChef.Id);
+                UpdateChefWindow.ShowDialog();
             }
-
-
-        }
-
-        private void OpenChefDetailsWindow(IEnumerable<BO.Chef> chef)
-        {
-            
+             
         }
     }
 }

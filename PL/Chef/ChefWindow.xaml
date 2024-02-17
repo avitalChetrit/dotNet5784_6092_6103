@@ -55,8 +55,7 @@
             ValidatesOnExceptions=True}"></TextBox>
 
         <Button Grid.Column="1" Grid.Row="7" Height="25" Width="60" Margin="2,10,2,2" 
-         Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" 
-          Click="btnAddUpdate_Click"/>
+         Content="{Binding Id, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Click="Button_Click"/>
         
         
     </Grid>

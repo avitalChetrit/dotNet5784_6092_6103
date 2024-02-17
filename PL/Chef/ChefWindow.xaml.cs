@@ -42,4 +42,9 @@ public partial class ChefWindow : Window
         }
     }
 
+    //event when pressing on button
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        
+    }
 }
