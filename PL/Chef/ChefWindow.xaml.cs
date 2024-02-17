@@ -20,8 +20,10 @@ namespace PL.Chef;
 public partial class ChefWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
     public static readonly DependencyProperty ChefProperty =
-    DependencyProperty.Register("Chef", typeof(BO.Chef), typeof(ChefWindow), new PropertyMetadata(null));
+    DependencyProperty.Register("CurrentChef", typeof(BO.Chef), typeof(ChefWindow));
+
     public BO.Chef CurrentChef
     {
         get { return (BO.Chef)GetValue(ChefProperty); }
