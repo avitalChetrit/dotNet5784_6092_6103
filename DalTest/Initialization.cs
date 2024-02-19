@@ -227,12 +227,7 @@ public static class Initialization
     public static void Do() //stage 4    
     {
         //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
-        s_dal = Factory.Get; //stage 4
-
-
-        s_dal!.Dependency.Clear();
-        s_dal!.Chef.Clear();
-        s_dal!.Task.Clear();
+        Reset();
 
         //s_dalChef = dalChef ?? throw new NullReferenceException("DAL can not be null!");
         createChefs();
@@ -242,5 +237,14 @@ public static class Initialization
 
         //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
         createDependencys();
+    }
+
+    public static void Reset()
+    {
+        s_dal = Factory.Get; //stage 4
+
+        s_dal!.Dependency.Clear();
+        s_dal!.Chef.Clear();
+        s_dal!.Task.Clear();
     }
 }

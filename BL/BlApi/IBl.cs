@@ -8,4 +8,5 @@ public interface IBl
     public ITask Task { get; }
     public ISheduled Sheduled { get; }
     public void InitializeDB();
+    public void ResetDB(); 
 }
