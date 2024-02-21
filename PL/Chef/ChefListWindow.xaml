@@ -38,7 +38,7 @@
             </ListView.View>
         </ListView>
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddChefButton_Click"/>
-        <Button Content="⟳" Grid.Row="2" HorizontalAlignment="Left" Height="50" Width="50" FontSize="36" FontFamily="Aharoni" Click="UpdateChefList"/>
+        
 
     </Grid>
 </Window>

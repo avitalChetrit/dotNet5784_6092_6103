@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfChef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Chef>
-    <ChefId>330039102</ChefId>
-    <Level>Beginner</Level>
-    <Name>Gordon Ramsay</Name>
-    <Email>GordonRamsay@gmail.com</Email>
-    <Cost>163</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>275963820</ChefId>
-    <Level>Beginner</Level>
-    <Name>Asaf Granit</Name>
-    <Email>AsafGranit@gmail.com</Email>
-    <Cost>259</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>200614308</ChefId>
-    <Level>Beginner</Level>
-    <Name>Yosi Shitrit</Name>
-    <Email>YosiShitrit@gmail.com</Email>
-    <Cost>280</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>346323526</ChefId>
-    <Level>Beginner</Level>
-    <Name>Moshik Rot</Name>
-    <Email>MoshikRot@gmail.com</Email>
-    <Cost>121</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>316917189</ChefId>
-    <Level>Beginner</Level>
-    <Name>Meir Adoni</Name>
-    <Email>MeirAdoni@gmail.com</Email>
-    <Cost>362</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>214828521</ChefId>
+    <ChefId>359607984</ChefId>
     <Level>Beginner</Level>
     <Name>Eyal Shani</Name>
     <Email>EyalShani@gmail.com</Email>
-    <Cost>500</Cost>
+    <Cost>440</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>373241286</ChefId>
+    <Level>Beginner</Level>
+    <Name>Gordon Ramsay</Name>
+    <Email>GordonRamsay@gmail.com</Email>
+    <Cost>326</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>378754759</ChefId>
+    <Level>Beginner</Level>
+    <Name>Asaf Granit</Name>
+    <Email>AsafGranit@gmail.com</Email>
+    <Cost>293</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>331972453</ChefId>
+    <Level>Beginner</Level>
+    <Name>Yosi Shitrit</Name>
+    <Email>YosiShitrit@gmail.com</Email>
+    <Cost>185</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>391783253</ChefId>
+    <Level>Beginner</Level>
+    <Name>Moshik Rot</Name>
+    <Email>MoshikRot@gmail.com</Email>
+    <Cost>498</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>297417000</ChefId>
+    <Level>Beginner</Level>
+    <Name>Meir Adoni</Name>
+    <Email>MeirAdoni@gmail.com</Email>
+    <Cost>286</Cost>
   </Chef>
 </ArrayOfChef>

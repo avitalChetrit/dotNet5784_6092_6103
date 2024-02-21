@@ -64,6 +64,8 @@ namespace PL.Chef
         {
             ChefWindow CreateChefWindow = new ChefWindow();
             CreateChefWindow.ShowDialog();
+
+            ChefList = s_bl?.Chef.ReadAll()!;
         }
 
         
@@ -83,11 +85,6 @@ namespace PL.Chef
 
             ChefList = s_bl?.Chef.ReadAll()!;
 
-        }
-
-        private void UpdateChefList(object sender, RoutedEventArgs e)
-        {
-            ChefList = s_bl?.Chef.ReadAll()!;
         }
     }
 }
