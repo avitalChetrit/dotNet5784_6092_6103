@@ -6,12 +6,23 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
+
     <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <!--To show ChefList-->
-        <Button Background="White" Content="Handle Chefs" HorizontalAlignment="Left" Margin="65,128,0,0" VerticalAlignment="Top" Height="135" Width="255" RenderTransformOrigin="-0.515,0.353" Click="btnChefs_Click" FontSize="22"/>
+        <Button Background="White" Content="Handle Chefs" Click="btnChefs_Click" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" />
         <!--To intialize-->
-        <Button Background="White" Content="Init DB" HorizontalAlignment="Left" Margin="475,128,0,0" VerticalAlignment="Top" Height="135" Width="255" Click="btnInitDB_Click" FontSize="24"/>
-    
+        <Button Background="White" Content="Init DB" Click="btnInitDB_Click" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" />
+        <!--To Reset-->
+        <Button Background="White" Content="Reset" Click="Reset" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10"></Button>
     </Grid>
 </Window>

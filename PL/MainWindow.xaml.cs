@@ -28,6 +28,15 @@ namespace PL
             }
             
         }
-        
+
+        private void Reset(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Would you like to Reset?", "Reset Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes) // if the user want to Reset
+            {
+                s_bl.ResetDB();
+            }
+        }
     }
 }
