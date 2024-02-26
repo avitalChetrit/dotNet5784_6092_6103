@@ -41,24 +41,23 @@ public partial class ChefWindow : Window
     public ChefWindow(int Id = 0)
     {
         InitializeComponent();
-        //if(id==0) we need to create
-        if(Id == 0) 
+       
+        if(Id == 0)  //create
         {
             CurrentChef = new BO.Chef();
             TaskList = null;
         }
-
-        //if(id!=0) we need to update
-        else
+        else //update
         {
             // Fetch existing entity from BL
-            Func<BO.Task, bool> filter = c => c.Chef != null && c.Chef.Id == Id;
             CurrentChef = s_bl.Chef.Read(Id)!;
-            TaskList = s_bl.Task.ReadAll(filter).Select(t => new BO.TaskInChef
-            {
-                Id = t.Id,
-                Alias = t.Alias,
-            }).ToList();
+            
+            //Func<BO.Task, bool> filter = c => c.Chef != null && c.Chef.Id == Id;
+            //TaskList = s_bl.Task.ReadAll(filter).Select(t => new BO.TaskInChef
+            //{
+            //    Id = t.Id,
+            //    Alias = t.Alias,
+            //}).ToList();
         }
     }
 

@@ -14,9 +14,9 @@ namespace PL
             InitializeComponent();
         }
 
-        private void btnChefs_Click(object sender, RoutedEventArgs e)
+        private void ManagerView(object sender, RoutedEventArgs e)
         {
-            new ChefListWindow().Show();
+            new ManagerWindow().Show();
         }
         private void btnInitDB_Click(object sender, RoutedEventArgs e)
         {

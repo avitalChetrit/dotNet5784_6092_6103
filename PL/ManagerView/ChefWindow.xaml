@@ -54,10 +54,13 @@
          SelectedValue="{Binding Path=Level, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" VerticalAlignment="Center"></ComboBox>
         <TextBox Grid.Column="2" Grid.Row="5" Width="150" Margin="2,2,2,2" Text="{Binding Cost,Mode=TwoWay,NotifyOnValidationError=True,
             ValidatesOnExceptions=True }"></TextBox>
+        <!--TOFIX אנחנו צריכות להראות את המשימה הנוכחית של השף-->
+        <!--<TextBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2" Text="{Binding Task,Mode=TwoWay,NotifyOnValidationError=True,
+            ValidatesOnExceptions=True }"></TextBox>-->
         
-        <ComboBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2"
-        ItemsSource="{Binding TaskList}"
-        SelectedValue="{Binding Path=Task, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" ></ComboBox>
+       <!--<ComboBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2"
+        ItemsSource="{Binding Source=TaskList}"
+        SelectedValue="{Binding Path=Task, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" ></ComboBox>-->
 
         <!--Update/Create button-->
         <Button Grid.Column="1" Grid.Row="7" Height="37" Width="75" Margin="2,10,2,2" 

@@ -25,6 +25,6 @@ public class Chef
     public override string ToString()
     {
         return "Id: " + Id + "\n Name: " + Name + "\n Email: " + Email + "\n Level: " + Level + "\n Cost: " + Cost +
-               (Task != null ? "\n Task In Chef" + Task : "");
+               (Task != null ? "\n Task In Chef: \n" + Task : "");
     }
 }

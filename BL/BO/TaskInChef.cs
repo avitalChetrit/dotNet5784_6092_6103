@@ -1,4 +1,7 @@
-﻿namespace BO;
+﻿using System.Reflection.Emit;
+using System.Xml.Linq;
+
+namespace BO;
 /// <summary>
 /// TaskInChef
 /// </summary>
@@ -8,5 +11,9 @@ public class TaskInChef
 {
     public int Id { get; init; }
     public string Alias { get; set; }
+    public override string ToString()
+    {
+        return "Id: " + Id + "\n Alias: " + Alias;
+    }
 }
 

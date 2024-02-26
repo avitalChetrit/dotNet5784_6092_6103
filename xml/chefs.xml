@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfChef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Chef>
-    <ChefId>359607984</ChefId>
+    <ChefId>285353109</ChefId>
     <Level>Beginner</Level>
     <Name>Eyal Shani</Name>
     <Email>EyalShani@gmail.com</Email>
-    <Cost>440</Cost>
+    <Cost>389</Cost>
   </Chef>
   <Chef>
-    <ChefId>378754759</ChefId>
-    <Level>Beginner</Level>
-    <Name>Asaf Granit</Name>
-    <Email>AsafGranit@gmail.com</Email>
-    <Cost>293</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>331972453</ChefId>
-    <Level>Beginner</Level>
-    <Name>Yosi Shitrit</Name>
-    <Email>YosiShitrit@gmail.com</Email>
-    <Cost>185</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>391783253</ChefId>
-    <Level>Beginner</Level>
-    <Name>Moshik Rot</Name>
-    <Email>MoshikRot@gmail.com</Email>
-    <Cost>498</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>297417000</ChefId>
-    <Level>Beginner</Level>
-    <Name>Meir Adoni</Name>
-    <Email>MeirAdoni@gmail.com</Email>
-    <Cost>500</Cost>
-  </Chef>
-  <Chef>
-    <ChefId>373241286</ChefId>
+    <ChefId>391495705</ChefId>
     <Level>Beginner</Level>
     <Name>Gordon Ramsay</Name>
     <Email>GordonRamsay@gmail.com</Email>
-    <Cost>700</Cost>
+    <Cost>108</Cost>
   </Chef>
   <Chef>
-    <ChefId>856974526</ChefId>
-    <Level>AdvancedBeginner</Level>
-    <Name>Moshik Karot</Name>
-    <Email>MoshikKarot@gmail.com</Email>
-    <Cost>500</Cost>
+    <ChefId>361963281</ChefId>
+    <Level>Beginner</Level>
+    <Name>Asaf Granit</Name>
+    <Email>AsafGranit@gmail.com</Email>
+    <Cost>365</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>269733129</ChefId>
+    <Level>Beginner</Level>
+    <Name>Yosi Shitrit</Name>
+    <Email>YosiShitrit@gmail.com</Email>
+    <Cost>270</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>369115425</ChefId>
+    <Level>Beginner</Level>
+    <Name>Moshik Rot</Name>
+    <Email>MoshikRot@gmail.com</Email>
+    <Cost>288</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>365706271</ChefId>
+    <Level>Beginner</Level>
+    <Name>Meir Adoni</Name>
+    <Email>MeirAdoni@gmail.com</Email>
+    <Cost>270</Cost>
   </Chef>
 </ArrayOfChef>
