@@ -8,13 +8,6 @@
     <Cost>440</Cost>
   </Chef>
   <Chef>
-    <ChefId>373241286</ChefId>
-    <Level>Beginner</Level>
-    <Name>Gordon Ramsay</Name>
-    <Email>GordonRamsay@gmail.com</Email>
-    <Cost>326</Cost>
-  </Chef>
-  <Chef>
     <ChefId>378754759</ChefId>
     <Level>Beginner</Level>
     <Name>Asaf Granit</Name>
@@ -40,6 +33,20 @@
     <Level>Beginner</Level>
     <Name>Meir Adoni</Name>
     <Email>MeirAdoni@gmail.com</Email>
-    <Cost>286</Cost>
+    <Cost>500</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>373241286</ChefId>
+    <Level>Beginner</Level>
+    <Name>Gordon Ramsay</Name>
+    <Email>GordonRamsay@gmail.com</Email>
+    <Cost>700</Cost>
+  </Chef>
+  <Chef>
+    <ChefId>856974526</ChefId>
+    <Level>AdvancedBeginner</Level>
+    <Name>Moshik Karot</Name>
+    <Email>MoshikKarot@gmail.com</Email>
+    <Cost>500</Cost>
   </Chef>
 </ArrayOfChef>

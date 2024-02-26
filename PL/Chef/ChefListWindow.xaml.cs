@@ -20,17 +20,16 @@ namespace PL.Chef
     public partial class ChefListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
         public BO.ChefExperience Level { get; set; } = BO.ChefExperience.None;
+
+        //For binding list of chefs
         public IEnumerable<BO.Chef> ChefList
         {
             get { return (IEnumerable<BO.Chef>)GetValue(ChefListProperty); }
             set { SetValue(ChefListProperty, value); }
         }
-        public BO.Chef SelectedChef;
         public static readonly DependencyProperty ChefListProperty =
         DependencyProperty.Register("ChefList", typeof(IEnumerable<BO.Chef>), typeof(ChefListWindow), new PropertyMetadata(null));
-
 
 
         /// <summary>
@@ -42,7 +41,6 @@ namespace PL.Chef
             ChefList = s_bl?.Chef.ReadAll()!;
         }
 
-        
 
         /// <summary>
         /// event when filtering in combobox
@@ -51,10 +49,10 @@ namespace PL.Chef
         /// <param name="e"></param>
         private void ComboBox_ChefLevelSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                ChefList = (Level == BO.ChefExperience.None) ?
-                    s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item => item.Level == Level)!;
+            ChefList = (Level == BO.ChefExperience.None) ?
+                s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item => item.Level == Level)!;
         }
-       
+
         /// <summary>
         /// event when clicling on button add
         /// </summary>
@@ -68,7 +66,7 @@ namespace PL.Chef
             ChefList = s_bl?.Chef.ReadAll()!;
         }
 
-        
+
         /// <summary>
         /// event when double clicking on an object in list
         /// </summary>
