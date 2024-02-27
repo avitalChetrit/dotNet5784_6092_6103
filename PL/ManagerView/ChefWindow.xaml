@@ -57,8 +57,11 @@
         <!--TOFIX אנחנו צריכות להראות את המשימה הנוכחית של השף-->
         <!--<TextBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2" Text="{Binding Task,Mode=TwoWay,NotifyOnValidationError=True,
             ValidatesOnExceptions=True }"></TextBox>-->
+        <TextBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,6,2,10" Text="{Binding Task.Id, Mode=TwoWay, NotifyOnValidationError=True,ValidatesOnExceptions=True}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="7" Width="150" Margin="2,10,2,10" Text="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"></TextBox>
         
-       <!--<ComboBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2"
+
+        <!--<ComboBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2"
         ItemsSource="{Binding Source=TaskList}"
         SelectedValue="{Binding Path=Task, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" ></ComboBox>-->
 
