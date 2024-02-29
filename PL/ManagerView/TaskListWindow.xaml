@@ -5,18 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ManagerView"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="450" Width="800">
+        Title="TaskListWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
-        <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding Path=TaskList}" Margin="0,0,0,61" Width="Auto" Height="500">
+        <!--Rows-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Filter Label 1 Status-->
+            <Label Content="Status" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
+            <!--ComboBox For Filter 1-->
+            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
+              SelectedValue="{Binding Path=Level, Mode=TwoWay}"
+              />
+            <!--Filter Label 2-->
+            <Label Content="Complexity" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
+            <!--ComboBox For Filter 2-->
+            <ComboBox Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+             ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
+             SelectedValue="{Binding Path=Level, Mode=TwoWay}"
+              />
+            <!--Filter Label 3-->
+            <Label Content="Chef" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="4"/>
+            <!--ComboBox For Filter 3-->
+            <ComboBox Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
+            SelectedValue="{Binding Path=Level, Mode=TwoWay}"
+             />
+        </Grid>
+        <!--Grid for Tasks Table-->
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=TaskList}" Grid.Row="1">
             <DataGrid.Columns>
-
+                <DataGridTextColumn Header="Task Id" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="Task Description" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Task Alias" Binding="{Binding Alias}" Width="*"/>
+                <DataGridTextColumn Header="Task Status" Binding="{Binding Status}" Width="*"/>
+                <DataGridTextColumn Header="Task Complexity" Binding="{Binding Complexity}" Width="*"/>
+                <DataGridTextColumn Header="Chef Name" Binding="{Binding Chef.Name}" Width="*"/>
             </DataGrid.Columns>
-
         </DataGrid>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="60" Width="150" Margin="5,5,5,5" />
 
 
     </Grid>
-            
+
 </Window>
 

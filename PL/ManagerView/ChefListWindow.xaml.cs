@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 namespace PL.Chef
 {
+
     /// <summary>
     /// Interaction logic for ChefListWindow.xaml
     /// </summary>

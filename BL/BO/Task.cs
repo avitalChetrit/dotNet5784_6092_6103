@@ -26,12 +26,12 @@ public class Task
     public string? Description { get; set; } 
     public string? Alias { get; set; }
     public DateTime? CreatedAtDate { get; set; } 
-    public BO.Status Status { get; set; } 
-    public List<BO.TaskInList> Dependecies { get; set; }    
+    public BO.Status Status { get; set; }
+    public List<BO.TaskInList>? Dependecies { get; set; } = null;
     public TimeSpan? RequiredTime { get; set; } 
     public DateTime? StartDate { get; set; }
     public DateTime? ScheduledDate { get; set; }
-    public DateTime? ForecastDate { get; set; }
+    public DateTime? ForecastDate { get; set; }//הערכת סיום
     public DateTime? CompleteDate { get; set; } 
     public string? Deliveables { get; set; } 
     public string? Remarks { get; set; } 

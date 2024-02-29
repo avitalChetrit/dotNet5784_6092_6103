@@ -1,13 +1,13 @@
-﻿<Window x:Class="PL.Chef.ChefWindow"
+﻿<Window x:Class="PL.ManagerView.TaskWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Chef"
+        xmlns:local="clr-namespace:PL.ManagerView"
         mc:Ignorable="d"
-        Title="ChefWindow" Height="450" Width="300"
-        DataContext="{Binding CurrentChef, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
-   
+        Title="TaskWindow" Height="450" Width="300"
+        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+
 
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        
+
         <!-- Attribute Labels -->
         <Label Grid.Column="1" Grid.Row="1" Content="ID:" FontSize="18" Margin="2,2,2,2"></Label>
         <Label Grid.Column="1" Grid.Row="2" Content="Name:" FontSize="18" Margin="2,2,2,2"></Label>
@@ -57,14 +57,15 @@
             ValidatesOnExceptions=True }"></TextBox>
         <TextBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2" IsEnabled="False" Text="{Binding Task.Id, Mode=TwoWay, NotifyOnValidationError=True,ValidatesOnExceptions=True}"></TextBox>
         <TextBox Grid.Column="2" Grid.Row="7" Width="150" Margin="2,2,2,2" IsEnabled="False" Text="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"></TextBox>
-        
+
 
         <!--Update/Create button-->
         <Button Grid.Column="1" Grid.Row="8" Height="37" Width="75" Margin="2,10,2,2" 
          Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentConverter}}" 
          HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Click="UpdateOrCreate" />
-        
-        
+
+
     </Grid>
 
 </Window>
+
