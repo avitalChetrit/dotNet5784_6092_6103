@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ManagerView"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="790" Width="400"
+        Title="TaskWindow" Height="830" Width="500"
         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
 
 
@@ -70,10 +70,10 @@
             ValidatesOnExceptions=True}"></TextBox>
 
         <TextBox Grid.Column="2" Grid.Row="4" Width="150" Margin="2,2,2,2" Text="{Binding CreatedAtDate, Mode=TwoWay,NotifyOnValidationError=True,
-            ValidatesOnExceptions=True }" IsEnabled="{Binding CreatedAtDate, Mode=OneWay, Converter={StaticResource ConvertIdToEnabledConverter}}"></TextBox>
+            ValidatesOnExceptions=True }" IsEnabled="False" ></TextBox>
         
         <TextBox Grid.Column="2" Grid.Row="5" Width="150" Margin="2,2,2,2" Text="{Binding Status, Mode=TwoWay,NotifyOnValidationError=True,
-            ValidatesOnExceptions=True }" IsEnabled="{Binding Status, Mode=OneWay, Converter={StaticResource ConvertIdToEnabledConverter}}"></TextBox>
+            ValidatesOnExceptions=True }" IsEnabled="False"></TextBox>
 
         <TextBox Grid.Column="2" Grid.Row="6" Width="150" Margin="2,2,2,2" IsEnabled="False" Text="{Binding RequiredTime, Mode=TwoWay, NotifyOnValidationError=True,ValidatesOnExceptions=True}"></TextBox>
 
@@ -83,10 +83,10 @@
             ValidatesOnExceptions=True }" ></TextBox>
 
         <TextBox Grid.Column="2" Grid.Row="9" Width="150" Margin="2,2,2,2" Text="{Binding ForecastDate,Mode=TwoWay,NotifyOnValidationError=True,
-            ValidatesOnExceptions=True }" IsEnabled="{Binding ForecastDate, Mode=OneWay, Converter={StaticResource ConvertIdToEnabledConverter}}"></TextBox>
+            ValidatesOnExceptions=True }" IsEnabled="False"></TextBox>
 
         <TextBox Grid.Column="2" Grid.Row="10" Width="150" Margin="2,2,2,2" Text="{Binding CompleteDate,Mode=TwoWay,NotifyOnValidationError=True,
-            ValidatesOnExceptions=True }" IsEnabled="{Binding CompleteDate, Mode=OneWay, Converter={StaticResource ConvertIdToEnabledConverter}}"></TextBox>
+            ValidatesOnExceptions=True }" IsEnabled="False"></TextBox>
 
         <TextBox Grid.Column="2" Grid.Row="11" Width="150" Margin="2,2,2,2" Text="{Binding Deliveables,Mode=TwoWay,NotifyOnValidationError=True,
             ValidatesOnExceptions=True }" ></TextBox>
@@ -102,12 +102,12 @@
 
         <ComboBox Grid.Column="2" Grid.Row="15" Width="150" Margin="2,2,2,2"
             ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
-            SelectedValue="{Binding Path=Level, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" VerticalAlignment="Center"></ComboBox>
+            SelectedValue="{Binding Path=Complexity, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" VerticalAlignment="Center"></ComboBox>
 
         
 
         <!--lIST VIEW-->
-        <ListView Margin="2" Grid.Column="2" Grid.Row="16" ItemsSource="{Binding Path=Dependecies}" SelectionMode="Single" Width="150" Height="100" >
+        <ListView Margin="2" Grid.Column="2" Grid.Row="16" ItemsSource="{Binding Path=Dependecies}" SelectionMode="Single" Width="200" Height="150" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
