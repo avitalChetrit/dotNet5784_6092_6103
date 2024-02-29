@@ -53,7 +53,7 @@
             SelectedValue="{Binding Path=ChefName, Mode=TwoWay}" SelectionChanged="ChangeFilter"/>
         </Grid>
         <!--Grid for Tasks Data-->
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=TaskList}" Grid.Row="1" MouseDoubleClick="UpdateTaskDoubleClick">
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=TaskList}" Grid.Row="1" MouseDoubleClick="UpdateTaskDoubleClick" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Task Id" Binding="{Binding Id}" Width="*"/>
                 <DataGridTextColumn Header="Task Description" Binding="{Binding Description}" Width="*"/>

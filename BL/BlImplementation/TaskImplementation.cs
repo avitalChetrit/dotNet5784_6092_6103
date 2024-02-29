@@ -28,7 +28,7 @@ internal class TaskImplementation : ITask
     {
         //Can only create object on first stage
         if (Sheduled.level != ScheduleLevel.Planning)
-            throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create chef In This Project Stage");
+            throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create task In This Project Stage");
 
         DO.Task doTask = new DO.Task(item.Id, item.Description, item.Alias, false,
             (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime,
@@ -45,7 +45,7 @@ internal class TaskImplementation : ITask
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Student with ID={item.Id} already exists", ex);
+            throw new BO.BlAlreadyExistsException($"Task with ID={item.Id} already exists", ex);
         }
 
         //create dependecies

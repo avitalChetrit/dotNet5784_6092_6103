@@ -29,8 +29,17 @@ public partial class TaskWindow : Window
         set { SetValue(TaskProperty, value); }
     }
 
-    public TaskWindow()
+    public TaskWindow( int Id=0)
     {
         InitializeComponent();
+        if (Id == 0)  //create
+        {
+            CurrentTask = new BO.Task();
+        }
+        else //update
+        {
+            // Fetch existing entity from BL
+            CurrentTask = s_bl.Task.Read(Id)!;
+        }
     }
 }

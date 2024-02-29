@@ -66,7 +66,15 @@ namespace PL.ManagerView
 
         private void UpdateTaskDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new TaskWindow().Show();
+            //new TaskWindow().Show();
+            BO.Task? chosenTask = (sender as DataGrid)?.SelectedItem as BO.Task;
+            if (chosenTask != null)
+            {
+                TaskWindow UpdateTaskWindow = new TaskWindow(chosenTask.Id);
+                UpdateTaskWindow.ShowDialog();
+            }
+
+            TaskList = s_bl?.Task.ReadAll()!;
         }
     }
 }
