@@ -29,13 +29,7 @@ public partial class ChefWindow : Window
         set { SetValue(ChefProperty, value); }
     }
 
-    public static readonly DependencyProperty TaskListProperty =
-    DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInChef>), typeof(ChefWindow), new PropertyMetadata(null));
-    public IEnumerable<BO.TaskInChef> TaskList
-    {
-        get { return (IEnumerable<BO.TaskInChef>)GetValue(TaskListProperty); }
-        set { SetValue(TaskListProperty, value); }
-    }
+  
     
 
     public ChefWindow(int Id = 0)
@@ -45,7 +39,6 @@ public partial class ChefWindow : Window
         if(Id == 0)  //create
         {
             CurrentChef = new BO.Chef();
-            TaskList = null;
         }
         else //update
         {

@@ -21,7 +21,7 @@ namespace PL.Chef
     public partial class ChefListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public BO.ChefExperience Level { get; set; } = BO.ChefExperience.None;
+        public BO.ChefExperienceFilter Level { get; set; } = BO.ChefExperienceFilter.All;
 
         //For binding list of chefs
         public IEnumerable<BO.Chef> ChefList
@@ -50,8 +50,8 @@ namespace PL.Chef
         /// <param name="e"></param>
         private void ComboBox_ChefLevelSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ChefList = (Level == BO.ChefExperience.None) ?
-                s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item => item.Level == Level)!;
+            ChefList = (Level == BO.ChefExperienceFilter.All) ?
+                s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item =>item.Level == (BO.ChefExperience)Level)!;
         }
 
         /// <summary>

@@ -9,8 +9,16 @@ public enum ChefExperience
     Intermediate=2,
     Advanced=3,
     Expert=4,
-    All,
-    None,
+}
+
+public enum ChefExperienceFilter
+{
+    Beginner = 0,
+    AdvancedBeginner = 1,
+    Intermediate = 2,
+    Advanced = 3,
+    Expert = 4,
+    All = 5
 }
 
 public enum Status
@@ -18,7 +26,8 @@ public enum Status
     Unscheduled,  //no ScheduledDate date (ScheduledDate=null)
     Scheduled,    //(ScheduledDate != null)
     OnTrack,      //(Start != null)
-    Done          //CompleteDate != 
+    Done,          //CompleteDate != 
+    All
 }
 
 public enum ScheduleLevel

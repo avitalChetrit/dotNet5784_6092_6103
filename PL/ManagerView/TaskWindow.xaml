@@ -62,7 +62,7 @@
         <!--Update/Create button-->
         <Button Grid.Column="1" Grid.Row="8" Height="37" Width="75" Margin="2,10,2,2" 
          Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentConverter}}" 
-         HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Click="UpdateOrCreate" />
+         HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" />
 
 
     </Grid>
