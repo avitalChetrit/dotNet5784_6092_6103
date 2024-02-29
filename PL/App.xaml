@@ -7,6 +7,7 @@
     <Application.Resources>
         <local:ChefExperiencesCollection x:Key="ChefExperiencesCollectionKey"/>
         <local:ChefExperiencesCollectionFilter x:Key="ChefExperiencesCollectionKeyFilter"/>
+        <local:StatusCollectionFilter x:Key="StatusCollectionFilterKeyFilter"/>
         <converters:ConvertIdToContent x:Key="ConvertIdToContentConverter"/>
         <converters:ConvertIdToEnabled x:Key="ConvertIdToEnabledConverter"/>
     </Application.Resources>
