@@ -26,31 +26,34 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <!--Filter Label 1 Status-->
+            
+            <!--Status-->
+            <!--Filter Label 1-->
             <Label Content="Status" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
             <!--ComboBox For Filter 1-->
             <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-              ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKeyFilter}}"
-              SelectedValue="{Binding Path=Level, Mode=TwoWay}"
-              />
-            <!--Filter Label 2-->
+              ItemsSource="{Binding Source={StaticResource StatusCollectionFilterKeyFilter}}"
+              SelectedValue="{Binding Path=Status, Mode=TwoWay}" SelectionChanged="ChangeFilter"/>
+            
+            <!--Complexity-->
+            <!--Filter Label-->
             <Label Content="Complexity" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
-            <!--ComboBox For Filter 2-->
+            <!--ComboBox For Filter-->
             <ComboBox Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-             ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
-             SelectedValue="{Binding Path=Level, Mode=TwoWay}"
+             ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKeyFilter}}"
+             SelectedValue="{Binding Path=Complexity, Mode=TwoWay}" SelectionChanged="ChangeFilter"
               />
+            
+            <!--Chef Name-->
             <!--Filter Label 3-->
             <Label Content="Chef" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="4"/>
             <!--ComboBox For Filter 3-->
             <ComboBox Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-            ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
-            SelectedValue="{Binding Path=Level, Mode=TwoWay}"
-             />
+            ItemsSource="{Binding Path=ChefNamesList}"
+            SelectedValue="{Binding Path=ChefName, Mode=TwoWay}" SelectionChanged="ChangeFilter"/>
         </Grid>
-        <!--Grid for Tasks Table-->
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=TaskList}" Grid.Row="1">
+        <!--Grid for Tasks Data-->
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=TaskList}" Grid.Row="1" MouseDoubleClick="UpdateTaskDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Task Id" Binding="{Binding Id}" Width="*"/>
                 <DataGridTextColumn Header="Task Description" Binding="{Binding Description}" Width="*"/>

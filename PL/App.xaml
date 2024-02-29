@@ -5,6 +5,8 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!--Sources-->
+        <!--Filters-->
         <local:ChefExperiencesCollection x:Key="ChefExperiencesCollectionKey"/>
         <local:ChefExperiencesCollectionFilter x:Key="ChefExperiencesCollectionKeyFilter"/>
         <local:StatusCollectionFilter x:Key="StatusCollectionFilterKeyFilter"/>
