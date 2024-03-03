@@ -12,5 +12,6 @@
         <local:StatusCollectionFilter x:Key="StatusCollectionFilterKeyFilter"/>
         <converters:ConvertIdToContent x:Key="ConvertIdToContentConverter"/>
         <converters:ConvertIdToEnabled x:Key="ConvertIdToEnabledConverter"/>
+        <converters:ConvertDateTimeToString x:Key="ConvertDateTimeToStringConverter"/>
     </Application.Resources>
 </Application>

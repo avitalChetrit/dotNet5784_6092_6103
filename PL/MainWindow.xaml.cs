@@ -9,9 +9,19 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        public static readonly DependencyProperty TimeProperty =
+        DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
+        public DateTime CurrentTime
+        {
+            get { return (DateTime)GetValue(TimeProperty); }
+            set { SetValue(TimeProperty, value); }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            CurrentTime = s_bl.Clock;
         }
 
         private void ManagerView(object sender, RoutedEventArgs e)
@@ -37,6 +47,26 @@ namespace PL
             {
                 s_bl.ResetDB();
             }
+        }
+
+        private void AddHourButton(object sender, RoutedEventArgs e)
+        {
+            s_bl.AddHour();
+        }
+
+        private void AddDayButton(object sender, RoutedEventArgs e)
+        {
+            s_bl.AddDay();
+        }
+
+        private void AddYearButton(object sender, RoutedEventArgs e)
+        {
+            s_bl.AddYear();
+        }
+
+        private void ResetClock(object sender, RoutedEventArgs e)
+        {
+            s_bl.InitializeTime();
         }
     }
 }

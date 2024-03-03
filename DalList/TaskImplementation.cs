@@ -18,6 +18,7 @@ internal class TaskImplementation : ITask
         //for entities with auto id
         int id = DataSource.Config.NextTaskId;
         Task copy = item with { Id = id };
+
         DataSource.Tasks.Add(copy);
         return id;
     }

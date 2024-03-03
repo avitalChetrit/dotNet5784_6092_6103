@@ -8,5 +8,13 @@ public interface IBl
     public ITask Task { get; }
     public ISheduled Sheduled { get; }
     public void InitializeDB();
-    public void ResetDB(); 
+    public void ResetDB();
+    #region clock
+    public DateTime Clock { get; }
+    public void AddYear();
+    public void AddDay();
+    public void AddHour();
+    public void InitializeTime();
+
+    #endregion
 }

@@ -18,6 +18,10 @@ using System.Runtime.InteropServices;
 internal class TaskImplementation : ITask
 {
     private static DalApi.IDal? _dal = DalApi.Factory.Get; //stage 4
+
+    private readonly IBl _bl;
+    internal TaskImplementation(IBl bl) => _bl = bl;
+
     /// <summary>
     /// Create a logical Task
     /// </summary>
@@ -29,6 +33,8 @@ internal class TaskImplementation : ITask
         //Can only create object on first stage
         if (Sheduled.level != ScheduleLevel.Planning)
             throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create task In This Project Stage");
+
+        item.CreatedAtDate = _bl.Clock;
 
         DO.Task doTask = new DO.Task(item.Id, item.Description, item.Alias, false,
             (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime,

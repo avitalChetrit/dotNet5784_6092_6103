@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding CurrentTime, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
 
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -27,5 +30,13 @@
         <Button Background="White" Content="Init DB" Click="btnInitDB_Click" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" />
         <!--To Reset-->
         <Button Background="White" Content="Reset" Click="Reset" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10"></Button>
+
+        <Label Background="White" Content="{Binding CurrentTime, Mode=OneWay, Converter={StaticResource ConvertDateTimeToStringConverter} }"  Grid.Column="3" Grid.Row="1" ></Label>
+
+        <Button Background="Gray" Content="One Year" Grid.Column="3" Grid.Row="2" Height="25" Width="60" Click="AddYearButton" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" ></Button>
+        <Button Background="Gray" Content="One Day" Grid.Column="3" Grid.Row="2" Height="25" Width="60" VerticalAlignment="Center" Click="AddDayButton" HorizontalAlignment="Left" ></Button>
+        <Button Background="Gray" Content="One Hour" Grid.Column="3" Grid.Row="2" Height="25" Width="60" Margin="0,79,100,108" Click="AddHourButton" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Button>
+        <Button Background="Gray" Content="Reset Clock" Grid.Column="3" Grid.Row="2" Height="30" Width="80" Margin="80,39,0,40" Click="ResetClock" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+
     </Grid>
 </Window>

@@ -59,7 +59,7 @@
         <!-- Attribute Controls -->
         <TextBox Grid.Column="2" Grid.Row="1" Width="150" Margin="2,2,2,2" Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,
          ValidatesOnExceptions=True}" 
-        IsEnabled="{Binding Id, Mode=OneWay, Converter={StaticResource ConvertIdToEnabledConverter}}"></TextBox>
+        IsEnabled="False"></TextBox>
         
         <TextBox Grid.Column="2" Grid.Row="2" Width="150" Margin="2,2,2,2" Text="{Binding Description, Mode=TwoWay,NotifyOnValidationError=True,
             ValidatesOnExceptions=True}"></TextBox>

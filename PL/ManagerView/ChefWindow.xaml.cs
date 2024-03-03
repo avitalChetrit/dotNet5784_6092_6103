@@ -29,8 +29,6 @@ public partial class ChefWindow : Window
         set { SetValue(ChefProperty, value); }
     }
 
-  
-    
 
     public ChefWindow(int Id = 0)
     {
