@@ -42,4 +42,24 @@ public partial class TaskWindow : Window
             CurrentTask = s_bl.Task.Read(Id)!;
         }
     }
+
+    /// <summary>
+    /// event when pressing on button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void CreateOrUpdate(object sender, RoutedEventArgs e)
+    {
+        String? AddOrUpdate = (sender as Button)?.Content as String;
+        if (AddOrUpdate == "Add")
+        {
+            s_bl.Task.Create(CurrentTask);
+        }
+        else if (AddOrUpdate == "Update")
+        {
+            s_bl.Task.Update(CurrentTask);
+        }
+
+        this.Close();
+    }
 }

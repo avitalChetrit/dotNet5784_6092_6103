@@ -76,5 +76,13 @@ namespace PL.ManagerView
 
             TaskList = s_bl?.Task.ReadAll()!;
         }
+
+        private void AddTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            TaskWindow CreateTaskWindow = new TaskWindow();
+            CreateTaskWindow.ShowDialog();
+
+            TaskList = s_bl?.Task.ReadAll()!;
+        }
     }
 }
