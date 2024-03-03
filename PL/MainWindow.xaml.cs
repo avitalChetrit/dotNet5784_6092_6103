@@ -1,4 +1,5 @@
 ﻿using PL.Chef;
+using PL.ChefView;
 using System.Windows;
 namespace PL
 {
@@ -20,7 +21,6 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-
             CurrentTime = s_bl.Clock;
         }
 
@@ -52,21 +52,31 @@ namespace PL
         private void AddHourButton(object sender, RoutedEventArgs e)
         {
             s_bl.AddHour();
+            CurrentTime = s_bl.Clock;
+
         }
 
         private void AddDayButton(object sender, RoutedEventArgs e)
         {
             s_bl.AddDay();
+            CurrentTime = s_bl.Clock;
         }
 
         private void AddYearButton(object sender, RoutedEventArgs e)
         {
             s_bl.AddYear();
+            CurrentTime = s_bl.Clock;
         }
 
         private void ResetClock(object sender, RoutedEventArgs e)
         {
             s_bl.InitializeTime();
+            CurrentTime = s_bl.Clock;
+        }
+
+        private void LogInChefWindowOpen(object sender, RoutedEventArgs e)
+        {
+            new LogInChefWindow().Show();
         }
     }
 }

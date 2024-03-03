@@ -5,10 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ChefView"
         mc:Ignorable="d"
-        Title="LogInChefWindow" Height="200" Width="400">
+        Title="LogInChefWindow" Height="200" Width="400"
+        DataContext="{Binding IdLogIn, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Grid>
-        
-        
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Enter Chef Id:" Grid.Row="1" Grid.Column="1"></Label>
+        <TextBox  Grid.Row="1" Grid.Column="2"
+        Text="{Binding IdLogIn, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"></TextBox>
+        <Button Grid.Column="1" Grid.Row="3" Content="Enter" Click="EnterChef"></Button>
     </Grid>
 </Window>
