@@ -12,7 +12,7 @@
     <ScheduledDate xsi:nil="true" />
     <DeadLineDate>2024-05-17T00:00:00+03:00</DeadLineDate>
     <CompleteDate xsi:nil="true" />
-    <ChefId xsi:nil="true" />
+	 <ChefId > 393506179 </ChefId> 
   </Task>
   <Task>
     <Id>1478</Id>
