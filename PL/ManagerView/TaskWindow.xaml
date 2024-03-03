@@ -34,9 +34,6 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
@@ -105,8 +102,6 @@
             ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
             SelectedValue="{Binding Path=Complexity, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" VerticalAlignment="Center"></ComboBox>
 
-        
-
         <!--lIST VIEW-->
         <ListView Margin="2" Grid.Column="4" Grid.Row="9" ItemsSource="{Binding Path=Dependecies}" SelectionMode="Single" Width="250" Height="150" >
             <ListView.View>
@@ -118,9 +113,9 @@
 
 
         <!--Update/Create button-->
-        <Button Grid.Column="1" Grid.Row="17" Height="37" Width="75" Margin="2,10,2,2" 
+        <Button Grid.Column="1" Grid.Row="14" Height="37" Width="75" Margin="2,10,2,2" 
          Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentConverter}}" 
-         HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" />
+         HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Click="CreateOrUpdate" />
 
 
     </Grid>
