@@ -33,7 +33,7 @@ internal class TaskImplementation : ITask
         DO.Task doTask = new DO.Task(item.Id, item.Description, item.Alias, false,
             (DO.ChefExperience)item.Complexity, item.CreatedAtDate, item.RequiredTime,
             item.StartDate, item.ScheduledDate, null, item.CompleteDate, item.Deliveables,
-            item.Remarks, item.Chef.Id);
+            item.Remarks, item.Chef?.Id);
         
         //Check Input
         if (item.Id <= 0 && item.Alias == "")
@@ -49,7 +49,7 @@ internal class TaskImplementation : ITask
         }
 
         //create dependecies
-        item.Dependecies.ForEach(Dep =>
+        item.Dependecies?.ForEach(Dep =>
         { _dal.Dependency.Create(new Dependency(0, Dep.Id, item.Id)); });
 
         return item.Id;
