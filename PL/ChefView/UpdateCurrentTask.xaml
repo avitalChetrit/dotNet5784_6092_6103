@@ -59,6 +59,6 @@
         <TextBox Grid.Column="2" Grid.Row="7" Width="150" Margin="2,2,2,2" Text="{Binding CompleteDate,Mode=TwoWay,NotifyOnValidationError=True,
          ValidatesOnExceptions=True }" IsEnabled="True"></TextBox>
 
-        <Button Content="Update"  Grid.Column="1" Grid.Row="9" Height="50" Margin="15,15,15,15"></Button>
+        <Button Content="Update"  Grid.Column="1" Grid.Row="9" Height="50" Margin="15,15,15,15" Click="UpdateCurrTask"></Button>
     </Grid>
 </Window>

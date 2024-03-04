@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.ChefView"
         mc:Ignorable="d"
         Title="LogInChefWindow" Height="200" Width="400"
-        DataContext="{Binding IdLogIn, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -22,8 +22,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Enter Chef Id:" Grid.Row="1" Grid.Column="1"></Label>
-        <TextBox  Grid.Row="1" Grid.Column="2"
-        Text="{Binding IdLogIn, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"></TextBox>
+        <TextBox  Grid.Row="1" Grid.Column="2" Text="{Binding IdLogIn, Mode=TwoWay}"></TextBox>
         <Button Grid.Column="1" Grid.Row="3" Content="Enter" Click="EnterChef"></Button>
     </Grid>
 </Window>

@@ -28,9 +28,15 @@ public partial class UpdateCurrentTask : Window
         get { return (BO.Task)GetValue(CurrentTaskProperty); }
         set { SetValue(CurrentTaskProperty, value); }
     }
-    public UpdateCurrentTask(int Id=0)
+    public UpdateCurrentTask(BO.Task task)
     {
         InitializeComponent();
-        CurrentTask = s_bl.Task.Read(Id);
+        CurrentTask=task;
+
+    }
+
+    private void UpdateCurrTask(object sender, RoutedEventArgs e)
+    {
+        s_bl.Task.Update(CurrentTask);
     }
 }

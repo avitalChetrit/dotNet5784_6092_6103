@@ -25,10 +25,10 @@ public partial class LogInChefWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
     public static readonly DependencyProperty IdLogInProperty =
-    DependencyProperty.Register("IdLogIn", typeof(int), typeof(LogInChefWindow));
-    public int IdLogIn
+    DependencyProperty.Register("IdLogIn", typeof(String), typeof(LogInChefWindow));
+    public String IdLogIn
     {
-        get { return (int)GetValue(IdLogInProperty); }
+        get { return (String)GetValue(IdLogInProperty); }
         set { SetValue(IdLogInProperty, value); }
     }
     public LogInChefWindow()
@@ -38,22 +38,33 @@ public partial class LogInChefWindow : Window
 
     private void EnterChef(object sender, RoutedEventArgs e)
     {
-        BO.Chef? chef = s_bl.Chef.Read(IdLogIn);
-        if(chef == null) 
+        BO.Chef? chef = null;
+        try
         {
-            MessageBox.Show("Id doesn't exist!");
+            int id = int.Parse(IdLogIn);
+            chef = s_bl.Chef.Read(id);
+        }catch(Exception ex) 
+        {
+            MessageBox.Show(ex.Message);
             return;
+        }
+        if(chef?.Task==null)
+        {
+            //open choose mesima
         }
         else
         {
-            if(chef.Task == null)
+            BO.Task task = s_bl.Task.Read(chef.Task.Id)!;
+            if (task.Status == BO.Status.Done)
             {
-
-            }
-            else
+                //open choose mesima
+            }else
             {
-
+                new UpdateCurrentTask(task).Show();
             }
         }
+        
+       
+        
     }
 }
