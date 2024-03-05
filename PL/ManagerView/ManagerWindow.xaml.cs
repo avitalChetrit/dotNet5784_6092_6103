@@ -35,5 +35,10 @@ namespace PL
         {
             new TaskListWindow().Show();
         }
+
+        private void ScheduleInit(object sender, RoutedEventArgs e)
+        {
+            new ScheduleWindow().Show();
+        }
     }
 }

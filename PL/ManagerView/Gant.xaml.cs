@@ -44,7 +44,7 @@ public partial class Gant : Window
             Duration = task.RequiredTime.Value.Days,
             // Calculate TimeFromStart and TimeToEnd based on your logic
             TimeFromStart = (int)(task.StartDate- startProject).Value.TotalDays,
-            TimeToEnd = (int)(endProject- task.CompleteDate).Value.TotalDays
+            TimeToEnd = (int)(endProject- task.ForecastDate).Value.TotalDays
         }).ToList();
 
     }
@@ -60,5 +60,42 @@ public partial class Gant : Window
     public Gant()
     {
         InitializeComponent();
+        GetList();
     }
 }
+
+
+//<Window x:Class="PL.GanttChar.GanttCharWindow"
+//        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+//        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+//        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+//        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+//        xmlns:local="clr-namespace:PL.GanttChar"
+//        mc:Ignorable="d"
+//        Title="GanttChar" Height="450" Width="800"
+//        DataContext =  "{Binding RelativeSource = {RelativeSource Mode=self}}">
+//    <Grid>
+//        <ItemsControl>
+            
+//        </ItemsControl>
+//        <ItemsControl ItemsSource = "{Binding GanttTasksList}" Margin="65,51,83,44">
+//            <ItemsControl.ItemTemplate>
+//                <DataTemplate>
+//                    <Border BorderThickness = "2" BorderBrush="Aqua">
+//                        <StackPanel Orientation = "Horizontal" HorizontalAlignment="Left">
+//                            <TextBlock HorizontalAlignment = "Left" Text="{Binding taskID}" FontWeight="Bold" Background="Aquamarine"/>
+//                            <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding timeFromStart}"  Fill="White"/>
+
+//                            <!--Width="{Binding DaysFromStart}"-->
+//                            <!--Width="{Binding DaysFromStart}"-->
+//                            <TextBlock HorizontalAlignment = "Left" Text="{Binding taskName}" Width="{Binding duration}" FontWeight="Bold" Background="Aquamarine"/>
+//                            <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding timeToEnd}"  Fill="White"/>
+
+
+//                        </StackPanel>
+//                    </Border>
+//                </DataTemplate>
+//            </ItemsControl.ItemTemplate>
+//        </ItemsControl>
+//    </Grid>
+//</Window>

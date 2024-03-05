@@ -1,0 +1,31 @@
+﻿<Window x:Class="PL.ManagerView.ScheduleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.ManagerView"
+        mc:Ignorable="d"
+        Title="ScheduleWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Label Content="Enter Start Date for the project:" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="1" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" ></Label>
+        <TextBox  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  Text="{Binding dateStartProject, Mode=TwoWay}"></TextBox>
+        <Button Grid.Column="1" Grid.Row="3" Content="Enter" Height="73" Margin="0,0,0,72" Grid.RowSpan="3" VerticalAlignment="Bottom" Click="EnterStartDate" ></Button>
+    </Grid>
+</Window>

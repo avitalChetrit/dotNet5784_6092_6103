@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ChefView"
         mc:Ignorable="d"
-        Title="ChooseTaskWindow" Height="450" Width="800">
+        Title="ChooseTaskWindow" Height="450" Width="500"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" >
+
     <Grid>
-        
+        <!--Grid for Tasks Data-->
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=TaskChoiceList}" Grid.Row="1" IsReadOnly="True" MouseDoubleClick="ChooseTask">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Task Id" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="Task Description" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Task Alias" Binding="{Binding Alias}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>

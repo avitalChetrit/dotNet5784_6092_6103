@@ -38,7 +38,7 @@ public partial class LogInChefWindow : Window
 
     private void EnterChef(object sender, RoutedEventArgs e)
     {
-        BO.Chef? chef = null;
+        BO.Chef chef;
         try
         {
             int id = int.Parse(IdLogIn);
@@ -48,17 +48,18 @@ public partial class LogInChefWindow : Window
             MessageBox.Show(ex.Message);
             return;
         }
-        if(chef?.Task==null)
+        if(chef?.Task==null) //if the chef doesnt have a task then give him the option to choose one
         {
-            //open choose mesima
+            new ChooseTaskWindow(chef!).Show();
         }
         else
         {
             BO.Task task = s_bl.Task.Read(chef.Task.Id)!;
             if (task.Status == BO.Status.Done)
             {
-                //open choose mesima
-            }else
+                new ChooseTaskWindow(chef).Show();
+            }
+            else
             {
                 new UpdateCurrentTask(task).Show();
             }

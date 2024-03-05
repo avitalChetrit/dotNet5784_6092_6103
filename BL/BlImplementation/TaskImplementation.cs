@@ -152,6 +152,17 @@ internal class TaskImplementation : ITask
         return doToBoTask(id, item);
     }
 
+    private bool isThereCycle(int currTask , int preTask)
+    {
+        if (currTask == preTask) return true;
+
+        IEnumerable<Dependency>? dependencies = _dal?.Dependency.ReadAll(dep => dep.CurrTask == currTask)!;
+        foreach(var dep in dependencies)
+        {
+           return isThereCycle(dep.CurrTask, preTask);
+        }
+        return false;
+    }
     private BO.Task? doToBoTask(int id, DO.Task? item)
     {
         if (item == null)
@@ -170,15 +181,14 @@ internal class TaskImplementation : ITask
             c = new BO.ChefInTask() { Id = chefi.ChefId, Name = chefi.Name };
         }
 
-        IEnumerable<Dependency> ls = _dal.Dependency.ReadAll();
-        List<int> lint = (from Dependency dep in ls //for each chef from the data list of chefs
-                          where (dep.CurrTask == id)
-                          select dep.PreTask).ToList(); //changes                            //choose it
+        IEnumerable<int>? ls = _dal.Dependency.ReadAll(dep => dep.CurrTask == id)
+            .Select(dep => dep.PreTask);
+                                //choose it
 
         List<BO.TaskInList> Dependecies = new List<BO.TaskInList>();
-        foreach (var dep in lint)
+        foreach (var dep in ls)
         {
-            DO.Task pre = _dal.Task.Read(dep);
+            DO.Task pre = _dal.Task.Read(dep)!;
             TaskInList taskInList = new TaskInList()
             {
                 Id = pre.Id,
@@ -233,8 +243,6 @@ internal class TaskImplementation : ITask
         return BO.Status.OnTrack;
 
     }
-
-
 
 }
 
