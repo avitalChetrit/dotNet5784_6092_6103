@@ -40,5 +40,17 @@ namespace PL
         {
             new ScheduleWindow().Show();
         }
+
+        private void ShowGantt(object sender, RoutedEventArgs e)
+        {
+            if(BO.Sheduled.StartDate.HasValue)
+            {
+                new Gant().Show();
+            }
+            else
+            {
+                MessageBox.Show("Can't show gantt before schedule");
+            }
+        }
     }
 }

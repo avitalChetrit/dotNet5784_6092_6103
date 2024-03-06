@@ -29,17 +29,29 @@ public partial class TaskWindow : Window
         set { SetValue(TaskProperty, value); }
     }
 
+    //another DP
+    public static readonly DependencyProperty TasksToAddProperty =
+    DependencyProperty.Register("TasksToAdd", typeof(IEnumerable<BO.TaskInList>), typeof(TaskWindow));
+    public IEnumerable<BO.TaskInList> TasksToAdd
+    {
+        get { return (IEnumerable<BO.TaskInList>)GetValue(TasksToAddProperty); }
+        set { SetValue(TasksToAddProperty, value); }
+    }
+
+
     public TaskWindow( int Id=0)
     {
         InitializeComponent();
         if (Id == 0)  //create
         {
             CurrentTask = new BO.Task();
+            TasksToAdd= new List<BO.TaskInList>();
         }
         else //update
         {
             // Fetch existing entity from BL
             CurrentTask = s_bl.Task.Read(Id)!;
+            TasksToAdd = s_bl.Task.ReadAll().Select(x => new BO.TaskInList { Id = x.Id, Alias = x.Alias, Description=x.Description, Status=x.Status});
         }
     }
 
@@ -61,5 +73,20 @@ public partial class TaskWindow : Window
         }
 
         this.Close();
+    }
+
+    private void ListViewChooseDependecy(object sender, SelectionChangedEventArgs e)
+    {
+        BO.TaskInList chosenDep = ((sender as ListView)?.SelectedItem as BO.TaskInList)!;
+        bool isCycle = s_bl.Task.isThereCycle(CurrentTask.Id, chosenDep.Id);
+        if(isCycle) 
+        {
+           MessageBox.Show("Cannot form cycle dependecy");
+        }
+        else
+        {
+            CurrentTask.Dependecies.Add(chosenDep);
+            s_bl.Task.Update(CurrentTask);
+        }
     }
 }

@@ -12,5 +12,6 @@ public interface ITask
     public void Delete(int id);
     public void UpdateDate(int id, DateTime d);
     public BO.Status findStat(int id);
+    public bool isThereCycle(int currTask, int preTask);
 
 }

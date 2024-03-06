@@ -152,7 +152,7 @@ internal class TaskImplementation : ITask
         return doToBoTask(id, item);
     }
 
-    private bool isThereCycle(int currTask , int preTask)
+    public bool isThereCycle(int currTask , int preTask)
     {
         if (currTask == preTask) return true;
 
