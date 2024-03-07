@@ -42,7 +42,7 @@ namespace PL.ManagerView
 
             if(task.Dependecies==null || !task.Dependecies.Any()) 
             { 
-                task.StartDate = BO.Sheduled.StartDate;
+                task.StartDate = BO.Schedule.StartDate;
                 s_bl.Task.Update(task);
                 return;
             }
@@ -62,7 +62,7 @@ namespace PL.ManagerView
         }
         private void EnterStartDate(object sender, RoutedEventArgs e)
         {
-            BO.Sheduled.StartDate = dateStartProject;
+            BO.Schedule.StartDate = dateStartProject;
             foreach (var item in s_bl.Task.ReadAll())
             {
                 if (item.StartDate == null)

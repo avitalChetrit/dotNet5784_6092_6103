@@ -31,7 +31,7 @@ internal class TaskImplementation : ITask
     public int Create(BO.Task item)
     {
         //Can only create object on first stage
-        if (Sheduled.level != ScheduleLevel.Planning)
+        if (Schedule.level != ScheduleLevel.Planning)
             throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create task In This Project Stage");
 
         item.CreatedAtDate = _bl.Clock;
@@ -64,7 +64,7 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         //Can only del object on first stage
-        if (Sheduled.level != ScheduleLevel.Planning)
+        if (Schedule.level != ScheduleLevel.Planning)
             throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Delete chef In This Project Stage");
         BO.Task? item = Read(id);
         //Check if task exists
@@ -227,7 +227,7 @@ internal class TaskImplementation : ITask
 
         if (item.ScheduledDate == null)
         {
-            return BO.Status.Unscheduled;
+            return BO.Status.UnScheduled;
         }
 
         if (item.CompleteDate != null)

@@ -74,11 +74,11 @@ internal class Program
 
     public static Task inputAndCreateTask(int id = 0)
     {
-        if (Sheduled.level != ScheduleLevel.Planning)
+        if (Schedule.level != ScheduleLevel.Planning)
             throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create chef In This Project Stage");
 
         DateTime CreatedAtDate = DateTime.Today;
-        BO.Status Status = BO.Status.Unscheduled;
+        BO.Status Status = BO.Status.UnScheduled;
         DateTime? StartDate = null;
         DateTime? ScheduledDate = null;
         DateTime? ForecastDate = null;
@@ -324,7 +324,7 @@ internal class Program
                 else
                     printTask(taskUpdate);
 
-                if(Sheduled.level == ScheduleLevel.Mid)
+                if(Schedule.level == ScheduleLevel.Mid)
                 {
                     Console.WriteLine("Enter ScheduledDate: ");
                     DateTime d = DateTime.Parse(Console.ReadLine());
@@ -334,7 +334,7 @@ internal class Program
                 }
 
                 Task taskUpdateNew;
-                if (Sheduled.level == ScheduleLevel.Planning)
+                if (Schedule.level == ScheduleLevel.Planning)
                 {
                     taskUpdateNew = inputAndCreateTask(TaskIdUpdate);
                 }
@@ -393,7 +393,7 @@ internal class Program
         {
             Console.WriteLine("Choose an entity you'd like to check:");
             Console.WriteLine("0.Exit\n" + "1.Chef\n" + "2.Task\n");
-            if(Sheduled.level == ScheduleLevel.Planning)
+            if(Schedule.level == ScheduleLevel.Planning)
             {
                 Console.WriteLine("3.Initial Start Date\n");
             }
@@ -415,7 +415,7 @@ internal class Program
                         break;
 
                     case 3://Initial Start Date
-                        Sheduled.StartDate = DateTime.Parse(Console.ReadLine());
+                        Schedule.StartDate = DateTime.Parse(Console.ReadLine());
                         s_bl!.Sheduled.levelStatuas();
                         break;
 
