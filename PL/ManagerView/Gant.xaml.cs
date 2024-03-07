@@ -24,10 +24,10 @@ public partial class Gant : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
     public static readonly DependencyProperty TaskGanttListProperty =
-    DependencyProperty.Register("TaskGanttList", typeof(IEnumerable<TaskGantt>), typeof(Gant));
-    public IEnumerable<TaskGantt> TaskGanttList
+    DependencyProperty.Register("TaskGanttList", typeof(List<TaskGantt>), typeof(Gant));
+    public List<TaskGantt> TaskGanttList
     {
-        get { return (IEnumerable<TaskGantt>)GetValue(TaskGanttListProperty); }
+        get { return (List<TaskGantt>)GetValue(TaskGanttListProperty); }
         set { SetValue(TaskGanttListProperty, value); }
     }
 
@@ -44,7 +44,7 @@ public partial class Gant : Window
             Duration = task.RequiredTime.Value.Days,
             // Calculate TimeFromStart and TimeToEnd based on your logic
             TimeFromStart = (int)(task.StartDate- startProject).Value.TotalDays,
-            TimeToEnd = (int)(endProject- task.ForecastDate).Value.TotalDays
+            TimeToEnd = (int)(endProject - task.ForecastDate).Value.TotalDays
         }).ToList();
 
     }
@@ -57,10 +57,14 @@ public partial class Gant : Window
         public int TimeToEnd;    
     }
      
-    public Gant()
+    public Gant() //ctor
     {
         InitializeComponent();
         GetList();
+
+       // TaskGantt t1 = new TaskGantt { TaskId = 21, TaskName = "aa", Duration = 200, TimeFromStart = 100, TimeToEnd = 100 };
+        
+        //TaskGanttList.Add(t1);
     }
 }
 
