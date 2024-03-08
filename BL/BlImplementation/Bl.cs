@@ -7,7 +7,7 @@ internal class Bl : IBl
 
     public ITask Task => new TaskImplementation(this);
 
-    public ISchedule Sheduled => new ScheduleImplementation();
+    public ISchedule Schedule => new ScheduleImplementation();
 
     public void InitializeDB() => DalTest.Initialization.Do();
 

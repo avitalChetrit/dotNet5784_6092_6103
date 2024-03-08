@@ -18,4 +18,5 @@ internal static class DataSource
     internal static List<DO.Chef> Chefs { get; } = new();
     internal static List<DO.Task?> Tasks { get; } = new();
     internal static List<DO.Dependency?> Dependencys { get; } = new();
+    internal static DateTime? StartDate { get; set; } = null;
 }

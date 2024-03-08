@@ -277,7 +277,7 @@ internal class Program
     }
     private static void switchFunTask()
     {
-        ScheduleLevel lev = s_bl!.Sheduled.levelStatuas();
+        ScheduleLevel lev = s_bl!.Schedule.levelStatuas();
         //sub menu for Task
         Console.WriteLine("Choose a method to preform:");
         Console.WriteLine("1.Exit\n" + "2.Create\n" + "3.Read\n" + "4.ReadAll\n" + "5.Update\n" + "6.Delete\n");
@@ -329,7 +329,7 @@ internal class Program
                     Console.WriteLine("Enter ScheduledDate: ");
                     DateTime d = DateTime.Parse(Console.ReadLine());
                     s_bl!.Task.UpdateDate(TaskIdUpdate, d);
-                    s_bl!.Sheduled.levelStatuas();
+                    s_bl!.Schedule.levelStatuas();
                     break;
                 }
 
@@ -416,7 +416,7 @@ internal class Program
 
                     case 3://Initial Start Date
                         Schedule.StartDate = DateTime.Parse(Console.ReadLine());
-                        s_bl!.Sheduled.levelStatuas();
+                        s_bl!.Schedule.levelStatuas();
                         break;
 
                     default:

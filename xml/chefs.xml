@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfChef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Chef>
-    <ChefId>285054857</ChefId>
+    <ChefId>396272048</ChefId>
     <Level>Beginner</Level>
     <Name>Eyal Shani</Name>
     <Email>EyalShani@gmail.com</Email>
-    <Cost>115</Cost>
+    <Cost>191</Cost>
   </Chef>
   <Chef>
-    <ChefId>343134519</ChefId>
+    <ChefId>315223691</ChefId>
     <Level>Beginner</Level>
     <Name>Gordon Ramsay</Name>
     <Email>GordonRamsay@gmail.com</Email>
-    <Cost>398</Cost>
+    <Cost>431</Cost>
   </Chef>
   <Chef>
-    <ChefId>266382027</ChefId>
+    <ChefId>339327700</ChefId>
     <Level>Beginner</Level>
     <Name>Asaf Granit</Name>
     <Email>AsafGranit@gmail.com</Email>
-    <Cost>348</Cost>
+    <Cost>208</Cost>
   </Chef>
   <Chef>
-    <ChefId>236589935</ChefId>
+    <ChefId>288528063</ChefId>
     <Level>Beginner</Level>
     <Name>Yosi Shitrit</Name>
     <Email>YosiShitrit@gmail.com</Email>
-    <Cost>203</Cost>
+    <Cost>101</Cost>
   </Chef>
   <Chef>
-    <ChefId>238855789</ChefId>
+    <ChefId>388930418</ChefId>
     <Level>Beginner</Level>
     <Name>Moshik Rot</Name>
     <Email>MoshikRot@gmail.com</Email>
-    <Cost>215</Cost>
+    <Cost>320</Cost>
   </Chef>
   <Chef>
-    <ChefId>352392540</ChefId>
+    <ChefId>344303963</ChefId>
     <Level>Beginner</Level>
     <Name>Meir Adoni</Name>
     <Email>MeirAdoni@gmail.com</Email>
-    <Cost>142</Cost>
+    <Cost>167</Cost>
   </Chef>
 </ArrayOfChef>

@@ -243,6 +243,7 @@ public static class Initialization
     {
         s_dal = Factory.Get; //stage 4
 
+        s_dal.Schedule.Delete();
         s_dal!.Dependency.Clear();
         s_dal!.Chef.Clear();
         s_dal!.Task.Clear();

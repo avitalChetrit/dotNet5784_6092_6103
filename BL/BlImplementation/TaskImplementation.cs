@@ -31,7 +31,7 @@ internal class TaskImplementation : ITask
     public int Create(BO.Task item)
     {
         //Can only create object on first stage
-        if (Schedule.level != ScheduleLevel.Planning)
+        if (BO.Schedule.level != ScheduleLevel.Planning)
             throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Create task In This Project Stage");
 
         item.CreatedAtDate = _bl.Clock;
@@ -64,7 +64,7 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         //Can only del object on first stage
-        if (Schedule.level != ScheduleLevel.Planning)
+        if (BO.Schedule.level != ScheduleLevel.Planning)
             throw new BO.BlUnableToPreformActionInThisProjectStageException("Can't Delete chef In This Project Stage");
         BO.Task? item = Read(id);
         //Check if task exists
@@ -88,7 +88,7 @@ internal class TaskImplementation : ITask
     {
         DO.Task? doTask = _dal.Task.Read(boTask.Id);
         if (doTask == null)
-            throw new BO.BlDoesNotExistException($"Chef with ID={doTask.Id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Chef with ID={doTask?.Id} does Not exist");
         DO.Task updateTask = new DO.Task
         {
             Id = boTask.Id,

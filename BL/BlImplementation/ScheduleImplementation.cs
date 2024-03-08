@@ -1,11 +1,17 @@
 ﻿using BlApi;
 using BO;
-using DalApi;
+
 namespace BlImplementation;
 
 public class ScheduleImplementation : ISchedule
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+
+    public void Delete()
+    {
+        _dal.Schedule.Delete();
+    }
+
     public ScheduleLevel levelStatuas()
     {
         if (Schedule.level == ScheduleLevel.Mid) { return ScheduleLevel.Mid; }
@@ -19,5 +25,16 @@ public class ScheduleImplementation : ISchedule
             if (!AllhaveScheduledDate) { Schedule.level = ScheduleLevel.Mid; return ScheduleLevel.Mid; }
             else { Schedule.level = ScheduleLevel.Mid; return ScheduleLevel.Execution; }
         }
+    }
+
+    public DateTime? Read()
+    {
+        return _dal.Schedule.Read();
+    }
+
+    public void Update(DateTime? dateTime)
+    {
+        Schedule.StartDate = dateTime;
+        _dal.Schedule.Update(dateTime); 
     }
 }
