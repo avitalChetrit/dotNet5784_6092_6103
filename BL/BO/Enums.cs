@@ -23,7 +23,7 @@ public enum ChefExperienceFilter
 
 public enum Status
 {
-    Unscheduled,  //no ScheduledDate date (ScheduledDate=null)
+    UnScheduled,  //no ScheduledDate date (ScheduledDate=null)
     Scheduled,    //(ScheduledDate != null)
     OnTrack,      //(Start != null)
     Done,          //CompleteDate != 

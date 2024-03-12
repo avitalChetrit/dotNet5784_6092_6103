@@ -117,7 +117,7 @@ public static class Initialization
             TimeSpan _requiredTime = TimeSpan.FromDays(randomDays);
 
             DateTime? _startDate = null;
-            DateTime? _scheduledDate = null;
+            DateTime? _ScheduledDate = null;
 
             // Create a random future day by adding today a random namber of days
             int daysToAddRand = s_rand.Next(1, 365);
@@ -129,7 +129,7 @@ public static class Initialization
             string? _deliveables = null;
             string? _remarks = null;
             int? _ChefId = null;
-            Task newTask = new(_id, _AlisasName, _description, _isMilestone, _complexity, _createdAtDate, _requiredTime, _startDate, _scheduledDate, _deadLineDate, _completeDate, _deliveables, _remarks, _ChefId);
+            Task newTask = new(_id, _AlisasName, _description, _isMilestone, _complexity, _createdAtDate, _requiredTime, _startDate, _ScheduledDate, _deadLineDate, _completeDate, _deliveables, _remarks, _ChefId);
 
             s_dal!.Task.Create(newTask);
         }
@@ -243,6 +243,7 @@ public static class Initialization
     {
         s_dal = Factory.Get; //stage 4
 
+        s_dal.Schedule.Delete();
         s_dal!.Dependency.Clear();
         s_dal!.Chef.Clear();
         s_dal!.Task.Clear();

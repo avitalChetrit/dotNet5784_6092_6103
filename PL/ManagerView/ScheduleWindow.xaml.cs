@@ -31,26 +31,26 @@ namespace PL.ManagerView
             get { return (DateTime)GetValue(dateStartProjectProperty); }
             set { SetValue(dateStartProjectProperty, value); }
         }
-        public ScheduleWindow()
-        {
-            InitializeComponent();
-            
-        }
+
+        /// <summary>
+        /// Make a shcedle and add start date to all tasks
+        /// </summary>
+        /// <param name="task"></param>
         public void Schedule(BO.Task task)
         {
-            if (task.StartDate != null)  return;
+            if (task.StartDate != null) return;
 
-            if(task.Dependecies==null || !task.Dependecies.Any()) 
-            { 
-                task.StartDate = BO.Sheduled.StartDate;
+            if (task.Dependecies == null || !task.Dependecies.Any())
+            {
+                task.StartDate = BO.Schedule.StartDate;
                 s_bl.Task.Update(task);
                 return;
             }
 
-            foreach(var dep in task.Dependecies!)
+            foreach (var dep in task.Dependecies!)
             {
                 BO.Task depTask = s_bl.Task.Read(dep.Id)!;
-                if (depTask.StartDate==null)
+                if (depTask.StartDate == null)
                 {
                     Schedule(depTask);
                 }
@@ -60,9 +60,15 @@ namespace PL.ManagerView
             s_bl.Task.Update(task);
 
         }
+        public ScheduleWindow()
+        {
+            InitializeComponent();
+        }
+        
         private void EnterStartDate(object sender, RoutedEventArgs e)
         {
-            BO.Sheduled.StartDate = dateStartProject;
+            //BO.Schedule.StartDate = dateStartProject;
+            s_bl.Schedule.Update(dateStartProject);
             foreach (var item in s_bl.Task.ReadAll())
             {
                 if (item.StartDate == null)
@@ -70,6 +76,7 @@ namespace PL.ManagerView
             }
 
             MessageBox.Show("Schedule Done!");
+            this.Close();
         }
     }
 }

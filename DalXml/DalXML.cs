@@ -1,4 +1,5 @@
 ﻿using DalApi;
+using DO;
 using System.Diagnostics;
 namespace Dal;
 
@@ -10,4 +11,5 @@ sealed internal class DalXml : IDal
     public IChef Chef => new ChefImplementation();
     public ITask Task => new TaskImplementation();
     public IDependency Dependency => new DependencyImplementation();
+    public ISchedule Schedule => new ScheduleImplementation();
 }

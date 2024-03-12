@@ -8,5 +8,5 @@ namespace DO;
 
 public static class Schedule
 {
-    public static DateTime? StartDate { get; set; } = null;
+    public static DateTime? StartDate = null;
 }

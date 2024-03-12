@@ -8,14 +8,32 @@ using System.Threading.Tasks;
 
 namespace Dal;
 
-internal class ScheduleImplementation
+internal class ScheduleImplementation : ISchedule
 {
-    readonly string s_schedule_xml = "schedule";
+    readonly string s_startOfProject_xml = "startOfProject";
 
-    public void Update()
+    public void Delete()
     {
-        List<string> dateList = new List<string>();
-        dateList.Add(Schedule.StartDate.ToString());
-        XMLTools.SaveListToXMLSerializer(dateList, s_schedule_xml);  //save
+        List<String> StartDate = new List<String>();
+        StartDate.Clear();
+        XMLTools.SaveListToXMLSerializer(StartDate, s_startOfProject_xml);  //save
+    }
+
+    public DateTime? Read()
+    {
+        List<String> StartDate = XMLTools.LoadListFromXMLSerializer<String>(s_startOfProject_xml);  //Load
+       if(StartDate.Any())
+            return DateTime.Parse(StartDate[0]);
+       else
+            return null;
+    }
+
+    public void Update(DateTime? dateTime)
+    {
+        List<String> StartDate = new List<String>();
+        if (dateTime.HasValue) 
+            StartDate.Add(dateTime.ToString()!);
+        else StartDate.Clear();
+        XMLTools.SaveListToXMLSerializer(StartDate, s_startOfProject_xml);  //save
     }
 }

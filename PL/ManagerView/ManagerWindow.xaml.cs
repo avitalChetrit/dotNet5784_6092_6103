@@ -21,6 +21,8 @@ namespace PL
     /// </summary>
     public partial class ManagerWindow : Window
     {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
         public ManagerWindow()
         {
             InitializeComponent();
@@ -38,18 +40,21 @@ namespace PL
 
         private void ScheduleInit(object sender, RoutedEventArgs e)
         {
-            new ScheduleWindow().Show();
+            if (s_bl.Schedule.Read().HasValue)
+                MessageBox.Show("Schedule was already set!");
+            else
+                new ScheduleWindow().Show();
         }
 
         private void ShowGantt(object sender, RoutedEventArgs e)
         {
-            if(BO.Sheduled.StartDate.HasValue)
+            if(s_bl.Schedule.Read().HasValue)
             {
                 new Gant().Show();
             }
             else
             {
-                MessageBox.Show("Can't show gantt before schedule");
+                MessageBox.Show("Can't show gantt before Schedule");
             }
         }
     }
