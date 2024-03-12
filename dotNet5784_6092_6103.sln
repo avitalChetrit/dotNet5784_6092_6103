@@ -22,8 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{63F0F52C-FEF
 		xml\dal-config.xml = xml\dal-config.xml
 		xml\data-config.xml = xml\data-config.xml
 		xml\dependencys.xml = xml\dependencys.xml
+		StartDate.xml = StartDate.xml
 		xml\tasks.xml = xml\tasks.xml
-		xml\startOfProject.xml = xml\startOfProject.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{810B7CB5-F42D-4CB0-B33A-8E3C76D10EF6}"
@@ -31,6 +31,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{4E676FE0-57FD-4B99-B8CA-33FBCB512E3A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{4A826094-7F21-40F3-8BF2-7A728452A861}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{7B0128F4-5FF0-4583-8B90-C7ED6AD1682C}"
+	ProjectSection(SolutionItems) = preProject
+		images\mainBackround.jpg = images\mainBackround.jpg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

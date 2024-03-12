@@ -9,6 +9,9 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/mainBackround.jpg"/>
+        </Grid.Background>
         <!--Rows-->
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
