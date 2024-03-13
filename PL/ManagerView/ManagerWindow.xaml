@@ -22,13 +22,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--To chef list view-->
-        <Button Background="White" Content="Chef List" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" Click="ChefListManagerView" />
+        <Button Content="Chef List" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" Click="ChefListManagerView" />
         <!--To task list view-->
-        <Button Background="White" Content="Task List" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Click="TaskListManagerView" />
+        <Button Content="Task List" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Click="TaskListManagerView" />
         <!--To Shcedule view-->
-        <Button Background="White" Content="Shcedule" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Click="ScheduleInit" />
+        <Button Content="Shcedule" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Click="ScheduleInit" />
         <!--To Gantt chart view-->
-        <Button Background="White" Content="Gantt Chart" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Click="ShowGantt" />
+        <Button Content="Gantt Chart" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Click="ShowGantt" />
     </Grid>
     
 </Window>

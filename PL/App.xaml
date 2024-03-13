@@ -13,5 +13,11 @@
         <converters:ConvertIdToContent x:Key="ConvertIdToContentConverter"/>
         <converters:ConvertIdToEnabled x:Key="ConvertIdToEnabledConverter"/>
         <converters:ConvertDateTimeToString x:Key="ConvertDateTimeToStringConverter"/>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FFB7BABA"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
     </Application.Resources>
 </Application>

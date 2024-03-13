@@ -27,13 +27,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--To mange view-->
-        <Button Background="#FFB7BABA" Content="Manager" Click="ManagerView" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10"  />
+        <Button Content="Manager" Click="ManagerView" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10"  />
         <!--To chef view-->
-        <Button Background="#FFB7BABA" Content="Chef" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Click="LogInChefWindowOpen" />
+        <Button Content="Chef" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Click="LogInChefWindowOpen" />
         <!--To intialize-->
-        <Button Background="#FFB7BABA" Content="Init DB" Click="btnInitDB_Click" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" />
+        <Button Content="Init DB" Click="btnInitDB_Click" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" />
         <!--To Reset-->
-        <Button Background="#FFB7BABA" Content="Reset" Click="Reset" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10"></Button>
+        <Button Content="Reset" Click="Reset" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10"></Button>
 
         <Label Background="#FFB7BABA"  Content="{Binding Converter={StaticResource ConvertDateTimeToStringConverter} }"  Grid.Column="3" Grid.Row="1" RenderTransformOrigin="0.5,0.5" FontSize="16" FontFamily="Bahnschrift Light" />
         
