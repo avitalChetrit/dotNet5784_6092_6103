@@ -65,11 +65,10 @@ public partial class Gant : Window
      
     public Gant() //ctor
     {
-        InitializeComponent();
         GetList();
+        InitializeComponent();
 
-       // TaskGantt t1 = new TaskGantt { TaskId = 21, TaskName = "aa", Duration = 200, TimeFromStart = 100, TimeToEnd = 100 };
-        
+       // TaskGantt t1 = new TaskGantt { TaskId = 21, TaskName = "aa", Duration = 200, TimeFromStart = 100, TimeToEnd = 100 }
         //TaskGanttList.Add(t1);
     }
 }
