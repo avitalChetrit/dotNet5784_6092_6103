@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.ManagerView"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="700" Width="800"
+        Title="TaskWindow" Height="650" Width="800"
         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
 
 
@@ -104,25 +104,15 @@
             ItemsSource="{Binding Source={StaticResource ChefExperiencesCollectionKey}}"
             SelectedValue="{Binding Path=Complexity, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" VerticalAlignment="Center"></ComboBox>
 
-        <!--lIST VIEW-->
-        <ListView Margin="2" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Dependecies}" SelectionMode="Single" Width="250" Height="150" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <!--dependecies-->
+        <ListView Margin="2" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" 
+          ItemsSource="{Binding Path=Dependecies, Mode=OneWay}" SelectionMode="Single" Width="250" Height="200" ></ListView>
 
-        <!--lIST VIEW-->
-        <ListView Margin="2" HorizontalAlignment="Left" Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="1" 
-                  ItemsSource="{Binding RelativeSource={RelativeSource Mode=Self}}" SelectionMode="Single" Width="165" Height="150" SelectionChanged="ListViewChooseDependecy" >
-            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+
+        <!--dependecies to add-->
+        <ListView Margin="2" HorizontalAlignment="Left" Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="2"  Grid.RowSpan="2"
+        ItemsSource="{Binding TasksToAdd, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:TaskWindow}}}" 
+        Width="250" Height="200" SelectionChanged="ListViewChooseDependecy" ></ListView>
 
 
         <!--Update/Create button-->

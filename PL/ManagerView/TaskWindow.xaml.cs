@@ -21,6 +21,7 @@ public partial class TaskWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+    //Current task
     public static readonly DependencyProperty TaskProperty =
     DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow));
     public BO.Task CurrentTask
@@ -29,29 +30,40 @@ public partial class TaskWindow : Window
         set { SetValue(TaskProperty, value); }
     }
 
-    //another DP
+    //list of task for dependecies to add 
     public static readonly DependencyProperty TasksToAddProperty =
-    DependencyProperty.Register("TasksToAdd", typeof(IEnumerable<BO.TaskInList>), typeof(TaskWindow));
-    public IEnumerable<BO.TaskInList> TasksToAdd
+    DependencyProperty.Register("TasksToAdd", typeof(List<BO.TaskInList>), typeof(TaskWindow));
+    public List<BO.TaskInList> TasksToAdd
     {
-        get { return (IEnumerable<BO.TaskInList>)GetValue(TasksToAddProperty); }
+        get { return (List<BO.TaskInList>)GetValue(TasksToAddProperty); }
         set { SetValue(TasksToAddProperty, value); }
     }
 
 
-    public TaskWindow( int Id=0)
+    public TaskWindow(int Id = 0)
     {
         InitializeComponent();
         if (Id == 0)  //create
         {
             CurrentTask = new BO.Task();
-            TasksToAdd= new List<BO.TaskInList>();
+            TasksToAdd  = new List<BO.TaskInList>();
         }
         else //update
         {
             // Fetch existing entity from BL
             CurrentTask = s_bl.Task.Read(Id)!;
-            TasksToAdd = s_bl.Task.ReadAll().Select(x => new BO.TaskInList { Id = x.Id, Alias = x.Alias, Description=x.Description, Status=x.Status});
+            BO.TaskInList esf = new BO.TaskInList { Id = 5, Alias = "sdf", Description = "df", Status = BO.Status.Scheduled };
+
+            TasksToAdd = s_bl.Task.ReadAll().Select(x => new BO.TaskInList
+            {
+                Id = x.Id,
+                Alias = x.Alias,
+                Description = x.Description,
+                Status = x.Status
+            }).ToList();
+           
+            
+            
         }
     }
 
@@ -81,12 +93,13 @@ public partial class TaskWindow : Window
         bool isCycle = s_bl.Task.isThereCycle(CurrentTask.Id, chosenDep.Id);
         if(isCycle) 
         {
-           MessageBox.Show("Cannot form cycle dependecy");
+           MessageBox.Show("Cannot add this dependecy");
         }
         else
         {
-            CurrentTask.Dependecies.Add(chosenDep);
-            s_bl.Task.Update(CurrentTask);
+            //CurrentTask.Dependecies?.Add(chosenDep);
+            MessageBox.Show("Added to dependency!");
+            //s_bl.Task.Update(CurrentTask);
         }
     }
 }

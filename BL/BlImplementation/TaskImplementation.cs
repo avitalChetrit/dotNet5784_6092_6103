@@ -1,19 +1,10 @@
-﻿using BO;
-using DalApi;
-using DO;
-
+﻿using DalApi;
 namespace BlImplementation;
 using BlApi;
 using BO;
 using DO;
-//using DalApi;
 using System.Data;
 using System.Runtime.InteropServices;
-
-//using BO;
-//using System;
-//using System.Collections.Generic;
-
 
 internal class TaskImplementation : ITask
 {
@@ -148,21 +139,39 @@ internal class TaskImplementation : ITask
 
     public BO.Task? Read(int id)
     {
-        DO.Task? item = _dal.Task.Read(id);
+        DO.Task? item = _dal?.Task.Read(id);
         return doToBoTask(id, item);
     }
 
-    public bool isThereCycle(int currTask , int preTask)
+    public class DependencyMark
+    {
+        public bool wasVisited =false;
+        public int PreTask;      //depend on the previous task
+        public int CurrTask;
+        
+    }
+    static IEnumerable<DependencyMark>? dependenciesList;
+    public bool isThereCycle(int currTask, int preTask)
+    {
+        dependenciesList = _dal?.Dependency.ReadAll()!.
+            Select(x=>new DependencyMark { CurrTask=x.CurrTask, PreTask=x.PreTask}).ToList()!;
+        return isThereCycleRec(currTask, preTask);
+    }
+    public bool isThereCycleRec(int currTask, int preTask)
     {
         if (currTask == preTask) return true;
 
-        IEnumerable<Dependency>? dependencies = _dal?.Dependency.ReadAll(dep => dep.CurrTask == currTask)!;
-        foreach(var dep in dependencies)
+        IEnumerable<DependencyMark>? dependenciesOfCurrTask = from dep in dependenciesList
+                                                          where dep.CurrTask == currTask && dep.wasVisited==false
+                                                          select dep;
+        foreach (var dep in dependenciesOfCurrTask)
         {
-           return isThereCycle(dep.CurrTask, preTask);
+            dep.wasVisited = true;
+            return isThereCycleRec(dep.CurrTask, preTask);
         }
         return false;
     }
+
     private BO.Task? doToBoTask(int id, DO.Task? item)
     {
         if (item == null)
@@ -221,9 +230,14 @@ internal class TaskImplementation : ITask
         };
     }
 
+    /// <summary>
+    /// This function returns the status of the task
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public BO.Status findStat(int id)
     {
-        DO.Task item = _dal.Task.Read(id);
+        DO.Task item = _dal?.Task.Read(id)!;
 
         if (item.ScheduledDate == null)
         {
@@ -246,58 +260,3 @@ internal class TaskImplementation : ITask
 
 }
 
-//if (item == null)
-//            throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
-
-//        //function to find DeadLineDate, and isMileStons=false
-
-//        BO.ChefInTask c;
-//        if (item.ChefId == null)
-//        {
-//            c = null;
-//        }
-//        else
-//{
-//    DO.Chef? chefi = _dal.Chef.Read((int)item.ChefId);
-//    c = new BO.ChefInTask() { Id = chefi.ChefId, Name = chefi.Name };
-//}
-
-//IEnumerable<Dependency>? ls = _dal.Dependency.ReadAll();
-//List<int> lint = ((List<int>)(from Dependency dep in ls //for each chef from the data list of chefs
-//                              where (dep.CurrTask == id)
-//                              select dep.PreTask));                            //choose it
-
-//List<BO.TaskInList> Dependecies = new List<BO.TaskInList>();
-//foreach (var dep in lint)
-//{
-//    DO.Task pre = _dal.Task.Read(dep);
-//    TaskInList taskInList = new TaskInList()
-//    {
-//        Id = pre.Id,
-//        Description = pre.Description,
-//        Alias = pre.Alias,
-//        Status = findStat(pre.Id)
-//    };
-
-//    Dependecies.Add(taskInList);
-//}
-
-
-//return new BO.Task()
-//{
-//    Id = id,
-//    Description = item.Description,
-//    Alias = item.Alias,
-//    Complexity = (BO.ChefExperience)item.Complexity,
-//    CreatedAtDate = item.CreatedAtDate,
-//    Status = findStat(item.Id),
-//    Dependecies = Dependecies,
-//    RequiredTime = item.RequiredTime,
-//    StartDate = item.StartDate,
-//    ScheduledDate = item.ScheduledDate,
-//    ForecastDate = item.StartDate + item.RequiredTime,
-//    CompleteDate = item.CompleteDate,
-//    Deliveables = item.Deliveables,
-//    Remarks = item.Remarks,
-//    Chef = c
-//};
