@@ -9,3 +9,4 @@ nisayon
 שימוש ב-TryParse בתוכניות בדיקה BlTest/DalTest (רכזים - 1 נק')
 שימוש ב - ToStringProperty הגנרי  למימוש ToString (נק 1 )  
 לוז אוטמטי 2 נק
+גרפיקה

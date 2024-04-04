@@ -68,23 +68,30 @@ public partial class TaskWindow : Window
     }
 
     /// <summary>
-    /// event when pressing on button
+    /// event when pressing on button TO ADD OR CREATE
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void CreateOrUpdate(object sender, RoutedEventArgs e)
     {
-        String? AddOrUpdate = (sender as Button)?.Content as String;
-        if (AddOrUpdate == "Add")
+        try
         {
-            s_bl.Task.Create(CurrentTask);
+            String? AddOrUpdate = (sender as Button)?.Content as String;
+            if (AddOrUpdate == "Add")
+            {
+                s_bl.Task.Create(CurrentTask);
+            }
+            else if (AddOrUpdate == "Update")
+            {
+                s_bl.Task.Update(CurrentTask);
+            }
+            this.Close();
         }
-        else if (AddOrUpdate == "Update")
+        catch (Exception ex)
         {
-            s_bl.Task.Update(CurrentTask);
+            MessageBox.Show(ex.Message);
+            return;
         }
-
-        this.Close();
     }
     static bool hasUpdateDependecy = false;
     private void ListViewChooseDependecy(object sender, SelectionChangedEventArgs e)
