@@ -29,7 +29,10 @@ public partial class ChefWindow : Window
         set { SetValue(ChefProperty, value); }
     }
 
-
+    /// <summary>
+    /// A window to update/create a task
+    /// </summary>
+    /// <param name="Id"></param>
     public ChefWindow(int Id = 0)
     {
         InitializeComponent();
@@ -42,13 +45,6 @@ public partial class ChefWindow : Window
         {
             // Fetch existing entity from BL
             CurrentChef = s_bl.Chef.Read(Id)!;
-            
-            //Func<BO.Task, bool> filter = c => c.Chef != null && c.Chef.Id == Id;
-            //TaskList = s_bl.Task.ReadAll(filter).Select(t => new BO.TaskInChef
-            //{
-            //    Id = t.Id,
-            //    Alias = t.Alias,
-            //}).ToList();
         }
     }
 
@@ -60,15 +56,22 @@ public partial class ChefWindow : Window
     private void UpdateOrCreate(object sender, RoutedEventArgs e)
     {
         String? AddOrUpdate = (sender as Button)?.Content as String;
-        if (AddOrUpdate == "Add")
+        try
         {
-            s_bl.Chef.Create(CurrentChef);
+            if (AddOrUpdate == "Add")
+            {
+                s_bl.Chef.Create(CurrentChef);
+            }
+            else if (AddOrUpdate == "Update")
+            {
+                s_bl.Chef.Update(CurrentChef);
+            } 
+            this.Close();
         }
-        else if (AddOrUpdate == "Update")
+        catch (Exception ex) 
         {
-            s_bl.Chef.Update(CurrentChef);
+            MessageBox.Show(ex.Message);
+            return;
         }
-        
-        this.Close();
     }
 }

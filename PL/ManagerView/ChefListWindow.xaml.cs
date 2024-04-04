@@ -39,7 +39,7 @@ namespace PL.Chef
         public ChefListWindow()
         {
             InitializeComponent();
-            ChefList = s_bl?.Chef.ReadAll()!;
+            ChefList = s_bl?.Chef.ReadAll()!.OrderBy(x=>x.Name)!;
         }
 
 
@@ -51,7 +51,8 @@ namespace PL.Chef
         private void ComboBox_ChefLevelSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ChefList = (Level == BO.ChefExperienceFilter.All) ?
-                s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item =>item.Level == (BO.ChefExperience)Level)!;
+                s_bl?.Chef.ReadAll()! : s_bl?.Chef.ReadAll(item =>item.Level == (BO.ChefExperience)Level)!
+                .OrderBy(x=>x.Name)!;
         }
 
         /// <summary>
@@ -83,7 +84,6 @@ namespace PL.Chef
             }
 
             ChefList = s_bl?.Chef.ReadAll()!;
-
         }
     }
 }

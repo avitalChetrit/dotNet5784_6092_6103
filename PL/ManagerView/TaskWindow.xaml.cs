@@ -39,7 +39,10 @@ public partial class TaskWindow : Window
         set { SetValue(TasksToAddProperty, value); }
     }
 
-
+    /// <summary>
+    /// open window creating or updating a task
+    /// </summary>
+    /// <param name="Id"></param>
     public TaskWindow(int Id = 0)
     {
         InitializeComponent();

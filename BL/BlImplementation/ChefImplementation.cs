@@ -3,10 +3,40 @@ using BlApi;
 using BO;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 internal class ChefImplementation : IChef
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+
+    /// <summary>
+    /// Checks the validation of the chef fields
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="BO.BlWrongInputException"></exception>
+    private void chefIsValid(BO.Chef item)
+    {
+        if (item.Id <= 0)
+            throw new BO.BlWrongInputException("Invalid ID number");
+        if (item.Name == "")
+            throw new BO.BlWrongInputException("Invalid Name");
+        if (item.Cost <= 0)
+            throw new BO.BlWrongInputException("Cost must be positive!");
+         if(item.Email==null||!EmailIsValid(item.Email))
+            throw new BO.BlWrongInputException("Email Is invalid");
+    }
+
+    /// <summary>
+    /// Function to check if an email is valid
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    private bool EmailIsValid(string email)
+    {
+        string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
+
+        return Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
+    }
 
     /// <summary>
     /// create a new chef
@@ -18,10 +48,8 @@ internal class ChefImplementation : IChef
     public int Create(BO.Chef item)
     {
         //check if input is valid, if not throw exce
-        if (item.Id <= 0 || item.Name == "" || item.Cost <= 0 || !item.Email.Contains("@gmail.com"))
-        {
-            throw new BO.BlWrongInputException("Invalid Input");
-        }
+        chefIsValid(item);
+
         //create a new chef of Data type 
         DO.Chef doChef = new DO.Chef(item.Id, (DO.ChefExperience?)item.Level, 
                                         item.Name, item.Email, item.Cost);
@@ -29,14 +57,14 @@ internal class ChefImplementation : IChef
         //Create might throw an execption
         try
         {
-            int idChef = _dal.Chef.Create(doChef);
-            return idChef;
+            return _dal.Chef.Create(doChef);
         }
         catch (DO.DalAlreadyExistsException ex)
         {
             throw new BO.BlAlreadyExistsException($"Chef with ID={item.Id} already exists", ex);
         }
     }
+
     /// <summary>
     /// Delete an object
     /// </summary>
@@ -47,6 +75,7 @@ internal class ChefImplementation : IChef
     {
         //recieve the chef data type w this id
         DO.Chef item = _dal.Chef.Read(id)!;
+
         if (item == null)
             throw new BO.BlDoesNotExistException($"Chef with ID={id} does Not exist");
 
@@ -65,16 +94,17 @@ internal class ChefImplementation : IChef
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
-    public BO.Chef? Read(int id)
+    public BO.Chef Read(int id)
     {
         //recieve the chef data type w this id
         DO.Chef? item = _dal.Chef.Read(id);
         if (item == null)
             throw new BO.BlDoesNotExistException($"Chef with ID={id} does Not exist");
 
-        //find if this chef has a current task
-        DO.Task? dotask = _dal.Task.ReadAll().FirstOrDefault(task => task.ChefId == id && task.CompleteDate == null);
-        BO.TaskInChef? taskInChef = (dotask!=null)? new BO.TaskInChef() { Id = dotask.Id, Alias = dotask.Alias,}: null; 
+        //find if this chef has a current task that is not complete yet
+        DO.Task? dotask = _dal.Task.ReadAll().FirstOrDefault(task => task!.ChefId == id && task.CompleteDate == null);
+        //create a new TaskInChef instance to place in the object
+        BO.TaskInChef? taskInChef = (dotask!=null)? new BO.TaskInChef() { Id = dotask.Id, Alias = dotask.Alias!}: null; 
         
         //create new logic chef
         return new BO.Chef()
@@ -109,11 +139,20 @@ internal class ChefImplementation : IChef
     /// <exception cref="NotImplementedException"></exception>
     public void Update(BO.Chef boChef)
     {
+        //check chef  fields validation
+        chefIsValid(boChef);
+
+        //fetching exsiting old record of chef
         DO.Chef? doChef = _dal.Chef.Read(boChef.Id);
+
+        //check chef  fields validation
         if (doChef == null)
             throw new BO.BlDoesNotExistException($"Chef with ID={boChef.Id} does Not exist");
         if(boChef.Level< (BO.ChefExperience)doChef.Level!)
-            throw new BO.BlWrongInputException("Invalid Input");
+            throw new BO.BlWrongInputException("Chef Experience cannot go down!");
+
+        //check if there is a given task -
+        //if there's checks its validation and update its owner in the data
         if (boChef.Task != null)
         {
             DO.Task? doTask = _dal.Task.Read(boChef.Task.Id);
@@ -125,8 +164,8 @@ internal class ChefImplementation : IChef
             _dal.Task.Update(doTask);
         }
 
-
-        doChef = new DO.Chef(boChef.Id, (DO.ChefExperience)boChef.Level, boChef.Name, boChef.Email, boChef.Cost);
+        //update new chef
+        doChef = new DO.Chef(boChef.Id, (DO.ChefExperience)boChef.Level!, boChef.Name, boChef.Email, boChef.Cost);
         _dal.Chef.Update(doChef);
     }
 
