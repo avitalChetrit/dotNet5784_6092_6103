@@ -125,11 +125,9 @@ internal class TaskImplementation : ITask
         {
             BO.Task? task = Read(dep.Id);
             if (task == null)
-                throw new BlDoesNotExistException($"Task with ID={id} does Not exist");
+                throw new BlDoesNotExistException($"Dependecy Task with ID={id} does Not exist");
             if (task.ScheduledDate == null)
                 throw new BlWrongInputException("Previous task has no Scheduled Date");
-            if (task.ForecastDate > d)
-                throw new BlWrongInputException("Date is too early");
         }
         if (item != null)
             item.ScheduledDate = d;
@@ -222,7 +220,7 @@ internal class TaskImplementation : ITask
             RequiredTime = item.RequiredTime,
             StartDate = item.StartDate,
             ScheduledDate = item.ScheduledDate,
-            ForecastDate = item.StartDate + item.RequiredTime,
+            ForecastDate = item.ScheduledDate + item.RequiredTime,
             CompleteDate = item.CompleteDate,
             Deliveables = item.Deliveables,
             Remarks = item.Remarks,

@@ -33,30 +33,30 @@ namespace PL.ManagerView
         }
 
         /// <summary>
-        /// Make a shcedle and add start date to all tasks
+        /// Make a shcedle and add shcedule date to all tasks
         /// </summary>
         /// <param name="task"></param>
         public void Schedule(BO.Task task)
         {
-            if (task.StartDate != null) return;
-
+            if (task.ScheduledDate != null) return;
+            //if the task has no dependecies the forecast date is the start date of the project
             if (task.Dependecies == null || !task.Dependecies.Any())
             {
-                task.StartDate = BO.Schedule.StartDate;
+                task.ScheduledDate = BO.Schedule.StartDate;
                 s_bl.Task.Update(task);
                 return;
             }
-
+            //if the task has dependecies we go over the dependecies and give them a date
             foreach (var dep in task.Dependecies!)
             {
                 BO.Task depTask = s_bl.Task.Read(dep.Id)!;
-                if (depTask.StartDate == null)
+                if (depTask.ScheduledDate == null)
                 {
                     Schedule(depTask);
                 }
             }
-
-            task.StartDate = task.Dependecies.Max(dep1 => s_bl.Task.Read(dep1.Id).ForecastDate);
+            //all dependecies have a ScheduledDate - so this task forecast date is the max forecast date of the dependecies
+            task.ScheduledDate = task.Dependecies.Max(dep1 => s_bl.Task.Read(dep1.Id).ScheduledDate);
             s_bl.Task.Update(task);
 
         }
@@ -65,18 +65,29 @@ namespace PL.ManagerView
             InitializeComponent();
         }
         
+        /// <summary>
+        /// Event when the user enters a date
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EnterStartDate(object sender, RoutedEventArgs e)
         {
-            //BO.Schedule.StartDate = dateStartProject;
-            s_bl.Schedule.Update(dateStartProject);
-            foreach (var item in s_bl.Task.ReadAll())
+            if(dateStartProject <= s_bl.Clock)
             {
-                if (item.StartDate == null)
-                    Schedule(item);
+                MessageBox.Show("Start project must be in the future!");
             }
+            else
+            {
+                s_bl.Schedule.Update(dateStartProject);
+                foreach (var item in s_bl.Task.ReadAll())
+                {
+                    if (item.ScheduledDate == null)
+                        Schedule(item);
+                }
 
-            MessageBox.Show("Schedule Done!");
-            this.Close();
+                MessageBox.Show("Schedule Done!");
+                this.Close();
+            }
         }
     }
 }

@@ -46,6 +46,7 @@ public partial class TaskWindow : Window
     public TaskWindow(int Id = 0)
     {
         InitializeComponent();
+        hasUpdateDependecy = false;
         if (Id == 0)  //create
         {
             CurrentTask = new BO.Task();
@@ -55,7 +56,6 @@ public partial class TaskWindow : Window
         {
             // Fetch existing entity from BL
             CurrentTask = s_bl.Task.Read(Id)!;
-            BO.TaskInList esf = new BO.TaskInList { Id = 5, Alias = "sdf", Description = "df", Status = BO.Status.Scheduled };
 
             TasksToAdd = s_bl.Task.ReadAll().Select(x => new BO.TaskInList
             {
@@ -63,10 +63,7 @@ public partial class TaskWindow : Window
                 Alias = x.Alias,
                 Description = x.Description,
                 Status = x.Status
-            }).ToList();
-           
-            
-            
+            }).ToList();            
         }
     }
 
@@ -89,20 +86,27 @@ public partial class TaskWindow : Window
 
         this.Close();
     }
-
+    static bool hasUpdateDependecy = false;
     private void ListViewChooseDependecy(object sender, SelectionChangedEventArgs e)
     {
-        BO.TaskInList chosenDep = ((sender as ListView)?.SelectedItem as BO.TaskInList)!;
-        bool isCycle = s_bl.Task.isThereCycle(CurrentTask.Id, chosenDep.Id);
-        if(isCycle) 
+        if (hasUpdateDependecy)
         {
-           MessageBox.Show("Cannot add this dependecy");
+            MessageBox.Show("can only add one dependecy at a time!");
         }
-        else
+        else//has not update a dependecy yet
         {
-            //CurrentTask.Dependecies?.Add(chosenDep);
-            MessageBox.Show("Added to dependency!");
-            //s_bl.Task.Update(CurrentTask);
+            BO.TaskInList chosenDep = ((sender as ListView)?.SelectedItem as BO.TaskInList)!;
+            bool isCycle = s_bl.Task.isThereCycle(CurrentTask.Id, chosenDep.Id);
+            if (isCycle)
+            {
+                MessageBox.Show("Cannot add this dependecy");
+            }
+            else
+            {
+                CurrentTask.Dependecies?.Add(chosenDep);
+                MessageBox.Show("Added to dependency!");
+                hasUpdateDependecy=true;
+            }
         }
     }
 }

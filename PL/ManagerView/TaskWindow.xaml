@@ -79,7 +79,7 @@
 
         <TextBox Grid.Column="2" Grid.Row="7" Width="150" Margin="2,2,2,2" IsEnabled="False" Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"></TextBox>
 
-        <TextBox Grid.Column="2" Grid.Row="8" Width="150" Margin="2,2,2,2" Text="{Binding ScheduledDate,Mode=TwoWay,NotifyOnValidationError=True,
+        <TextBox Grid.Column="2" Grid.Row="8" Width="150" Margin="2,2,2,2" IsEnabled="False" Text="{Binding ScheduledDate,Mode=TwoWay,NotifyOnValidationError=True,
             ValidatesOnExceptions=True }" ></TextBox>
 
         <TextBox Grid.Column="4" Grid.Row="1" Width="150" Margin="2,2,2,2" Text="{Binding ForecastDate,Mode=TwoWay,NotifyOnValidationError=True,
@@ -106,7 +106,7 @@
 
         <!--dependecies-->
         <ListView Margin="2" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" 
-          ItemsSource="{Binding Path=Dependecies, Mode=OneWay}" SelectionMode="Single" Width="250" Height="200" ></ListView>
+          ItemsSource="{Binding Path=Dependecies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="200" ></ListView>
 
 
         <!--dependecies to add-->

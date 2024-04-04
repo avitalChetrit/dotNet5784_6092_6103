@@ -3,6 +3,7 @@ using DalApi;
 using DO;
 using System.Diagnostics;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Task = DO.Task;
 
 namespace DalTest
@@ -11,9 +12,23 @@ namespace DalTest
     {
         public static double? ReadNum()
         {
-            string? input = Console.ReadLine();
-            double? num = double.Parse(input);
-            return num;
+            bool success=false;
+            while (!success)
+            {
+                string input = Console.ReadLine()!;
+
+                double number;
+                success = double.TryParse(input,out number);
+                if (success)
+                {
+                    return number;
+                }
+                else
+                {
+                    Console.WriteLine("Input is not a valid integer. enter again.");
+                }
+            }
+            return 0;
         }
 
         //functions get objects and prints them

@@ -85,10 +85,10 @@ namespace PL.ManagerView
             if (chosenTask != null)
             {
                 TaskWindow UpdateTaskWindow = new TaskWindow(chosenTask.Id);
-                UpdateTaskWindow.ShowDialog();
+           UpdateTaskWindow.ShowDialog();
             }
 
-            TaskList = s_bl?.Task.ReadAll()!;
+            TaskList = s_bl?.Task.ReadAll()!.OrderBy(t=>t.Id)!;
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace PL.ManagerView
             TaskWindow CreateTaskWindow = new TaskWindow();
             CreateTaskWindow.ShowDialog();
 
-            TaskList = s_bl?.Task.ReadAll()!;
+            TaskList = s_bl?.Task.ReadAll()!.OrderBy(t => t.Id)!;
         }
     }
 }

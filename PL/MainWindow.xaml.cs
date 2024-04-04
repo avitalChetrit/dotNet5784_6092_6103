@@ -23,11 +23,20 @@ namespace PL
             InitializeComponent();
             CurrentTime = s_bl.Clock;
         }
-
+        /// <summary>
+        /// manager view with all manager access
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ManagerView(object sender, RoutedEventArgs e)
         {
             new ManagerWindow().Show();
         }
+        /// <summary>
+        /// inizialize all data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnInitDB_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result= MessageBox.Show("Would you like to initialize?","Initialazion Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -38,7 +47,11 @@ namespace PL
             }
             
         }
-
+        /// <summary>
+        /// resets all data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Reset(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Would you like to Reset?", "Reset Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -49,6 +62,7 @@ namespace PL
             }
         }
 
+        #region clock
         private void AddHourButton(object sender, RoutedEventArgs e)
         {
             s_bl.AddHour();
@@ -73,7 +87,13 @@ namespace PL
             s_bl.InitializeTime();
             CurrentTime = s_bl.Clock;
         }
-
+        #endregion
+        
+        /// <summary>
+        /// chef log in will open all window chef can access
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LogInChefWindowOpen(object sender, RoutedEventArgs e)
         {
             new LogInChefWindow().Show();
