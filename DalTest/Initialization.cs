@@ -27,8 +27,8 @@ public static class Initialization
         const int MIN_ID = 200000000;
         const int MAX_ID = 400000000;
         // initialise for level 
-        ChefExperience _level = ChefExperience.Beginner; //ranodm enum?
-        string? _email;
+        ChefExperience _level; //ranodm enum?
+        string? _email; 
         //rang of cost
         double? _cost;
         const int MIN_COST = 100;
@@ -41,6 +41,8 @@ public static class Initialization
             do
                 _id = s_rand.Next(MIN_ID, MAX_ID);      // create random id
             while (s_dal!.Chef.Read(_id) != null); //while there is no object with the same random id , continue
+
+            _level = (ChefExperience)s_rand.Next(0, 5);
 
             _cost = s_rand.Next(MIN_COST, MAX_COST);      // create random cost
 
@@ -105,7 +107,7 @@ public static class Initialization
             //at first it will be false
             bool _isMilestone = false;
 
-            ChefExperience? _complexity = ChefExperience.Beginner;
+            ChefExperience? _complexity = (ChefExperience)s_rand.Next(0, 5); ;
 
             //Create a random date between 1/1/2000 - Today
             DateTime start = new DateTime(2000, 1, 1);
