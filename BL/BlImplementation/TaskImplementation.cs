@@ -78,8 +78,10 @@ internal class TaskImplementation : ITask
     public void Update(BO.Task boTask)
     {
         DO.Task? doTask = _dal.Task.Read(boTask.Id);
+        if (boTask.CompleteDate < boTask.StartDate)
+            throw new BO.BlDoesNotExistException($"Completion date cannot be nefore start date!");
         if (doTask == null)
-            throw new BO.BlDoesNotExistException($"Chef with ID={doTask?.Id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Task with ID={doTask?.Id} does Not exist");
         DO.Task updateTask = new DO.Task
         {
             Id = boTask.Id,

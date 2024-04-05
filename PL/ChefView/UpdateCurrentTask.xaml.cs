@@ -37,6 +37,15 @@ public partial class UpdateCurrentTask : Window
 
     private void UpdateCurrTask(object sender, RoutedEventArgs e)
     {
-        s_bl.Task.Update(CurrentTask);
+        try
+        {
+            s_bl.Task.Update(CurrentTask);
+            MessageBox.Show("Task updated");
+            this.Close();
+        }catch (Exception ex) 
+        {
+            MessageBox.Show(ex.Message);
+        }
+        
     }
 }

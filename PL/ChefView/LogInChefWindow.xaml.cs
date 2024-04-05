@@ -38,6 +38,7 @@ public partial class LogInChefWindow : Window
 
     private void EnterChef(object sender, RoutedEventArgs e)
     {
+        //The chef enters his id
         BO.Chef chef;
         try
         {
@@ -48,6 +49,7 @@ public partial class LogInChefWindow : Window
             MessageBox.Show(ex.Message);
             return;
         }
+
         if(chef?.Task==null) //if the chef doesnt have a task then give him the option to choose one
         {
             new ChooseTaskWindow(chef!).Show();

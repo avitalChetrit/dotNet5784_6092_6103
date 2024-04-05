@@ -30,13 +30,21 @@ public partial class ChooseTaskWindow : Window
         get { return (IEnumerable<BO.Task>)GetValue(TaskChoiceListProperty); }
         set { SetValue(TaskChoiceListProperty, value); }
     }
+    /// <summary>
+    /// Checks if task all task previous to this task are completed
+    /// </summary>
+    /// <param name="task"></param>
+    /// <returns></returns>
     public bool CheckDep(BO.Task task)
     {
-
         BO.TaskInList? tl= task.Dependecies?.FirstOrDefault(dep => s_bl.Task.Read(dep.Id)!.Status != BO.Status.Done);
         return tl == null;
     }
 
+    /// <summary>
+    /// Window for chef to choose task
+    /// </summary>
+    /// <param name="chef"></param>
     public ChooseTaskWindow(BO.Chef chef)
     {
         InitializeComponent();
@@ -44,13 +52,25 @@ public partial class ChooseTaskWindow : Window
         TaskChoiceList = s_bl.Task.ReadAll().Where(task => task.Chef == null && task.Complexity <= chef.Level && CheckDep(task));
     }
 
+    /// <summary>
+    /// Event when chef chooses task
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ChooseTask(object sender, MouseButtonEventArgs e)
     {
         BO.Task? chosenTask = (sender as DataGrid)?.SelectedItem as BO.Task;
-        chosenTask.Chef = new BO.ChefInTask { Id = CurrentChef.Id, Name= CurrentChef.Name };
-        chosenTask.StartDate = s_bl.Clock;
-        s_bl.Task.Update(chosenTask);
-        MessageBox.Show("Added task with id " + chosenTask.Id + " To " + CurrentChef.Name);
-        this.Close();
+        MessageBoxResult result = MessageBox.Show("Would you like to choose task "+ chosenTask.Id+ "?", "Reset Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes) 
+        {
+            chosenTask.Chef = new BO.ChefInTask { Id = CurrentChef.Id, Name = CurrentChef.Name };
+            chosenTask.StartDate = s_bl.Clock;
+            s_bl.Task.Update(chosenTask);
+            MessageBox.Show("Added task with id " + chosenTask.Id + " To " + CurrentChef.Name);
+            this.Close();
+
+        }
+        
     }
 }
