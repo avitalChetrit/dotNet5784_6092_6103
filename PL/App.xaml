@@ -14,7 +14,8 @@
         <converters:ConvertIdToEnabled x:Key="ConvertIdToEnabledConverter"/>
         <converters:ConvertDateTimeToString x:Key="ConvertDateTimeToStringConverter"/>
         <converters:ConvertIdToIsReadOnly x:Key="ConvertIdToIsReadOnlyConverter"/>
-
+        <converters:ConvertIntegerToGridLength x:Key="ConvertIntegerToGridLengthConverter"/>
+        
         <Style TargetType="Button">
             <Setter Property="Background" Value="#FFB7BABA"/>
             <Setter Property="Foreground" Value="Black"/>

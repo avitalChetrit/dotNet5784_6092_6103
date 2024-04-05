@@ -34,25 +34,25 @@ public partial class Gant : Window
 
     public void GetList()
     {
-        DateTime? startProject = s_bl.Task.ReadAll().Min(task => task.StartDate);
+        DateTime? startProject = s_bl.Task.ReadAll().Min(task => task.ScheduledDate);
         DateTime? endProject = s_bl.Task.ReadAll().Max(task => task.ForecastDate);
 
 
-        TaskGanttList = s_bl.Task.ReadAll().Select(task => new TaskGantt
-        {
-            TaskId = task.Id,
-            TaskName = task.Alias,
-            Duration = task.RequiredTime.Value.Days,
-            // Calculate TimeFromStart and TimeToEnd based on your logic
-            TimeFromStart = (int)(task.StartDate - startProject).Value.TotalDays,
-            TimeToEnd = (int)(endProject - task.ForecastDate).Value.TotalDays
-        }).ToList();
+        //TaskGanttList = s_bl.Task.ReadAll().Select(task => new TaskGantt
+        //{
+        //    TaskId = task.Id,
+        //    TaskName = task.Alias,
+        //    Duration = task.RequiredTime.Value.Days,
+        //    // Calculate TimeFromStart and TimeToEnd based on your logic
+        //    TimeFromStart = (int)(task.ScheduledDate - startProject).Value.TotalDays,
+        //    TimeToEnd = (int)(endProject - task.ForecastDate).Value.TotalDays
+        //}).ToList();
 
-        //  TaskGanttList = new List<TaskGantt>()
-        //{new TaskGantt() {TaskId = 1,TaskName = "T1",Duration = 30, TimeFromStart = 20,    TimeToEnd = 7},
-        //new TaskGantt() {TaskId = 2,TaskName = "T2",Duration = 50, TimeFromStart = 60,    TimeToEnd = 4},
-        //new TaskGantt() { TaskId = 3, TaskName = "T3", Duration = 70, TimeFromStart = 10, TimeToEnd = 13 }
-        //}//.ToList();
+        TaskGanttList = new List<TaskGantt>()
+        {new TaskGantt() {TaskId = 1,TaskName = "T1",Duration = 30, TimeFromStart = 20,    TimeToEnd = 7},
+        new TaskGantt() {TaskId = 2,TaskName = "T2",Duration = 50, TimeFromStart = 60,    TimeToEnd = 4},
+        new TaskGantt() { TaskId = 3, TaskName = "T3", Duration = 70, TimeFromStart = 10, TimeToEnd = 13 }
+        }.ToList();
     }
     public class TaskGantt
     {
@@ -61,15 +61,14 @@ public partial class Gant : Window
         public int Duration;  //משך הזמן בימים
         public int TimeFromStart; //
         public int TimeToEnd;    
-    }
-     
+    }  
     public Gant() //ctor
     {
         GetList();
         InitializeComponent();
 
-       // TaskGantt t1 = new TaskGantt { TaskId = 21, TaskName = "aa", Duration = 200, TimeFromStart = 100, TimeToEnd = 100 }
-        //TaskGanttList.Add(t1);
+        TaskGantt t1 = new TaskGantt { TaskId = 21, TaskName = "aa", Duration = 200, TimeFromStart = 100, TimeToEnd = 100 };
+        TaskGanttList.Add(t1);
     }
 }
 

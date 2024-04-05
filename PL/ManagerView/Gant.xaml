@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.ManagerView"
         mc:Ignorable="d"
         Title="Gant" Height="450" Width="800"
-        DataContext = "{Binding RelativeSource = {RelativeSource Mode=self}}">
+        DataContext = "{Binding RelativeSource ={RelativeSource Mode=Self}}">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
         <Grid>
             <!--<Grid.RowDefinitions>
@@ -26,18 +26,18 @@
             </ItemsControl>-->
 
             <!--TaskGantt-->
-            <ItemsControl ItemsSource = "{Binding TaskGanttList}" Margin="65,51,83,44">
+            <ItemsControl ItemsSource = "{Binding TaskGanttList , UpdateSourceTrigger=PropertyChanged}" Margin="65,51,83,44">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness = "2" BorderBrush="Aqua">
                             <StackPanel Orientation = "Horizontal" HorizontalAlignment="Left">
                                 <TextBlock HorizontalAlignment = "Left" Text="{Binding TaskId}" FontWeight="Bold" Background="Aquamarine"/>
-                                <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding TimeFromStart}"  Fill="White"/>
+                                <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding TimeFromStart, Converter={StaticResource ConvertIntegerToGridLengthConverter} }"  Fill="White"/>
 
-                                <TextBlock HorizontalAlignment = "Left" Width="{Binding Duration}" FontWeight="Bold" Background="Aquamarine">
+                                <TextBlock HorizontalAlignment = "Left" Width="{Binding Duration, Converter={StaticResource ConvertIntegerToGridLengthConverter} }" FontWeight="Bold" Background="Aquamarine">
                                     <TextBlock.ToolTip>
                                         <ToolTip>
-                                            <ItemsControl ItemsSource = "{Binding TaskName}">
+                                            <ItemsControl ItemsSource="{Binding TaskName}" >
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding}"/>
@@ -47,7 +47,7 @@
                                         </ToolTip>
                                     </TextBlock.ToolTip>
                          </TextBlock>
-                                <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
+                                <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding TimeToEnd, Converter={StaticResource ConvertIntegerToGridLengthConverter} }"  Fill="White"/>
 
                             </StackPanel>
                         </Border>
@@ -58,3 +58,46 @@
 
     </ScrollViewer>
 </Window>
+
+
+
+
+
+<!--<ItemsControl ItemsSource = "{Binding TaskGanttList , UpdateSourceTrigger=PropertyChanged}" Margin="65,51,83,44">
+    <ItemsControl.ItemTemplate>
+        <DataTemplate>
+            <Border BorderThickness = "2" BorderBrush="Aqua">
+                <StackPanel Orientation = "Horizontal" HorizontalAlignment="Left">
+                    <TextBlock HorizontalAlignment = "Left" Text="{Binding TaskId}" FontWeight="Bold" Background="Aquamarine"/>
+                    <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding TimeFromStart}"  Fill="White"/>
+
+                    <TextBlock HorizontalAlignment = "Left" Width="{Binding Duration}" FontWeight="Bold" Background="Aquamarine">
+                        <TextBlock.ToolTip>
+                            <ToolTip>
+                                <ItemsControl ItemsSource = "{Binding TaskName}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ToolTip>
+                        </TextBlock.ToolTip>
+             </TextBlock>
+                    <Rectangle HorizontalAlignment = "Left" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
+
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </ItemsControl.ItemTemplate>
+</ItemsControl>-->
+
+
+
+
+
+<!--{Binding TimeFromStart, Converter={StaticResource ConvertIntegerToGridLengthConverter} }
+    
+    {Binding Duration, Converter={StaticResource ConvertIntegerToGridLengthConverter} }
+    
+    {Binding TimeToEnd, Converter={StaticResource ConvertIntegerToGridLengthConverter} }-->
