@@ -65,7 +65,7 @@ namespace PL.Chef
             ChefWindow CreateChefWindow = new ChefWindow();
             CreateChefWindow.ShowDialog();
 
-            ChefList = s_bl?.Chef.ReadAll()!;
+            ChefList = s_bl?.Chef.ReadAll()!.OrderBy(x => x.Name)!;
         }
 
 
@@ -83,7 +83,7 @@ namespace PL.Chef
                 UpdateChefWindow.ShowDialog();
             }
 
-            ChefList = s_bl?.Chef.ReadAll()!;
+            ChefList = s_bl?.Chef.ReadAll()!.OrderBy(x => x.Name)!;
         }
     }
 }
